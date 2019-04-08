@@ -32,7 +32,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         }
     }
     @Override public void onBindViewHolder(final ViewHolder holder, final int position){
-        holder.text11.setText(name[position]);//name[position]
+        holder.text11.setText(" "+name[position]+" ");//name[position]
     }
     @Override public SearchAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View v = LayoutInflater.from(context).inflate(R.layout.tiles, parent, false);
