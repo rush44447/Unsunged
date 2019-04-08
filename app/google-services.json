@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "873844004129",
+    "firebase_url": "https://unsunged-70cb4.firebaseio.com",
+    "project_id": "unsunged-70cb4",
+    "storage_bucket": "unsunged-70cb4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873844004129:android:28506995b5210afc",
+        "android_client_info": {
+          "package_name": "com.sweetoranges.abc.unsunged"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgv_r-TPoFBupBtYEx6_GjhRInbKOqTKg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873844004129-5fb1e5907p6tjkdaq6lpkloe2opliq5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

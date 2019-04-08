@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_content"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".SearchFragment.SearchFragment">
 
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="24sp"
+    android:inputType="text"
+    android:id="@+id/searchTile"
+    android:hint="What's playing in your Mind!"
+    android:layout_margin="10dp"
+    android:background="@drawable/round_textedit"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="4dp"
+        android:background="#eee"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/name"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="Search by Profile"
+            android:textSize="10sp"
+            android:textColor="#f11"
+            app:backgroundTint="#eee"/>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:text="Search by Type"
+            android:textSize="10sp"
+            android:textColor="#f11"
+            app:backgroundTint="#eee"/>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/language"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="Search by Language"
+            android:textSize="10sp"
+            android:textColor="#f11"
+            app:backgroundTint="#eee"/>
+    </RelativeLayout>
 <android.support.v7.widget.RecyclerView
     android:id="@+id/searchRecycler"
     android:orientation="horizontal"
+    android:paddingTop="7dp"
+    android:background="#eee"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
 
-</FrameLayout>
+</LinearLayout>

@@ -1,14 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MyProfileFragment.MyProfileFragment">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.github.florent37.arclayout.ArcLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:arc_cropDirection="cropOutside"
+                app:arc_height="90dp"
+                android:elevation="5dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="#1cc" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <com.github.florent37.shapeofview.shapes.CircleView
+                    android:id="@+id/circle"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="70dp"
+                    android:elevation="4dp"
+                    app:shape_circle_borderColor="@android:color/black"
+                    app:shape_circle_borderWidth="2dp">
+                    <ImageView android:id="@+id/circleView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/imgview" />
+                </com.github.florent37.shapeofview.shapes.CircleView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:paddingTop="10dp"
+                        android:shadowColor="@android:color/black"
+                        android:shadowDx="2"
+                        android:shadowRadius="10"
+                        android:text="Ru5h.97"
+                        android:textColor="@android:color/white"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:layout_below="@+id/circle"/>
+                    <TextView android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name - rushabh"
+                        android:textSize="15sp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="25dp" />
+                    <TextView android:id="@+id/uploads"
+                        android:layout_below="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="Uploads - 15"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="18dp" />
+                    <TextView android:id="@+id/totallikes"
+                        android:layout_below="@+id/uploads"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Likes - 200"
+                        android:textSize="15sp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="18dp" />
+                    <TextView android:id="@+id/likesper"
+                        android:layout_below="@+id/totallikes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Likes per song - 12"
+                        android:textSize="15sp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="18dp" />
+                    <TextView android:id="@+id/challengeswon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="Challenges won - 150"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="25dp"
+                        android:layout_marginTop="25dp" />
+                    <TextView android:id="@+id/followers"
+                        android:layout_below="@+id/challengeswon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Followers - 15"
+                        android:textSize="15sp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="25dp"
+                        android:layout_marginTop="18dp" />
+                    <TextView android:id="@+id/following"
+                        android:layout_below="@+id/followers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Following - 15"
+                        android:textSize="15sp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="25dp"
+                        android:layout_marginTop="18dp" />
+                </RelativeLayout>
+            </com.github.florent37.arclayout.ArcLayout>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+        </LinearLayout>
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        android:id="@+id/playlistRecycle"
+       android:background="#eee"/>
+</LinearLayout>
