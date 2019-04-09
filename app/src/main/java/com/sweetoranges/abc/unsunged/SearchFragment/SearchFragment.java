@@ -1,14 +1,14 @@
 package com.sweetoranges.abc.unsunged.SearchFragment;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,57 +23,40 @@ import io.fabric.sdk.android.Fabric;
 
 public class SearchFragment extends Fragment {
     RecyclerView searchRecycler;
-    EditText searchTile;
-    Toolbar mToolbar;
     JJSearchView mJJSearchView;
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_search, container, false);
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-     //   setSupportActionBar(mToolbar);
         searchRecycler=(RecyclerView)view.findViewById(R.id.searchRecycler);
-       // searchTile=(EditText) view.findViewById(R.id.searchTile);
-        Fabric.with(getActivity(), new Crashlytics());
-        searchRecycler= (RecyclerView) view.findViewById(R.id.searchRecycler);
-        searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        searchRecycler.setAdapter(new SearchAdapter(getActivity()));
-
         mJJSearchView = (JJSearchView) view.findViewById(R.id.jjsv);
         mJJSearchView.setController(new JJBarWithErrorIconController());
-
-//        mAdapter = new ArrayAdapter(MainActivity.this,
-//                android.R.layout.simple_list_item_1,
-//                getResources().getStringArray(R.array.months_array));
-//        mListView.setAdapter(mAdapter);
-//
-//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(MainActivity.this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        mListView.setEmptyView(mEmptyView);
+//        Fabric.with(getActivity(), new Crashlytics());
+        mJJSearchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                start(v);
+            }
+        });
+        searchRecycler= (RecyclerView) view.findViewById(R.id.searchRecycler);
+        searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
+       // searchRecycler.setAdapter(new SearchAdapter(getActivity()));
         return view;
     }
-
-
-    public void start(View v) {
+    public void start(View v) { mJJSearchView = (JJSearchView) v.findViewById(R.id.jjsv);
         mJJSearchView.startAnim();
     }
 
-    public void reset(View v) {
+    public void reset(View v) { mJJSearchView = (JJSearchView) v.findViewById(R.id.jjsv);
         mJJSearchView.resetAnim();
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -82,12 +65,13 @@ public class SearchFragment extends Fragment {
         int id = item.getItemId();
 
         switch (id) {
+
             case R.id.action2:
                 mJJSearchView.setController(new JJBarWithErrorIconController());
                 break;
+
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 }

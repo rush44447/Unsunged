@@ -10,12 +10,6 @@ import android.view.View;
 import com.sweetoranges.abc.unsunged.anim.JJBaseController;
 import com.sweetoranges.abc.unsunged.anim.controller.JJBarWithErrorIconController;
 
-
-/**
- * 这是一个神奇的类，今天心情郁闷
- * <p>
- * Created by androidcjj on 2016/4/1.
- */
 public class JJSearchView extends View {
     private Paint mPaint;
     private Path mPath;

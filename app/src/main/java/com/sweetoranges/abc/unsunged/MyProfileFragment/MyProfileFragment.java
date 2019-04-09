@@ -24,8 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.sweetoranges.abc.unsunged.Classes.ApiClient;
-import com.sweetoranges.abc.unsunged.Classes.ApiInterface;
+import com.crashlytics.android.Crashlytics;
+import com.sweetoranges.abc.unsunged.Adapters.PlaylistAdapter;
 import com.sweetoranges.abc.unsunged.Classes.ImageConverter;
 
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
@@ -34,92 +34,24 @@ import com.sweetoranges.abc.unsunged.R;
 import java.io.IOException;
 
 public class MyProfileFragment extends Fragment {
-    ImageView circularImageView;
-    RecyclerView playlistRecycle;
-    private MediaPlayer mMediaPlayer;
-    private ImageView mPlayerControl;
-
-
+    RecyclerView playlistRv;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_my_profile, container, false);
-        circularImageView = (ImageView)view.findViewById(R.id.circleView);
-        playlistRecycle = (RecyclerView)view.findViewById(R.id.playlistRecycle);
-        circularImageView.setImageBitmap(ImageConverter.getRoundedCornerBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.imgview), 100));
+        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),R.drawable.imgview);
+        Bitmap circularBitmap = ImageConverter.getRoundedCornerBitmap(bitmap, 100);
+        ImageView circularImageView = (ImageView)view.findViewById(R.id.circleView);
+        circularImageView.setImageBitmap(circularBitmap);
 
-        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                togglePlayPause();
-            }
-        });
+       // Fabric.with(getActivity(), new Crashlytics());
 
-        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-            }
-        });
+        playlistRv= (RecyclerView) view.findViewById(R.id.playlistRecycle);
+        playlistRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        playlistRv.setAdapter(new PlaylistAdapter(getActivity()));
 
-        mPlayerControl = (ImageView)view.findViewById(R.id.player_control);
-        mPlayerControl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                togglePlayPause();
-            }
-        });
-        callMusicDetail();
         return view;
     }
-    private void togglePlayPause() {
-        if (mMediaPlayer.isPlaying()) {
-            mMediaPlayer.pause();
-            mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-        } else {
-            mMediaPlayer.start();
-            mPlayerControl.setImageResource(R.drawable.ic_pause_black_24dp);
-        }
-    }
-//
 
-    //    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//
-//        if (mMediaPlayer != null) {
-//            if (mMediaPlayer.isPlaying()) {
-//                mMediaPlayer.stop();
-//            }
-//            mMediaPlayer.release();
-//            mMediaPlayer = null;
-//        }
-//    }
-    private void callMusicDetail() {
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<StreamingRequest> call = apiService.getStreaming("idshnmkl");
-        call.enqueue(new retrofit2.Callback<StreamingRequest>() {
-            @Override
-            public void onResponse(Call<StreamingRequest> call, Response<StreamingRequest> response) {
-                handleResponse(response);
-            }
-
-            @Override
-            public void onFailure(Call<StreamingRequest> call, Throwable t) {
-                System.out.println("FAILED " + t.toString());
-            }
-        });
-    }
-
-    private void handleResponse(Response<StreamingRequest> response) {
-        try {
-            mMediaPlayer.setDataSource(response.body().getMp3Url());
-            mMediaPlayer.prepareAsync();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

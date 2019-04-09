@@ -16,11 +16,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
 
-/**
- * 这是一个神奇的controller，神奇你妹啊...妹啊...啊。
- * <p/>
- * Created by androidcjj on 2016/4/1.
- */
 public abstract class JJBaseController {
     public static final int STATE_ANIM_NONE = 0;
     public static final int STATE_ANIM_START = 1;

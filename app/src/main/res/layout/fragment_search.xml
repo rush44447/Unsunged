@@ -7,10 +7,10 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".SearchFragment.SearchFragment">
-    <com.cjj.sva.JJSearchView
+    <com.sweetoranges.abc.unsunged.JJSearchView
         android:id="@+id/jjsv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="300dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

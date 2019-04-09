@@ -20,7 +20,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     List<String[]> dataList = new ArrayList<String[]>();
     private String name[] = new String[]{"Favourites","Liked","Current","Playlist1"};
     public SearchAdapter(FragmentActivity activity) {
-        context = activity;
+        this.context = activity;
        // for (int i = 0; i < name.length; i++) { dataList.add(new String[]{name[i]}); }
     }
 
