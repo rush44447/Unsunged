@@ -14,58 +14,39 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
-import com.squareup.picasso.Picasso;
-import com.sweetoranges.abc.unsunged.Adapters.PlaylistAdapter;
-import com.sweetoranges.abc.unsunged.Adapters.SCTrackAdapter;
+import com.sweetoranges.abc.unsunged.Classes.ApiClient;
+import com.sweetoranges.abc.unsunged.Classes.ApiInterface;
 import com.sweetoranges.abc.unsunged.Classes.ImageConverter;
-import com.sweetoranges.abc.unsunged.Player.Config;
-import com.sweetoranges.abc.unsunged.Player.Track;
-import com.sweetoranges.abc.unsunged.R;
-import com.sweetoranges.abc.unsunged.Service.SCService;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
+import com.sweetoranges.abc.unsunged.R;
+
+import java.io.IOException;
 
 public class MyProfileFragment extends Fragment {
-    private ListView listView;
-    private List<Track> mListItems;
     ImageView circularImageView;
-    private TextView mSelectedTrackTitle;
-    private ImageView mSelectedTrackImage;
+    RecyclerView playlistRecycle;
     private MediaPlayer mMediaPlayer;
     private ImageView mPlayerControl;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_my_profile, container, false);
         circularImageView = (ImageView)view.findViewById(R.id.circleView);
-        listView = (ListView)view.findViewById(R.id.track_list_view);
+        playlistRecycle = (RecyclerView)view.findViewById(R.id.playlistRecycle);
         circularImageView.setImageBitmap(ImageConverter.getRoundedCornerBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.imgview), 100));
-        mSelectedTrackTitle = (TextView)view.findViewById(R.id.selected_track_title);
-        mSelectedTrackImage = (ImageView)view.findViewById(R.id.selected_track_image);
-        mPlayerControl = (ImageView)view.findViewById(R.id.player_control);
-
-        mListItems = new ArrayList<Track>();
-        listView.setAdapter(new SCTrackAdapter(getActivity(), mListItems));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Track track = mListItems.get(position);
-                mSelectedTrackTitle.setText(track.getTitle());
-                Picasso.with(getActivity()).load(track.getArtworkURL()).into(mSelectedTrackImage); }});
 
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -76,25 +57,23 @@ public class MyProfileFragment extends Fragment {
             }
         });
 
-        Fabric.with(getActivity(), new Crashlytics());
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Config.API_URL).addConverterFactory(GsonConverterFactory.create()).build();
-
-
-
-        SCService scService = retrofit.create(SCService.class);
-        scService.getRecentTracks("last_week").enqueue(new Callback<List<Track>>() {
+        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
-            public void onResponse(Call<List<Track>> call, Response<List<Track>> response) {
-                if (response.isSuccessful()) {
-                    List<Track> tracks = response.body();
-                    showMessage(tracks.get(0).getTitle());
-                } else { showMessage("Error code " + response.code()); }
+            public void onCompletion(MediaPlayer mp) {
+                mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp);
             }
+        });
 
-            @Override public void onFailure(Call<List<Track>> call, Throwable t) { showMessage("Network Error: " +  t.getMessage()); }});
+        mPlayerControl = (ImageView)view.findViewById(R.id.player_control);
+        mPlayerControl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePlayPause();
+            }
+        });
+        callMusicDetail();
         return view;
     }
-
     private void togglePlayPause() {
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
@@ -104,7 +83,43 @@ public class MyProfileFragment extends Fragment {
             mPlayerControl.setImageResource(R.drawable.ic_pause_black_24dp);
         }
     }
-    private void showMessage(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+//
+
+    //    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//
+//        if (mMediaPlayer != null) {
+//            if (mMediaPlayer.isPlaying()) {
+//                mMediaPlayer.stop();
+//            }
+//            mMediaPlayer.release();
+//            mMediaPlayer = null;
+//        }
+//    }
+    private void callMusicDetail() {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<StreamingRequest> call = apiService.getStreaming("idshnmkl");
+        call.enqueue(new retrofit2.Callback<StreamingRequest>() {
+            @Override
+            public void onResponse(Call<StreamingRequest> call, Response<StreamingRequest> response) {
+                handleResponse(response);
+            }
+
+            @Override
+            public void onFailure(Call<StreamingRequest> call, Throwable t) {
+                System.out.println("FAILED " + t.toString());
+            }
+        });
     }
+
+    private void handleResponse(Response<StreamingRequest> response) {
+        try {
+            mMediaPlayer.setDataSource(response.body().getMp3Url());
+            mMediaPlayer.prepareAsync();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

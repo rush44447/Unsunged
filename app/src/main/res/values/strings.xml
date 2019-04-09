@@ -2,7 +2,7 @@
     <string name="app_name">Unsunged</string>
     <string name="title_binge">binge</string>
     <string name="title_search">search</string>
-    <string name="title_type">type</string>
+    <string name="title_type">challenge</string>
     <string name="title_profile">profile</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
