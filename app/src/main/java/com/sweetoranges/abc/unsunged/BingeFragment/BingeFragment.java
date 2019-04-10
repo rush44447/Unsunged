@@ -1,16 +1,12 @@
 package com.sweetoranges.abc.unsunged.BingeFragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.sweetoranges.abc.unsunged.R;
-
+import org.jetbrains.annotations.Nullable;
+import androidx.fragment.app.Fragment;
 
 public class BingeFragment extends Fragment {
 

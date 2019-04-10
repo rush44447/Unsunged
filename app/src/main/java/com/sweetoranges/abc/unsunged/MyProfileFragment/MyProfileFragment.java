@@ -1,38 +1,18 @@
 package com.sweetoranges.abc.unsunged.MyProfileFragment;
-import io.fabric.sdk.android.Fabric;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import android.content.Context;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.sweetoranges.abc.unsunged.R;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.ImageView;
-
-import com.crashlytics.android.Crashlytics;
 import com.sweetoranges.abc.unsunged.Adapters.PlaylistAdapter;
 import com.sweetoranges.abc.unsunged.Classes.ImageConverter;
-
-import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
-import com.sweetoranges.abc.unsunged.R;
-
-import java.io.IOException;
-
+import org.jetbrains.annotations.Nullable;
 public class MyProfileFragment extends Fragment {
     RecyclerView playlistRv;
     @Nullable
