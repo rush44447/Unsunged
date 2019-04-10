@@ -19,11 +19,8 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     private ViewHolder viewHolder;
     List<String[]> dataList = new ArrayList<String[]>();
     private String name[] = new String[]{"Favourites","Liked","Current","Playlist1"};
-
-    public PlaylistAdapter(FragmentActivity activity) {
-        context = activity;
-      //  for (int i = 0; i < name.length; i++) { dataList.add(new String[]{name[i]}); }
-    }
+    private String types;
+    public PlaylistAdapter(FragmentActivity activity,String Types) { context = activity;this.types=Types; }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView listType;

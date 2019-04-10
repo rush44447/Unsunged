@@ -1,5 +1,6 @@
 package com.sweetoranges.abc.unsunged;
 
+import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.sweetoranges.abc.unsunged.ChallengeFragment.ChallengeFragment;
 import com.sweetoranges.abc.unsunged.BingeFragment.BingeFragment;
@@ -32,13 +34,14 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
     private ImageView mPlayerControl;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+context=getApplicationContext();
         mPlayerControl = (ImageView)findViewById(R.id.player_control);
         mPlayerControl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
+                Toast.makeText(context, "prepared", Toast.LENGTH_SHORT).show();
                 togglePlayPause();
             }
         });
@@ -102,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void callMusicDetail() {
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<StreamingRequest> call = apiService.getStreaming("idshnmkl");
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);//connection is built
+        Call<StreamingRequest> call = apiService.getStreaming("idshnmkl");//this is added to baseurl and data is  retrieved
         call.enqueue(new retrofit2.Callback<StreamingRequest>() {
             @Override
             public void onResponse(Call<StreamingRequest> call, Response<StreamingRequest> response) {
@@ -129,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void handleResponse(Response<StreamingRequest> response) {
         try {
-            mMediaPlayer.setDataSource(response.body().getMp3Url());
+            mMediaPlayer.setDataSource(response.body().getMp3Url());//here mp3 file is loaded using retrieved url and fed into mMediaPlayer
             mMediaPlayer.prepareAsync();
         } catch (IOException e) {
             e.printStackTrace();
@@ -137,4 +141,23 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-
+//@Override
+//public void prepare() {
+//  try {
+//    mediaPlayer = new MediaPlayer();
+//    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//    mediaPlayer.setOnPreparedListener(CustomMediaPlayerAssertFolder.this);
+//    mediaPlayer.setOnCompletionListener(CustomMediaPlayerAssertFolder.this);
+//    mediaPlayer.setOnBufferingUpdateListener(CustomMediaPlayerAssertFolder.this);
+//    mediaPlayer.setScreenOnWhilePlaying(true);
+//    mediaPlayer.setOnSeekCompleteListener(CustomMediaPlayerAssertFolder.this);
+//    mediaPlayer.setOnErrorListener(CustomMediaPlayerAssertFolder.this);
+//    mediaPlayer.setOnInfoListener(CustomMediaPlayerAssertFolder.this);
+//    mediaPlayer.setOnVideoSizeChangedListener(CustomMediaPlayerAssertFolder.this);
+//    AssetFileDescriptor assetFileDescriptor = (AssetFileDescriptor) jzDataSource.getCurrentUrl();
+//    mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+//    mediaPlayer.prepareAsync();
+//  } catch (Exception e) {
+//    e.printStackTrace();
+//  }
+//}

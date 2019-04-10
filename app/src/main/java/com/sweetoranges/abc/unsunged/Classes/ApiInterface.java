@@ -6,5 +6,5 @@ import retrofit2.http.Path;
 
 public interface ApiInterface {
     @GET("{stringid}")
-    Call<StreamingRequest> getStreaming(@Path("stringid") String stringid);
+    Call<StreamingRequest> getStreaming(@Path("stringid") String stringid); //this is added to baseurl
 }

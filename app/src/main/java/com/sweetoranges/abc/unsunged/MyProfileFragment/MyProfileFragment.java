@@ -39,6 +39,7 @@ public class MyProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_my_profile, container, false);
+        playlistRv= (RecyclerView) view.findViewById(R.id.playlistRecycle);
         Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),R.drawable.imgview);
         Bitmap circularBitmap = ImageConverter.getRoundedCornerBitmap(bitmap, 100);
         ImageView circularImageView = (ImageView)view.findViewById(R.id.circleView);
@@ -46,10 +47,12 @@ public class MyProfileFragment extends Fragment {
 
        // Fabric.with(getActivity(), new Crashlytics());
 
-        playlistRv= (RecyclerView) view.findViewById(R.id.playlistRecycle);
-        playlistRv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        playlistRv.setAdapter(new PlaylistAdapter(getActivity()));
 
+        playlistRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        playlistRv.setAdapter(new PlaylistAdapter(getActivity(),"Favourites"));
+        playlistRv.setAdapter(new PlaylistAdapter(getActivity(),"Liked"));
+        playlistRv.setAdapter(new PlaylistAdapter(getActivity(),"Current"));
+        playlistRv.setAdapter(new PlaylistAdapter(getActivity(),"Playlist1"));
         return view;
     }
 

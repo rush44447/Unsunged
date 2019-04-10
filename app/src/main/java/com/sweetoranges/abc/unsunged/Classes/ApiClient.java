@@ -3,10 +3,6 @@ package com.sweetoranges.abc.unsunged.Classes;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by CLient-PC on 11/05/2017.
- */
-
 public class ApiClient {
 
     public static final String BASE_URL = "https://api.clyp.it/";
@@ -17,7 +13,7 @@ public class ApiClient {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .build();
+                    .build();//connection built
         }
         return retrofit;
     }
