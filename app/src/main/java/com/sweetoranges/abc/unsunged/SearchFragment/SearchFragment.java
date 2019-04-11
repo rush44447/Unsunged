@@ -17,9 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
+import android.widget.HorizontalScrollView;
 public class SearchFragment extends Fragment {
     private RecyclerView searchRecycler;
+    HorizontalScrollView hsv;
    // MultiSearchView multiSearchView;
     @Nullable
     @Override

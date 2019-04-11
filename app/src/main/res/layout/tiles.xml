@@ -3,13 +3,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-   android:paddingTop="42dp"
+   android:paddingTop="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ddd">
     <RelativeLayout
         android:layout_height="wrap_content"
         android:elevation="8dp"
-        android:layout_width="match_parent">
+        android:layout_marginStart="18dp"
+        android:layout_width="@dimen/searchcardsize">
     <com.github.florent37.shapeofview.shapes.CircleView
         android:id="@+id/circle"
         android:layout_width="75dp"
@@ -29,8 +30,9 @@
         android:id="@+id/card_griditem"
         android:layout_marginTop="-37dp"
         android:layout_width="280dp"
-        android:layout_height="530dp"
-        android:layout_marginStart="15dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="20dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="6dp">
         <RelativeLayout
@@ -38,7 +40,6 @@
             android:layout_width="match_parent">
             <Toolbar
                 android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RelativeLayout
@@ -48,13 +49,14 @@
                 android:id="@+id/text11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="33dp"
                 android:fontFamily="cursive"
                 android:layout_centerHorizontal="true"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
                 android:shadowRadius="10"
                 android:textColor="#42ebf4"
+                android:text="this will go right"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -64,25 +66,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-                android:text="TextView" />
+                android:text="Ranking - go left" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:layout_below="@+id/textView"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_below="@+id/textView2"
-                android:text="TextView" />
+                android:text="Masterpiece: " />
 
             <TextView
                 android:id="@+id/textView4"
@@ -91,7 +84,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="15dp"
                 android:layout_marginTop="15dp"
-                android:text="TextView" />
+                android:text="Uploads:   " />
 
             <TextView
                 android:id="@+id/textView5"
@@ -99,26 +92,17 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="15dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:layout_below="@+id/textView4"
-                android:text="TextView" />
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_below="@+id/textView5"
-                android:text="TextView" />
+                android:text="Likesper:   " />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp"
                         android:background="#000"
-                        android:layout_below="@+id/textView6"
-                        android:layout_marginTop="7dp"/>
+                        android:layout_below="@+id/textView2"
+                        android:layout_marginTop="12dp"/>
                 </RelativeLayout>
             </Toolbar>
             <GridView android:id="@+id/gridview"

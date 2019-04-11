@@ -40,8 +40,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         }
     }
     @Override public void onBindViewHolder(final ViewHolder holder, final int position){
-        holder.text11.setText(" hey"+" ");//name[position]
-
+        holder.text11.setText(name[position]);//name[position]
+        setAnimation(holder.itemView, position);
 //        Animation slide_up = AnimationUtils.loadAnimation(context, R.anim.slide_up);
 //        holder.text11.startAnimation(slide_up);
     }
@@ -50,4 +50,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
          viewHolder = new ViewHolder(v);
         return viewHolder; }
     @Override public int getItemCount(){ return name.length;  }
+    private void setAnimation(View viewToAnimate, int position)
+    { //if (position > lastPosition) {
+//        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+//        anim.setDuration(new Random().nextInt(501));//to make duration random number between [0,501)
+//        viewToAnimate.startAnimation(anim);
+//        lastPosition = position;
+ //   }
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_up);
+        animation.setDuration(500);
+        animation.setStartOffset(position*100);
+        viewToAnimate.startAnimation(animation);
+    }
 }
