@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:paddingRight="10dp"
-   android:paddingTop="12dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+   android:paddingTop="42dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ddd">
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:layout_width="match_parent">
+    <com.github.florent37.shapeofview.shapes.CircleView
+        android:id="@+id/circle"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_centerHorizontal="true"
+        app:shape_circle_borderColor="@android:color/black"
+        app:shape_circle_borderWidth="2dp">
+        <ImageView
+            android:id="@+id/circleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/imgview" />
+    </com.github.florent37.shapeofview.shapes.CircleView>
+    </RelativeLayout>
     <androidx.cardview.widget.CardView
         android:id="@+id/card_griditem"
-        android:layout_centerVertical="true"
-        android:layout_width="330dp"
-        android:layout_height="630dp"
+        android:layout_marginTop="-37dp"
+        android:layout_width="280dp"
+        android:layout_height="530dp"
         android:layout_marginStart="15dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="6dp">
         <RelativeLayout
             android:layout_height="match_parent"
             android:layout_width="match_parent">
+            <Toolbar
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
             <TextView
                 android:id="@+id/text11"
                 android:layout_width="wrap_content"
@@ -61,7 +88,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginEnd="15dp"
                 android:layout_marginTop="15dp"
                 android:text="TextView" />
@@ -70,7 +97,7 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginEnd="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/textView4"
@@ -79,44 +106,26 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginEnd="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/textView5"
                 android:text="TextView" />
-            <view
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:background="#000"
-                android:layout_below="@+id/textView6"
-                android:layout_marginTop="7dp"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="#000"
+                        android:layout_below="@+id/textView6"
+                        android:layout_marginTop="7dp"/>
+                </RelativeLayout>
+            </Toolbar>
             <GridView android:id="@+id/gridview"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
-                android:layout_below="@+id/textView6"
-                android:layout_marginTop="10dp" />
+              android:visibility="gone" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-    <com.github.florent37.shapeofview.shapes.CircleView
-        android:id="@+id/circle"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:elevation="8dp"
-        android:layout_above="@+id/card_griditem"
-        android:layout_marginBottom="-38dp"
-        android:layout_alignLeft="@+id/card_griditem"
-        android:layout_marginStart="128dp"
-        app:shape_circle_borderColor="@android:color/black"
-        app:shape_circle_borderWidth="2dp">
 
-        <ImageView
-            android:id="@+id/circleView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignTop="@+id/circle"
-            android:scaleType="centerCrop"
-            android:src="@drawable/imgview" />
-    </com.github.florent37.shapeofview.shapes.CircleView>
-</RelativeLayout>
+</LinearLayout>
