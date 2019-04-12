@@ -100,13 +100,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="25dp"
                         android:layout_marginTop="18dp"  />
-                    <ImageButton android:id="@+id/edit"
-                      android:layout_alignParentBottom="true"
-                        android:layout_width="wrap_content"
-                        android:elevation="10dp"
-                        android:layout_height="wrap_content"
-                        android:background="#80000000"
-                        android:src="@drawable/ic_edit_black_24dp" />
+
                 </RelativeLayout>
 
             </com.github.florent37.arclayout.ArcLayout>
@@ -116,5 +110,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/playlistRecycle"
-       android:background="#bbb"/>
+       android:background="#eee"/>
+
+
+
 </LinearLayout>

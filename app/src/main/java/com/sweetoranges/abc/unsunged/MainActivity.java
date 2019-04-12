@@ -31,6 +31,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
     private ImageView mPlayerControl;
+
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ context=getApplicationContext();
                     return true;
             }
             return false; }};
-    @Override public void onBackPressed() { super.onBackPressed(); }
+
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
@@ -117,6 +118,7 @@ context=getApplicationContext();
             }
         });
     }
+
     @Override protected void onDestroy() {
         super.onDestroy();
 
@@ -136,6 +138,7 @@ context=getApplicationContext();
             e.printStackTrace();
         }
     }
+    @Override public void onBackPressed() { super.onBackPressed(); }
 }
 
 //@Override

@@ -3,9 +3,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-   android:paddingTop="20dp"
+   android:paddingTop="7dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ddd">
+    android:background="#eee">
     <RelativeLayout
         android:layout_height="wrap_content"
         android:elevation="8dp"
@@ -30,9 +30,9 @@
         android:id="@+id/card_griditem"
         android:layout_marginTop="-37dp"
         android:layout_width="280dp"
-        android:layout_height="500dp"
+        android:layout_height="450dp"
         android:layout_marginStart="18dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="55dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="6dp">
         <RelativeLayout
@@ -40,6 +40,7 @@
             android:layout_width="match_parent">
             <Toolbar
                 android:layout_marginTop="8dp"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RelativeLayout
@@ -105,10 +106,15 @@
                         android:layout_marginTop="12dp"/>
                 </RelativeLayout>
             </Toolbar>
-            <GridView android:id="@+id/gridview"
+            <!--<GridView android:id="@+id/gridview"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="500dp"-->
+              <!--android:visibility="gone" />-->
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-              android:visibility="gone" />
+                android:id="@+id/rvAnimals"
+                android:layout_below="@+id/toolbar"
+                android:layout_height="match_parent"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

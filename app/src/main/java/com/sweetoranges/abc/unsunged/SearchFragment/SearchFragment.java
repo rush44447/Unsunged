@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.iammert.library.ui.multisearchviewlib.MultiSearchView;
 import com.sweetoranges.abc.unsunged.Adapters.SearchAdapter;
+import com.sweetoranges.abc.unsunged.Classes.OnBackPressed;
 import com.sweetoranges.abc.unsunged.R;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import android.widget.HorizontalScrollView;
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements OnBackPressed {
     private RecyclerView searchRecycler;
     HorizontalScrollView hsv;
    // MultiSearchView multiSearchView;
@@ -27,7 +28,9 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_search, container, false);
         searchRecycler=(RecyclerView)view.findViewById(R.id.searchRecycler);
-        searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
+        layoutManager.setReverseLayout(true);
+        searchRecycler.setLayoutManager(layoutManager);
        // multiSearchView=(MultiSearchView)view.findViewById(R.id.multiSearchView);
 
 //   multiSearchView.setSearchViewListener(new MultiSearchView.MultiSearchViewListener(){
@@ -51,8 +54,8 @@ public class SearchFragment extends Fragment {
 //        Log.v("TEST", "onItemSelected: index: $index, query: $s");
 //        Toast.makeText(getActivity(), "onItemSelected", Toast.LENGTH_SHORT).show();}});
 
-
         searchRecycler.setAdapter(new SearchAdapter(getActivity()));
         return view;
     }
+    @Override public void onBackPressed(){ getActivity().getSupportFragmentManager().popBackStack(); }
 }

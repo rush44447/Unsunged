@@ -5,18 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sweetoranges.abc.unsunged.Classes.OnBackPressed;
 import com.sweetoranges.abc.unsunged.R;
 
 import org.jetbrains.annotations.Nullable;
 
 import androidx.fragment.app.Fragment;
 
-public class ChallengeFragment extends Fragment {
+public class ChallengeFragment extends Fragment implements OnBackPressed {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_challenge, container, false);
         return view;
     }
-
+    @Override public void onBackPressed(){ getActivity().getSupportFragmentManager().popBackStack(); }
 }
