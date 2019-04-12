@@ -1,1 +1,1 @@
-include ':app','library','multisearchviewlib'
+include ':app','library'

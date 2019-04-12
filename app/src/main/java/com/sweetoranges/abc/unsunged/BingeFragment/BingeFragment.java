@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.sweetoranges.abc.unsunged.Classes.OnBackPressed;
 import com.sweetoranges.abc.unsunged.R;
-import org.jetbrains.annotations.Nullable;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class BingeFragment extends Fragment implements OnBackPressed {

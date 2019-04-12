@@ -9,7 +9,8 @@
     <RelativeLayout
         android:layout_height="wrap_content"
         android:elevation="8dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_width="@dimen/searchcardsize">
     <com.github.florent37.shapeofview.shapes.CircleView
         android:id="@+id/circle"
@@ -31,7 +32,8 @@
         android:layout_marginTop="-37dp"
         android:layout_width="280dp"
         android:layout_height="450dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="55dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="6dp">
@@ -106,15 +108,13 @@
                         android:layout_marginTop="12dp"/>
                 </RelativeLayout>
             </Toolbar>
-            <!--<GridView android:id="@+id/gridview"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="500dp"-->
-              <!--android:visibility="gone" />-->
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:id="@+id/rvAnimals"
+                android:id="@+id/rView"
                 android:layout_below="@+id/toolbar"
                 android:layout_height="match_parent"/>
+
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

@@ -54,6 +54,7 @@
         android:id="@+id/searchRecycler"
         android:orientation="horizontal"
         android:paddingTop="7dp"
+        android:layoutDirection="rtl"
         android:background="#eee"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

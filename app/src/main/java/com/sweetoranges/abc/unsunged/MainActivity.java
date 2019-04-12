@@ -52,8 +52,8 @@ context=getApplicationContext();
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                Toast.makeText(context, "prepared", Toast.LENGTH_SHORT).show();
-                togglePlayPause();
+              //  Toast.makeText(context, "prepared", Toast.LENGTH_SHORT).show();
+              //  togglePlayPause();
             }
         });
 
@@ -131,8 +131,7 @@ context=getApplicationContext();
         }
     }
     private void handleResponse(Response<StreamingRequest> response) {
-        try {
-            mMediaPlayer.setDataSource(response.body().getMp3Url());//here mp3 file is loaded using retrieved url and fed into mMediaPlayer
+        try { mMediaPlayer.setDataSource(response.body().getMp3Url());//here mp3 file is loaded using retrieved url and fed into mMediaPlayer
             mMediaPlayer.prepareAsync();
         } catch (IOException e) {
             e.printStackTrace();

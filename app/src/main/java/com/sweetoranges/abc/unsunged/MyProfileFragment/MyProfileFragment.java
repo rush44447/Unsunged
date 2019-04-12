@@ -1,4 +1,5 @@
 package com.sweetoranges.abc.unsunged.MyProfileFragment;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import android.graphics.Bitmap;
@@ -9,18 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.crashlytics.android.Crashlytics;
 import com.sweetoranges.abc.unsunged.Classes.OnBackPressed;
 import com.sweetoranges.abc.unsunged.R;
-import com.iammert.library.ui.multisearchviewlib.MultiSearchView;
 import androidx.recyclerview.widget.RecyclerView;
+import io.fabric.sdk.android.Fabric;
+
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.sweetoranges.abc.unsunged.Adapters.PlaylistAdapter;
 import com.sweetoranges.abc.unsunged.Classes.ImageConverter;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 public class MyProfileFragment extends Fragment implements OnBackPressed {
     RecyclerView playlistRv;
 
@@ -34,36 +35,8 @@ public class MyProfileFragment extends Fragment implements OnBackPressed {
         Bitmap circularBitmap = ImageConverter.getRoundedCornerBitmap(bitmap, 100);
         ImageView circularImageView = (ImageView)view.findViewById(R.id.circleView);
         circularImageView.setImageBitmap(circularBitmap);
-//        mv=(MultiSearchView)view.findViewById(R.id.multiSearchView);
-//
-//        mv.setSearchViewListener(new MultiSearchView.MultiSearchViewListener(){
-//    @Override
-//    public void onTextChanged(int i, @NotNull CharSequence charSequence) {
-//        Log.v("TEST", "changed: index: $index, query: $s");
-//        Toast.makeText(getActivity(), "changed", Toast.LENGTH_SHORT).show();}
-//
-//    @Override
-//    public void onSearchItemRemoved(int i) {
-//        Log.v("TEST", "remove: index: $index");
-//        Toast.makeText(getActivity(), "remove", Toast.LENGTH_SHORT).show();}
-//
-//    @Override
-//    public void onSearchComplete(int i, @NotNull CharSequence charSequence) {
-//        Log.v("TEST", "complete: index: $index, query: $s");
-//        Toast.makeText(getActivity(), "complete", Toast.LENGTH_SHORT).show();}
-//
-//    @Override
-//    public void onItemSelected(int i, @NotNull CharSequence charSequence) {
-//        Log.v("TEST", "onItemSelected: index: $index, query: $s");
-//        Toast.makeText(getActivity(), "onItemSelected", Toast.LENGTH_SHORT).show();}});
-     //   Fabric.with(getActivity(), new Crashlytics());
-
-
         playlistRv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        playlistRv.setAdapter(new PlaylistAdapter(getActivity(),"Favourites"));
-        playlistRv.setAdapter(new PlaylistAdapter(getActivity(),"Liked"));
-        playlistRv.setAdapter(new PlaylistAdapter(getActivity(),"Current"));
-        playlistRv.setAdapter(new PlaylistAdapter(getActivity(),"Playlist1"));
+        playlistRv.setAdapter(new PlaylistAdapter(getActivity()));
         return view;
     }
 
