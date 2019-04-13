@@ -11,7 +11,7 @@
         android:elevation="8dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_width="@dimen/searchcardsize">
+        android:layout_width="280dp">
     <com.github.florent37.shapeofview.shapes.CircleView
         android:id="@+id/circle"
         android:layout_width="75dp"
@@ -108,12 +108,18 @@
                         android:layout_marginTop="12dp"/>
                 </RelativeLayout>
             </Toolbar>
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:id="@+id/rView"
+            <!--<androidx.recyclerview.widget.RecyclerView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:id="@+id/rView"-->
+                <!--android:layout_below="@+id/toolbar"-->
+                <!--android:layout_height="match_parent"/>-->
+            <com.loopeer.cardstack.CardStackView
+                android:id="@+id/stackview_main"
+                android:background="#1fd"
+                android:layout_margin="10dp"
                 android:layout_below="@+id/toolbar"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

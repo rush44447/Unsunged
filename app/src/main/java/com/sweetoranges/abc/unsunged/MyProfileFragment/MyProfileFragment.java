@@ -9,13 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.crashlytics.android.Crashlytics;
 import com.sweetoranges.abc.unsunged.Classes.OnBackPressed;
 import com.sweetoranges.abc.unsunged.R;
 import androidx.recyclerview.widget.RecyclerView;
-import io.fabric.sdk.android.Fabric;
-
 import android.widget.ImageView;
 import android.widget.Toast;
 
