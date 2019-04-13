@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/linear_list_card_item"
+<LinearLayout android:id="@+id/linear_list_card_item"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <FrameLayout
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
         android:id="@+id/frame_list_card_item"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:background="@drawable/shape_rectangle_with_radius">
-
+        app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="#12fdf2"
+        android:background="@drawable/shape_rectangle_with_radius"
+        app:cardElevation="10dp">
         <TextView
             android:id="@+id/text_list_card_title"
             android:layout_width="wrap_content"
@@ -25,8 +26,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="160dp"
-            android:layout_marginLeft="160dp"
+            android:layout_marginTop="290dp"
+            android:layout_marginLeft="110dp"
             android:layout_height="wrap_content">
             <ImageView
                 android:src="@drawable/ic_fast_forward_black_24dp"
@@ -46,6 +47,14 @@
                 android:rotation="180"
                 android:layout_height="48dp"/>
         </LinearLayout>
-    </FrameLayout>
 
+
+        <SeekBar
+            android:id="@+id/seekBar2"
+            android:layout_width="match_parent"
+            android:layout_marginTop="260dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_height="wrap_content" />
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

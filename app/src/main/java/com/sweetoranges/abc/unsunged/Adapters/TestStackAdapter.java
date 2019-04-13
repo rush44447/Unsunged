@@ -35,7 +35,8 @@ public class TestStackAdapter extends StackAdapter<Integer> {
     }
 
     @Override
-    protected CardStackView.ViewHolder onCreateView(ViewGroup parent, int viewType) {
+    protected CardStackView.ViewHolder onCreateView(ViewGroup parent, int viewType) {//            mLayout.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.download));
+
         View view;
         switch (viewType) {
             case R.layout.list_card_item_larger_header:
@@ -52,9 +53,9 @@ public class TestStackAdapter extends StackAdapter<Integer> {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 6) {//TODO TEST LARGER ITEM
+        if (position == 2) {//TODO TEST LARGER ITEM
             return R.layout.list_card_item_larger_header;
-        } else if (position == 10) {
+        } else if (position == 4) {
             return R.layout.list_card_item_with_no_header;
         }else {
             return R.layout.list_card_item;
@@ -79,7 +80,7 @@ public class TestStackAdapter extends StackAdapter<Integer> {
         }
 
         public void onBind(Integer data, int position) {
-            mLayout.getBackground().setColorFilter(ContextCompat.getColor(getContext(), data), PorterDuff.Mode.SRC_IN);
+           mLayout.getBackground().setColorFilter(ContextCompat.getColor(getContext(), data), PorterDuff.Mode.SRC_IN);
             mTextTitle.setText(String.valueOf(position));
         }
 

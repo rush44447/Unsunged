@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-context=getApplicationContext();
-        mPlayerControl = (ImageView)findViewById(R.id.player_control);
+        context = getApplicationContext();
+        mPlayerControl = (ImageView) findViewById(R.id.player_control);
         mPlayerControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,8 +52,8 @@ context=getApplicationContext();
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-              //  Toast.makeText(context, "prepared", Toast.LENGTH_SHORT).show();
-              //  togglePlayPause();
+                //  Toast.makeText(context, "prepared", Toast.LENGTH_SHORT).show();
+                //  togglePlayPause();
             }
         });
 

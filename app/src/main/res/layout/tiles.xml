@@ -113,13 +113,31 @@
                 <!--android:id="@+id/rView"-->
                 <!--android:layout_below="@+id/toolbar"-->
                 <!--android:layout_height="match_parent"/>-->
+            <RelativeLayout
+                android:layout_below="@+id/toolbar"
+                android:background="@color/color_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
             <com.loopeer.cardstack.CardStackView
                 android:id="@+id/stackview_main"
-                android:background="#1fd"
-                android:layout_margin="10dp"
-                android:layout_below="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:clipToPadding="false"
+                android:layout_margin="10dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="12dp"/>
+            <LinearLayout
+                android:id="@+id/button_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="280dp"
+                android:orientation="vertical"
+                android:gravity="center">
+            </LinearLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

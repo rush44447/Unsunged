@@ -12,17 +12,14 @@ import com.loopeer.cardstack.CardStackView;
 import com.loopeer.cardstack.UpDownStackAnimatorAdapter;
 import com.sweetoranges.abc.unsunged.Classes.ArcTranslateAnimation;
 import com.sweetoranges.abc.unsunged.R;
-
 import java.util.Arrays;
-
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> implements CardStackView.ItemExpendListener{
-    private Context context;
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+    private static Context context;
     private ViewHolder viewHolder;
-
     private String name[] = new String[]{"Favourites","Liked","Current","Playlist1"};
     public static Integer[] TEST_DATAS = new Integer[]{
             R.color.color_1,
@@ -37,58 +34,50 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             R.color.color_10,
             R.color.color_11,
             R.color.color_12,
-            R.color.color_13,
-            R.color.color_14,
-            R.color.color_15,
-            R.color.color_16,
-            R.color.color_17,
-            R.color.color_18,
-            R.color.color_19,
-            R.color.color_20,
-            R.color.color_21,
-            R.color.color_22,
-            R.color.color_23,
-            R.color.color_24,
-            R.color.color_25,
-            R.color.color_26
     };
 
-    public SearchAdapter(FragmentActivity activity) {
-        context = activity;
-    }
+    public SearchAdapter(FragmentActivity activity) { context = activity; }
 
-    @Override
-    public void onItemExpend(boolean expend) {
-      // viewHolder.mActionButtonContainer.setVisibility(expend ? View.VISIBLE : View.GONE);
-    }
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements CardStackView.ItemExpendListener {
         private TextView text11;
         private CardView card;
         private CardStackView mStackView;
+        private LinearLayout mActionButtonContainer;
         private TestStackAdapter mTestStackAdapter;
         private ViewHolder(final View v){
             super(v);
             text11=(TextView)v.findViewById(R.id.text11);
             card=(CardView)v.findViewById(R.id.card_griditem);
             mStackView = (CardStackView) v.findViewById(R.id.stackview_main);
-
+            mActionButtonContainer = (LinearLayout)v.findViewById(R.id.button_container);
+            mStackView.setItemExpendListener(this);
+            mStackView.setAdapter(new TestStackAdapter(context));
+            //  holder.mStackView.setAnimatorAdapter(new UpDownStackAnimatorAdapter(holder.mStackView));
+            new Handler().postDelayed(new Runnable() {@Override public void run() { new TestStackAdapter(context).updateData(Arrays.asList(TEST_DATAS)); }}, 500);
         }
+
+        @Override public void onItemExpend(boolean expend) {
+            mActionButtonContainer.setVisibility(expend ? View.VISIBLE : View.GONE);}
     }
     @Override public void onBindViewHolder(final ViewHolder holder, final int position){
         holder.text11.setText(name[position]);//name[position]
-        holder.mStackView.setItemExpendListener(this);
-        holder.mStackView.setAdapter(new TestStackAdapter(context));
-      //  holder.mStackView.setAnimatorAdapter(new UpDownStackAnimatorAdapter(holder.mStackView));
-        new Handler().postDelayed(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        new TestStackAdapter(context).updateData(Arrays.asList(TEST_DATAS));
-                    }
-                }
-                , 100
-        );
+
         onHitMeToShowBezier(holder.itemView, position);
+        //mStackView = (CardStackView) view.findViewById(R.id.stackview_main);
+        //        mActionButtonContainer = (LinearLayout)     view.findViewById(R.id.button_container);
+        //        int img1=getActivity().getResources().getIdentifier("download", "drawable", getActivity().getPackageName());
+        //        mStackView.setItemExpendListener(this);
+        //        mTestStackAdapter = new TestStackAdapter(getActivity());
+        //        mStackView.setAdapter(mTestStackAdapter);
+        //        new Handler().postDelayed(
+        //                new Runnable() {
+        //                    @Override
+        //                    public void run() {
+        //                        mTestStackAdapter.updateData(Arrays.asList(TEST_DATAS));
+        //                    }
+        //                }
+        //                , 200
+        //        );
     }
     @Override public SearchAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View v = LayoutInflater.from(context).inflate(R.layout.tiles, parent, false);
