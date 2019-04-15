@@ -2,20 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_content"
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".SearchFragment.SearchFragment">
-
-    <!--<com.iammert.library.ui.multisearchviewlib.MultiSearchView-->
-        <!--android:id="@+id/multiSearchView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_marginTop="16dp"-->
-        <!--android:layout_height="wrap_content"/>-->
-
-
-
+        <com.quinny898.library.persistentsearch.SearchBox
+            android:layout_width="wrap_content"
+            android:id="@+id/searchbox"
+            android:layout_height="wrap_content" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -35,13 +29,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/name"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="20dp"
             android:text="Search by Type"
             android:textSize="12sp"
             android:textColor="#42ebf4" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/language"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
