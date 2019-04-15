@@ -1,6 +1,7 @@
 package com.sweetoranges.abc.unsunged.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.sweetoranges.abc.unsunged.Classes.ApiClient;
 import com.sweetoranges.abc.unsunged.Classes.ApiInterface;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
+import com.sweetoranges.abc.unsunged.MyProfileFragment.YourPlaylist;
 import com.sweetoranges.abc.unsunged.R;
 
 import java.io.IOException;
@@ -35,18 +37,20 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView listType;
         private MediaPlayer mMediaPlayers;
-        private ImageView mPlayerControls;
         int x=-1;
         private ViewHolder(final View v){
             super(v);
             listType=(TextView)v.findViewById(R.id.listType);
-            mPlayerControls = (ImageView)v.findViewById(R.id.clickplay);
-
-
         }
     }
     @Override public void onBindViewHolder(final ViewHolder holder, final int position){
         holder.listType.setText(name[position]);
+        holder.listType.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                Intent playlist =new Intent(context, YourPlaylist.class);
+                playlist.putExtra("Select",holder.listType.getText().toString());
+                context.startActivity(playlist);
+            }});
     }
 
 

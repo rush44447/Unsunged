@@ -86,7 +86,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override public int getItemCount(){ return name.length;  }
 
     public void onHitMeToShowBezier(final View v, int position) {
-        ArcTranslateAnimation animation = new ArcTranslateAnimation(600, 0, 800, 0);
+        ArcTranslateAnimation animation = new ArcTranslateAnimation(1000, 0, 800, 0);
         animation.setInterpolator(new LinearInterpolator());
         animation.setDuration(1000);
 

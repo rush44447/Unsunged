@@ -124,7 +124,7 @@ public class ArcTranslateAnimation extends Animation {
 
         mStart = new PointF(mFromXDelta, mFromYDelta);
         mEnd = new PointF(mToXDelta, mToYDelta);
-        mControl = new PointF(mFromXDelta, mToYDelta); // How to choose the
+        mControl = new PointF(-100, -100); // How to choose the
         // Control point(we can
         // use the cross of the
         // two tangents from p0,

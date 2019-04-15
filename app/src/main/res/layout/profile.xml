@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:id="@+id/dialog"
+    android:layout_height="match_parent"
+    android:background="#42ebf4">
+    <ImageView
+        android:id="@+id/closeDialogImg"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        android:tint="#fff"/>
+    <com.github.florent37.shapeofview.shapes.CircleView
+        android:id="@+id/circle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:elevation="4dp"
+        app:shape_circle_borderColor="@android:color/black"
+        app:shape_circle_borderWidth="2dp">
+        <ImageView android:id="@+id/circleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/imgview" />
+    </com.github.florent37.shapeofview.shapes.CircleView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="10dp"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="2"
+        android:shadowRadius="10"
+        android:text="Ru5h.97"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/circle"/>
+</RelativeLayout>
