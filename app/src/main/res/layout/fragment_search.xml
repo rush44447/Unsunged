@@ -65,12 +65,6 @@
         android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <!--<androidx.recyclerview.widget.RecyclerView-->
-        <!--android:id="@+id/typeRecyc"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layoutDirection="rtl"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="35dp"/>-->
+  -->
 </RelativeLayout>
 </LinearLayout>
