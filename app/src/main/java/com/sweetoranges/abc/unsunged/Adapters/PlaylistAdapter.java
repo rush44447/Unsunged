@@ -23,6 +23,7 @@ import java.util.List;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -47,9 +48,9 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         holder.listType.setText(name[position]);
         holder.listType.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                Intent playlist =new Intent(context, YourPlaylist.class);
+              //  Intent playlist =new Intent(context, YourPlaylist.class);
               //  playlist.putExtra("Select",holder.listType.getText().toString());
-                context.startActivity(playlist);
+               // context.startActivity(playlist);
             }});
     }
 

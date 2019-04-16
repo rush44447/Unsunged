@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sweetoranges.abc.unsunged.R;
 
@@ -23,7 +24,7 @@ public class MusicTypeAdapter extends RecyclerView.Adapter<MusicTypeAdapter.View
     private String lang[] = new String[]{"English","Hindi","Gujrati","Rajasthani"};
     private String mood[] = new String[]{"Soothing","Travelling","Happy","Nostalgia","Inspirational","Slow"};
     private String type[] = new String[]{"Jazz","Rock","Indian Classical Music","Popular Music", "Folk Music","Rap","Country Music","Indie Rock","Pop Music","Techno","Rhythm and Blues","Instrumental","Electronic Dance Music"};
-    private String length[]=new String[]{};
+    //private String length[]=new String[13];
     public MusicTypeAdapter(FragmentActivity activity,String searchby) {this.context = activity;this.searchby=searchby;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -36,19 +37,32 @@ public class MusicTypeAdapter extends RecyclerView.Adapter<MusicTypeAdapter.View
         }
     }
     @Override public void onBindViewHolder(final ViewHolder holder, final int position){
-        if(searchby.equals("lang")){
-            length=lang;
-            holder.listText.setText(lang[position]);}
-        if(searchby.equals("mood")){
-            length=mood;
-        holder.listText.setText(mood[position]);}
-        if(searchby.equals("type")){
-            length=type;
-            holder.listText.setText(type[position]);}
-        if(searchby.equals("name")){ holder.listText.setText("");}
-        holder.listText.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-            }});
+        holder.listText.setText(lang[position]);
+
+//        try {
+//            if (searchby.equals("lang")) {
+//                length = lang;
+//                holder.listText.setText(lang[position]);
+//            }
+//            if (searchby.equals("mood")) {
+//                length = mood;
+//                holder.listText.setText(mood[position]);
+//            }
+//            if (searchby.equals("type")) {
+//                length = type;
+//                holder.listText.setText(type[position]);
+//            }
+//            if (searchby.equals("name")) {
+//                holder.listText.setText("");
+//            }
+//            holder.listText.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                }
+//            });
+//        }catch (Exception e){
+//            Toast.makeText(context, "array error", Toast.LENGTH_SHORT).show();
+//        }
     }
 
 
@@ -56,5 +70,5 @@ public class MusicTypeAdapter extends RecyclerView.Adapter<MusicTypeAdapter.View
         View v = LayoutInflater.from(context).inflate(R.layout.play, parent, false);
         viewHolder = new ViewHolder(v);
         return viewHolder; }
-    @Override public int getItemCount(){ return length.length;}
+    @Override public int getItemCount(){ return lang.length;}
 }
