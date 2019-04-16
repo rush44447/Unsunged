@@ -34,10 +34,7 @@ import com.sweetoranges.abc.unsunged.Classes.ImageConverter;
 
 public class MyProfileFragment extends Fragment implements OnBackPressed {
     private RecyclerView playlistRv;
-    private LinearLayout layoutMain;
-    private LinearLayout layoutContent;
-    private TextView followers;
-    private boolean isOpen = false;
+   
     private ImageView circularImageView;
     @Nullable
     @Override
@@ -48,9 +45,6 @@ public class MyProfileFragment extends Fragment implements OnBackPressed {
         Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),R.drawable.imgview);
         Bitmap circularBitmap = ImageConverter.getRoundedCornerBitmap(bitmap, 100);
          circularImageView = (ImageView)view.findViewById(R.id.circleView);
-        layoutMain=(LinearLayout)view.findViewById(R.id.mainlayout);
-        layoutContent=(LinearLayout)view.findViewById(R.id.layoutContent);
-        followers=(TextView)view.findViewById(R.id.followers);
         circularImageView.setImageBitmap(circularBitmap);
         circularImageView.setOnClickListener(new View.OnClickListener() {
             @Override
