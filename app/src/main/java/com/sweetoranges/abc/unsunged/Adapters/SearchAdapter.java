@@ -42,16 +42,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             super(v);
             text11=(TextView)v.findViewById(R.id.text11);
             card=(CardView)v.findViewById(R.id.card_griditem);
-            mStackView = (CardStackView) v.findViewById(R.id.stackview_main2);
-            mActionButtonContainer = (LinearLayout)v.findViewById(R.id.button_container);
-            mStackView.setItemExpendListener(this);
-            mStackView.setAdapter(new TestStackAdapter(context));
+         //   mStackView = (CardStackView) v.findViewById(R.id.stackview_main);
+          //  mActionButtonContainer = (LinearLayout)v.findViewById(R.id.button_container);
+          //  mStackView.setItemExpendListener(this);
+           // mStackView.setAdapter(new TestStackAdapter(context));
             //  holder.mStackView.setAnimatorAdapter(new UpDownStackAnimatorAdapter(holder.mStackView));
             new Handler().postDelayed(new Runnable() {@Override public void run() { new TestStackAdapter(context).updateData(Arrays.asList(TEST_DATAS)); }}, 500);
         }
 
         @Override public void onItemExpend(boolean expend) {
-            mActionButtonContainer.setVisibility(expend ? View.VISIBLE : View.GONE);}
+           // mActionButtonContainer.setVisibility(expend ? View.VISIBLE : View.GONE);
+        }
     }
     @Override public void onBindViewHolder(final ViewHolder holder, final int position){
         holder.text11.setText(name[position]);//name[position]

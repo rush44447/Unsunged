@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    tools:context=".Dashboard">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/shimmer_view_container1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        >
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="38dp"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <info.abdolahi.CircularMusicProgressBar
+        android:id="@+id/album_art"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:rotation="50"
+        android:src="@drawable/imgview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        app:border_color="#00796B"
+        app:border_width="2dp"
+        app:centercircle_diammterer=".97"
+        app:draw_anticlockwise="false"
+        app:progress_color="#80CBC4"
+        app:progress_startAngle="-90" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:elevation="4dp"
+        android:layout_toEndOf="@+id/album_art"
+        android:layout_below="@+id/album_art"
+        android:layout_marginTop="-62dp"
+        android:layout_marginLeft="-62dp"
+        android:src="@drawable/ic_video_library_black_24dp"
+        app:backgroundTint="#00796B"
+        app:rippleColor="#80CBC4" />
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:ellipsize="marquee"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/album_art"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Louis The Child: Better Not"/>
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="15dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/ic_skip_previous_black_24dp"
+            android:id="@+id/previous"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_toStartOf="@+id/player_control" />
+        <ImageView
+            android:src="@drawable/ic_play_arrow_black_24dp"
+            android:id="@+id/player_control"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_centerHorizontal="true" />
+        <ImageView
+            android:src="@drawable/ic_skip_next_black_24dp"
+            android:id="@+id/next"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_toEndOf="@+id/player_control" />
+    </RelativeLayout>
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="#fff"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+</RelativeLayout>

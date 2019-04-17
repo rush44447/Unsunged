@@ -2,17 +2,15 @@
 <LinearLayout android:id="@+id/linear_list_card_item"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
         android:id="@+id/frame_list_card_item"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        app:cardCornerRadius="30dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:cardBackgroundColor="#12fdf2"
-        android:background="@drawable/shape_rectangle_with_radius"
         app:cardElevation="10dp">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -27,30 +25,15 @@
             android:textSize="40sp"
             android:textStyle="bold"
             tools:text="12"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="290dp"
-            android:layout_marginLeft="110dp"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/ic_fast_forward_black_24dp"
-                android:id="@+id/next"
-                android:layout_width="48dp"
-                android:rotation="180"
-                android:layout_height="48dp"/>
             <ImageView
                 android:src="@drawable/ic_play_arrow_black_24dp"
                 android:id="@+id/player_control"
-                android:layout_width="48dp"
-                android:layout_height="48dp"/>
-            <ImageView
-                android:src="@drawable/ic_fast_rewind_black_24dp"
-                android:id="@+id/previous"
-                android:layout_width="48dp"
-                android:rotation="180"
-                android:layout_height="48dp"/>
-        </LinearLayout>
+                android:layout_width="35dp"
+                android:background="#000"
+                android:layout_height="35dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"/>
         <SeekBar
             android:id="@+id/seekBar2"
             android:layout_width="match_parent"

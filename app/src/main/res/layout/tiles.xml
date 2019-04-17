@@ -3,38 +3,35 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-   android:paddingTop="7dp"
+    android:paddingTop="7dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#80ffffff">
     <RelativeLayout
         android:layout_height="wrap_content"
         android:elevation="8dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_width="280dp">
-    <com.github.florent37.shapeofview.shapes.CircleView
-        android:id="@+id/circle"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_centerHorizontal="true"
-        app:shape_circle_borderColor="@android:color/black"
-        app:shape_circle_borderWidth="2dp">
-        <ImageView
-            android:id="@+id/circleView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/imgview" />
-    </com.github.florent37.shapeofview.shapes.CircleView>
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="240dp">
+        <com.github.florent37.shapeofview.shapes.CircleView
+            android:id="@+id/circle"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_centerHorizontal="true"
+            app:shape_circle_borderColor="@android:color/black"
+            app:shape_circle_borderWidth="2dp">
+            <ImageView
+                android:id="@+id/circleView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/imgview" />
+        </com.github.florent37.shapeofview.shapes.CircleView>
     </RelativeLayout>
     <androidx.cardview.widget.CardView
         android:id="@+id/card_griditem"
         android:layout_marginTop="-37dp"
-        android:layout_width="280dp"
-        android:layout_height="450dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="55dp"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
         app:cardCornerRadius="20dp"
         app:cardElevation="6dp">
         <RelativeLayout
@@ -48,56 +45,56 @@
                 <RelativeLayout
                     android:layout_height="match_parent"
                     android:layout_width="match_parent">
-            <TextView
-                android:id="@+id/text11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="33dp"
-                android:fontFamily="cursive"
-                android:layout_centerHorizontal="true"
-                android:shadowColor="@android:color/black"
-                android:shadowDx="2"
-                android:shadowRadius="10"
-                android:textColor="#42ebf4"
-                android:text="this will go right"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/text11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="33dp"
+                        android:fontFamily="cursive"
+                        android:layout_centerHorizontal="true"
+                        android:shadowColor="@android:color/black"
+                        android:shadowDx="2"
+                        android:shadowRadius="10"
+                        android:textColor="#42ebf4"
+                        android:text="this will go right"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:text="Ranking - go left" />
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Ranking - go left" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp"
-                android:layout_below="@+id/textView"
-                android:text="Masterpiece: " />
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_below="@+id/textView"
+                        android:text="Masterpiece: " />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="15dp"
-                android:layout_marginTop="15dp"
-                android:text="Uploads:   " />
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Uploads:   " />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="15dp"
-                android:layout_marginTop="30dp"
-                android:layout_below="@+id/textView4"
-                android:text="Likesper:   " />
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_below="@+id/textView4"
+                        android:text="Likesper:   " />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -109,34 +106,34 @@
                 </RelativeLayout>
             </Toolbar>
             <!--<androidx.recyclerview.widget.RecyclerView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:id="@+id/rView"-->
-                <!--android:layout_below="@+id/toolbar"-->
-                <!--android:layout_height="match_parent"/>-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:id="@+id/rView"-->
+            <!--android:layout_below="@+id/toolbar"-->
+            <!--android:layout_height="match_parent"/>-->
             <RelativeLayout
                 android:layout_below="@+id/toolbar"
                 android:background="@color/color_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            <com.loopeer.cardstack.CardStackView
-                android:id="@+id/stackview_main"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:clipToPadding="false"
-                android:layout_margin="10dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingTop="12dp"/>
-            <LinearLayout
-                android:id="@+id/button_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="280dp"
-                android:orientation="vertical"
-                android:gravity="center">
-            </LinearLayout>
+                <com.loopeer.cardstack.CardStackView
+                    android:id="@+id/stackview_main2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white"
+                    android:clipToPadding="false"
+                    android:layout_margin="10dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="12dp"/>
+                <LinearLayout
+                    android:id="@+id/button_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="280dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                </LinearLayout>
             </RelativeLayout>
 
         </RelativeLayout>

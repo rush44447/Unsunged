@@ -1,11 +1,16 @@
 package com.sweetoranges.abc.unsunged;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.MenuItem;
+import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,11 +36,13 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
     private ImageView mPlayerControl;
-
+    float x1,y1;
+    float x2,y2;
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -44,18 +51,13 @@ public class MainActivity extends AppCompatActivity {
         mPlayerControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                togglePlayPause();
+                togglePlayPause();            // start playing
             }
         });
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                //  Toast.makeText(context, "prepared", Toast.LENGTH_SHORT).show();
-                //  togglePlayPause();
-            }
-        });
+            @Override public void onPrepared(MediaPlayer mp) { }});
 
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -64,9 +66,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        findViewById(R.id.linear).setOnTouchListener(new View.OnTouchListener()
+        {int prevX,prevY;
+            @Override
+            public boolean onTouch(final View v,final MotionEvent event)
+            {
+                final FrameLayout.LayoutParams par=(FrameLayout.LayoutParams)v.getLayoutParams();
+                switch(event.getAction())
+                {
+                    case MotionEvent.ACTION_MOVE:
+                    {
+                        par.topMargin+=(int)event.getRawY()-prevY;
+                        prevY=(int)event.getRawY();
+                        v.setLayoutParams(par);
+                        return true;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    {
+                        par.topMargin+=(int)event.getRawY()-prevY;
+                        v.setLayoutParams(par);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
         callMusicDetail();
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -138,25 +165,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     @Override public void onBackPressed() { super.onBackPressed(); }
-}
 
-//@Override
-//public void prepare() {
-//  try {
-//    mediaPlayer = new MediaPlayer();
-//    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//    mediaPlayer.setOnPreparedListener(CustomMediaPlayerAssertFolder.this);
-//    mediaPlayer.setOnCompletionListener(CustomMediaPlayerAssertFolder.this);
-//    mediaPlayer.setOnBufferingUpdateListener(CustomMediaPlayerAssertFolder.this);
-//    mediaPlayer.setScreenOnWhilePlaying(true);
-//    mediaPlayer.setOnSeekCompleteListener(CustomMediaPlayerAssertFolder.this);
-//    mediaPlayer.setOnErrorListener(CustomMediaPlayerAssertFolder.this);
-//    mediaPlayer.setOnInfoListener(CustomMediaPlayerAssertFolder.this);
-//    mediaPlayer.setOnVideoSizeChangedListener(CustomMediaPlayerAssertFolder.this);
-//    AssetFileDescriptor assetFileDescriptor = (AssetFileDescriptor) jzDataSource.getCurrentUrl();
-//    mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
-//    mediaPlayer.prepareAsync();
-//  } catch (Exception e) {
-//    e.printStackTrace();
-//  }
-//}
+    public boolean onTouchEvent(MotionEvent touchevent)
+    { switch (touchevent.getAction())
+        { case MotionEvent.ACTION_UP:
+            { x2 = touchevent.getX();
+              y2 = touchevent.getY();
+                if (y1 < y2+30.00)
+                { Intent i = new Intent(MainActivity.this,Dashboard.class);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.slide_from_upwards, R.anim.slide_down);}
+                break; }
+                default:
+                    Toast.makeText(context, "", Toast.LENGTH_SHORT);
+        }return false; }
+
+}

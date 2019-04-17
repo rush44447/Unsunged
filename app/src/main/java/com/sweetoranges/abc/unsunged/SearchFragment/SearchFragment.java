@@ -22,11 +22,11 @@ import com.quinny898.library.persistentsearch.SearchBox.SearchListener;
 import com.quinny898.library.persistentsearch.SearchResult;
 import java.util.Objects;
 
-public class SearchFragment extends Fragment implements OnBackPressed {
+public class SearchFragment extends Fragment  {
     private RecyclerView searchRecycler;
     private RecyclerView typeRecyc;
     private SearchBox search;
-    AppCompatTextView Profile,Type,Language,Mood;
+    private AppCompatTextView Profile,Type,Language,Mood;
     private String name[] = new String[]{};
     private String lang[] = new String[]{"English","Hindi","Gujrati","Rajasthani"};
     private String mood[] = new String[]{"Soothing","Travelling","Happy","Nostalgia","Inspirational","Slow"};
@@ -44,7 +44,6 @@ public class SearchFragment extends Fragment implements OnBackPressed {
         Mood = (AppCompatTextView) view.findViewById(R.id.mood);
         typeRecyc.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
-
         searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         searchRecycler.setAdapter(new SearchAdapter(getActivity()));
 
@@ -65,13 +64,10 @@ public class SearchFragment extends Fragment implements OnBackPressed {
         });
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Toast.makeText(getContext(), "name", Toast.LENGTH_SHORT).show();
                 typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
             }});
         Type.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Toast.makeText(getContext(), "name", Toast.LENGTH_SHORT).show();
-
                 typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),type));
             }});
         Language.setOnClickListener(new View.OnClickListener() {
@@ -84,5 +80,5 @@ public class SearchFragment extends Fragment implements OnBackPressed {
             }});
         return view;
     }
-    @Override public void onBackPressed(){ Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack(); }
+
 }

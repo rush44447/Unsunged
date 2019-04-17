@@ -1,11 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".BingeFragment.BingeFragment">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textColor="#666600"
+        android:shadowColor="#000"
+        android:text="  Fresh"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="90dp"
+        android:id="@+id/story"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textColor="#666600"
+        android:shadowColor="#000"
+        android:text="  Unsunged Heroes of the week"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp">
+<androidx.cardview.widget.CardView
+    android:id="@+id/firsthero"
+    android:layout_width="180dp"
+    android:layout_height="180dp"
+    android:layout_margin="30dp"
+    app:cardCornerRadius="20dp"
+    android:elevation="4dp">
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/sample"/>
     <TextView
         android:layout_width="wrap_content"
+        android:textStyle="bold"
         android:layout_height="wrap_content"
-        android:text="hey binge"/>
-</FrameLayout>
+        android:layout_marginTop="160dp"
+        android:textSize="19sp"
+        android:textColor="#F0E68C"
+        android:text="I am a Hero"/>
+</androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/firsthero"
+            android:layout_marginTop="30dp"
+            android:textSize="17sp"
+            android:textColor="#666600"
+            android:text="Shreya is our hero of the week"/>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/secondhero"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_toEndOf="@+id/firsthero"
+            android:layout_alignBottom="@+id/firsthero"
+            app:cardCornerRadius="20dp"
+            android:elevation="4dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sample"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:textSize="16sp"
+                android:textColor="#F0E68C"
+                android:text="I am a Hero"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/thirdhero"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignStart="@+id/firsthero"
+            android:layout_below="@+id/firsthero"
+            app:cardCornerRadius="20dp"
+            android:elevation="4dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sample"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="82dp"
+                android:textColor="#FFFF99"
+                android:textSize="15sp"
+                android:text="I am a Hero"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/forthhero"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/firsthero"
+            android:layout_toEndOf="@+id/thirdhero"
+            android:layout_marginStart="30dp"
+            app:cardCornerRadius="20dp"
+            android:elevation="4dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sample"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#FFFF99"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="82dp"
+                android:textSize="15sp"
+                android:text="I am a Hero"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fisthhero"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/firsthero"
+            android:layout_toEndOf="@+id/forthhero"
+            android:layout_marginStart="30dp"
+            app:cardCornerRadius="20dp"
+            android:elevation="4dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sample"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="82dp"
+                android:textSize="15sp"
+                android:textColor="#F0E68C"
+                android:text="I am a Hero"/>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textColor="#666600"
+        android:shadowColor="#000"
+        android:text="  Albums of your Followings"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="180dp"
+        android:id="@+id/albums"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textColor="#666600"
+        android:shadowColor="#000"
+        android:text="  Shared to you in form of album named after sharer"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="180dp"
+        android:id="@+id/shared"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textColor="#666600"
+        android:shadowColor="#000"
+        android:text="  Your Favourites"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="180dp"
+        android:id="@+id/favourites"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textColor="#666600"
+        android:shadowColor="#000"
+        android:text="  Your Supported"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="180dp"
+        android:id="@+id/support"/>
+</LinearLayout>
+</ScrollView>

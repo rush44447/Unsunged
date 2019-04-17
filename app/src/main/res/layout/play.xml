@@ -3,10 +3,7 @@
     android:layout_width="wrap_content"
     android:id="@+id/listText"
     android:layout_height="wrap_content"
-    android:shadowColor="@android:color/black"
-    android:shadowDx="2"
-    android:layout_marginLeft="100dp"
-    android:shadowRadius="10"
+    android:layout_marginStart="100dp"
     android:textColor="#42ebf4"
     android:textSize="20sp"
     android:textStyle="bold">

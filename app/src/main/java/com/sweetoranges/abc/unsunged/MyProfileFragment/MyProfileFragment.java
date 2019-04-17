@@ -32,7 +32,7 @@ import android.widget.Toast;
 import com.sweetoranges.abc.unsunged.Adapters.PlaylistAdapter;
 import com.sweetoranges.abc.unsunged.Classes.ImageConverter;
 
-public class MyProfileFragment extends Fragment implements OnBackPressed {
+public class MyProfileFragment extends Fragment {
     private RecyclerView playlistRv;
    
     private ImageView circularImageView;
@@ -109,7 +109,5 @@ public class MyProfileFragment extends Fragment implements OnBackPressed {
         playlistRv.setAdapter(new PlaylistAdapter(getActivity()));
         return view;
     }
-
-    @Override public void onBackPressed(){ getActivity().getSupportFragmentManager().popBackStack(); }
 
 }

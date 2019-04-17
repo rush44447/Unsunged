@@ -44,3 +44,5 @@ public class MusicTypeAdapter extends RecyclerView.Adapter<MusicTypeAdapter.View
         return viewHolder; }
     @Override public int getItemCount(){ return searchby.length;}
 }
+
+//

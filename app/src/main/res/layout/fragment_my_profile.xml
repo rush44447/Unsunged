@@ -81,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
-                        android:text="Uploads: 15"
+                        android:text="Followings: 15"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="100dp" />
                     <androidx.appcompat.widget.AppCompatTextView
@@ -93,21 +93,6 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="30dp"
                         android:layout_marginTop="100dp" />
-                    <TextView android:id="@+id/followers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Followers: 15"
-                        android:textSize="15sp"
-                        android:layout_marginStart="125dp"
-                        android:layout_marginTop="45dp"/>
-                    <TextView android:id="@+id/follwings"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Followings: 15"
-                        android:textSize="15sp"
-                        android:layout_toEndOf="@+id/followers"
-                        android:layout_marginStart="55dp"
-                        android:layout_marginTop="45dp"/>
                     <TextView android:id="@+id/likesper"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

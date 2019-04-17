@@ -6,22 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
-import com.mutualmobile.cardstack.CardStackLayout;
 import com.loopeer.cardstack.CardStackView;
-import com.mutualmobile.cardstack.CardStackLayout;
-import com.mutualmobile.cardstack.utils.Units;
 import com.sweetoranges.abc.unsunged.Adapters.TestStackAdapter;
-import com.sweetoranges.abc.unsunged.Classes.OnBackPressed;
 import com.sweetoranges.abc.unsunged.R;
-
 import java.util.Arrays;
-import java.util.Objects;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class ChallengeFragment extends Fragment implements OnBackPressed, CardStackView.ItemExpendListener {
+public class ChallengeFragment extends Fragment implements  CardStackView.ItemExpendListener {
     private CardStackView mStackView;
     private LinearLayout mActionButtonContainer;
     private TestStackAdapter mTestStackAdapter;
@@ -63,15 +55,7 @@ public class ChallengeFragment extends Fragment implements OnBackPressed, CardSt
         );
         return view;
     }
-    @Override public void onBackPressed(){ Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack(); }
-
     @Override public void onItemExpend(boolean expend) {
         mActionButtonContainer.setVisibility(expend ? View.VISIBLE : View.GONE);}
-    public void onPreClick(View view) {
-        mStackView.pre();
-    }
 
-    public void onNextClick(View view) {
-        mStackView.next();
-    }
 }
