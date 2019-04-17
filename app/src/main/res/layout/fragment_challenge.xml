@@ -13,24 +13,4 @@
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:paddingTop="12dp"/>
-    <LinearLayout
-        android:id="@+id/button_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginStart="100dp"
-        android:orientation="vertical"
-        android:gravity="center">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@color/color_1"
-            android:text="Pre"
-            android:onClick="onPreClick"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Next"
-            android:onClick="onNextClick"/>
-    </LinearLayout>
 </RelativeLayout>

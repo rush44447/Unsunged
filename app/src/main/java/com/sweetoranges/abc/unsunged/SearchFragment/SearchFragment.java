@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.sweetoranges.abc.unsunged.Adapters.MusicTypeAdapter;
 import com.sweetoranges.abc.unsunged.Adapters.SearchAdapter;
 import com.sweetoranges.abc.unsunged.Classes.OnBackPressed;
@@ -28,6 +27,10 @@ public class SearchFragment extends Fragment implements OnBackPressed {
     private RecyclerView typeRecyc;
     private SearchBox search;
     AppCompatTextView Profile,Type,Language,Mood;
+    private String name[] = new String[]{};
+    private String lang[] = new String[]{"English","Hindi","Gujrati","Rajasthani"};
+    private String mood[] = new String[]{"Soothing","Travelling","Happy","Nostalgia","Inspirational","Slow"};
+    private String type[] = new String[]{"Jazz","Rock","Indian Classical Music","Popular Music", "Folk Music","Rap","Country Music","Indie Rock","Pop Music","Techno","Rhythm and Blues","Instrumental","Electronic Dance Music"};
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class SearchFragment extends Fragment implements OnBackPressed {
         Language = (AppCompatTextView) view.findViewById(R.id.language);
         Mood = (AppCompatTextView) view.findViewById(R.id.mood);
         typeRecyc.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
-        typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),"name"));
+        typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
 
         searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         searchRecycler.setAdapter(new SearchAdapter(getActivity()));
@@ -60,33 +63,24 @@ public class SearchFragment extends Fragment implements OnBackPressed {
             @Override public void onResultClick(SearchResult result) { }
             @Override public void onSearchCleared() { }
         });
-        search.setOverflowMenu(R.menu.overflow_menu);
-        search.setOverflowMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.test_menu_item:
-                        Toast.makeText(getActivity(), "Clicked!", Toast.LENGTH_SHORT).show();
-                        return true;
-                }
-                return false;
-            }
-        });
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),"name"));
+                Toast.makeText(getContext(), "name", Toast.LENGTH_SHORT).show();
+                typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
             }});
         Type.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),"type"));
+                Toast.makeText(getContext(), "name", Toast.LENGTH_SHORT).show();
+
+                typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),type));
             }});
         Language.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),"lang"));
+                typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),lang));
             }});
         Mood.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-               typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),"mood"));
+               typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),mood));
             }});
         return view;
     }

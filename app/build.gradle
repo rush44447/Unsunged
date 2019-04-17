@@ -46,6 +46,9 @@ dependencies {
 
     implementation 'com.tramsun.libs:prefcompat:0.7'
     implementation 'com.mutualmobile.android:cardstack:0.5.3'
+
+    implementation 'com.tramsun.libs:prefcompat:0.7'
+    implementation 'com.mutualmobile.android:cardstack:0.5.3'
     implementation 'com.loopeer.library:cardstack:1.0.2'
     implementation project(':library')
     implementation 'com.github.florent37:arclayout:1.0.3'

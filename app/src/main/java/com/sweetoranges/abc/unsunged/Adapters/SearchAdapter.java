@@ -21,19 +21,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private static Context context;
     private ViewHolder viewHolder;
     private String name[] = new String[]{"Favourites","Liked","Current","Playlist1"};
+
     public static Integer[] TEST_DATAS = new Integer[]{
             R.color.color_1,
             R.color.color_2,
             R.color.color_3,
             R.color.color_4,
             R.color.color_5,
-            R.color.color_6,
-            R.color.color_7,
-            R.color.color_8,
-            R.color.color_9,
-            R.color.color_10,
-            R.color.color_11,
-            R.color.color_12,
     };
 
     public SearchAdapter(FragmentActivity activity) { context = activity; }
@@ -48,7 +42,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             super(v);
             text11=(TextView)v.findViewById(R.id.text11);
             card=(CardView)v.findViewById(R.id.card_griditem);
-            mStackView = (CardStackView) v.findViewById(R.id.stackview_main);
+            mStackView = (CardStackView) v.findViewById(R.id.stackview_main2);
             mActionButtonContainer = (LinearLayout)v.findViewById(R.id.button_container);
             mStackView.setItemExpendListener(this);
             mStackView.setAdapter(new TestStackAdapter(context));
