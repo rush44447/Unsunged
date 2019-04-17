@@ -5,7 +5,7 @@
     android:orientation="vertical"
    android:paddingTop="7dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#000">
+    android:background="#80ffffff">
     <RelativeLayout
         android:layout_height="wrap_content"
         android:elevation="8dp"
@@ -30,11 +30,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_griditem"
         android:layout_marginTop="-37dp"
-        android:layout_width="250dp"
-        android:layout_height="380dp"
+        android:layout_width="280dp"
+        android:layout_height="450dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="55dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="6dp">
         <RelativeLayout
@@ -119,14 +119,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             <com.loopeer.cardstack.CardStackView
-                android:id="@+id/stackview_main2"
+                android:id="@+id/stackview_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
                 android:background="@android:color/white"
                 android:clipToPadding="false"
-                android:layout_margin="50dp" />
+                android:layout_margin="10dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="12dp"/>
             <LinearLayout
                 android:id="@+id/button_container"
                 android:layout_width="wrap_content"

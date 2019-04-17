@@ -33,7 +33,14 @@ public class ChallengeFragment extends Fragment implements OnBackPressed, CardSt
             R.color.color_5,
             R.color.color_6,
             R.color.color_7,
-
+            R.color.color_8,
+            R.color.color_9,
+            R.color.color_10,
+            R.color.color_1,
+            R.color.color_2,
+            R.color.color_3,
+            R.color.color_4,
+            R.color.color_5,
     };
 
     @Nullable
@@ -59,6 +66,12 @@ public class ChallengeFragment extends Fragment implements OnBackPressed, CardSt
     @Override public void onBackPressed(){ Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack(); }
 
     @Override public void onItemExpend(boolean expend) {
-        mActionButtonContainer.setVisibility(expend ? View.VISIBLE : View.GONE);
+        mActionButtonContainer.setVisibility(expend ? View.VISIBLE : View.GONE);}
+    public void onPreClick(View view) {
+        mStackView.pre();
+    }
+
+    public void onNextClick(View view) {
+        mStackView.next();
     }
 }
