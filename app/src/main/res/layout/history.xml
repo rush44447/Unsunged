@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+<TextView android:id="@+id/item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="history"
+    android:textStyle="italic"
+    android:textSize="15sp"
+    android:textColor="#000"/>
+    <ImageButton  android:id="@+id/cross"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:rotation="45"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/ic_add_black_24dp"/>
+</LinearLayout>
