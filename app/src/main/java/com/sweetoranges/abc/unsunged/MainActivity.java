@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         context = getApplicationContext();
+        loadFragment(new MyProfileFragment());
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
         mPlayerControl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.profile:
                     loadFragment(new MyProfileFragment());
                     return true;
+                default: loadFragment(new BingeFragment());
             }
             return false; }};
 

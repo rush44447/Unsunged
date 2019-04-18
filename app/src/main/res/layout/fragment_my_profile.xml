@@ -7,6 +7,19 @@
     android:id="@+id/mainlayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MyProfileFragment.MyProfileFragment">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="40dp">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Rushabh"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginStart="20dp" />
+    </androidx.appcompat.widget.Toolbar>
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/layoutContent"
@@ -20,11 +33,10 @@
                 app:arc_height="90dp"
                 android:elevation="5dp">
                 <ImageView
+                    android:id="@+id/backimage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="#1cc" />
-
+                    android:scaleType="centerCrop" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -56,43 +68,104 @@
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:layout_below="@+id/circle"/>
-                    <androidx.appcompat.widget.Toolbar
-                        android:layout_width="match_parent"
-                        android:background="#1aa"
-                        android:layout_height="40dp">
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" Rushabh"
-                            android:textStyle="bold"
-                            android:textSize="22sp"
-                            android:layout_marginStart="20dp" />
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#1aa"
-                            android:layout_marginStart="10dp"
-                            android:src="@drawable/ic_arrow_drop_down_black_24dp"/>
-                    </androidx.appcompat.widget.Toolbar>
-
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="Following"
+                        android:textColor="#000"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp" />
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="43dp"
+                        android:layout_marginStart="20dp"
+                        android:background="#000"/>
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/uploads"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="15"
+                        android:textColor="#000"
+                        android:layout_marginStart="55dp"
+                        android:layout_marginTop="50dp" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textSize="18sp"
-                        android:text="Followings: 15"
-                        android:layout_marginStart="30dp"
+                        android:text="Vote Ins"
+                        android:textColor="#000"
+                        android:layout_marginStart="40dp"
                         android:layout_marginTop="100dp" />
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="123dp"
+                        android:layout_marginStart="20dp"
+                        android:background="#000"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/votes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="15"
+                        android:textColor="#000"
+                        android:layout_marginStart="55dp"
+                        android:layout_marginTop="130dp" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="Uploads"
+                        android:textColor="#000"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="38dp"
+                        android:layout_marginTop="20dp" />
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="43dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"
+                        android:background="#000"/>
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/supports"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:text="Supports: 15"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="60dp"
+                        android:text="5"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="Liked"
+                        android:textColor="#000"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="48dp"
                         android:layout_marginTop="100dp" />
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="123dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"
+                        android:background="#000"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/liked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="130dp"
+                        android:layout_marginEnd="60dp"
+                        android:text="500"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
                     <TextView android:id="@+id/likesper"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

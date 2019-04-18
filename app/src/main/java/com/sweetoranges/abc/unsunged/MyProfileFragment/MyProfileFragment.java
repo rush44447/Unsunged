@@ -34,7 +34,7 @@ import com.sweetoranges.abc.unsunged.Classes.ImageConverter;
 
 public class MyProfileFragment extends Fragment {
     private RecyclerView playlistRv;
-   
+    private ImageView backImage;
     private ImageView circularImageView;
     @Nullable
     @Override
@@ -42,10 +42,12 @@ public class MyProfileFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_my_profile, container, false);
 
         playlistRv= (RecyclerView) view.findViewById(R.id.playlistRecycle);
-        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),R.drawable.imgview);
-        Bitmap circularBitmap = ImageConverter.getRoundedCornerBitmap(bitmap, 100);
-         circularImageView = (ImageView)view.findViewById(R.id.circleView);
+        Bitmap circularBitmap = ImageConverter.getRoundedCornerBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.imgview), 100);
+        Bitmap back = ImageConverter.getRoundedCornerBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.music), 100);
+        circularImageView = (ImageView)view.findViewById(R.id.circleView);
+        backImage = (ImageView)view.findViewById(R.id.backimage);
         circularImageView.setImageBitmap(circularBitmap);
+        backImage.setImageBitmap(back);
         circularImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

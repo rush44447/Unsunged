@@ -16,16 +16,11 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.widget.PopupMenu;
-import com.quinny898.library.persistentsearch.SearchBox;
-import com.quinny898.library.persistentsearch.SearchBox.SearchListener;
-import com.quinny898.library.persistentsearch.SearchResult;
 import java.util.Objects;
 
 public class SearchFragment extends Fragment  {
     private RecyclerView searchRecycler;
     private RecyclerView typeRecyc;
-    private SearchBox search;
     private AppCompatTextView Profile,Type,Language,Mood;
     private String name[] = new String[]{};
     private String lang[] = new String[]{"English","Hindi","Gujrati","Rajasthani"};
@@ -37,7 +32,6 @@ public class SearchFragment extends Fragment  {
         View view=inflater.inflate(R.layout.fragment_search, container, false);
         searchRecycler=(RecyclerView)view.findViewById(R.id.searchRecycler);
         typeRecyc=(RecyclerView)view.findViewById(R.id.typeRecyc);
-        search = (SearchBox) view.findViewById(R.id.searchbox);
         Profile = (AppCompatTextView) view.findViewById(R.id.name);
         Type = (AppCompatTextView) view.findViewById(R.id.type);
         Language = (AppCompatTextView) view.findViewById(R.id.language);
@@ -47,21 +41,7 @@ public class SearchFragment extends Fragment  {
         searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         searchRecycler.setAdapter(new SearchAdapter(getActivity()));
 
-        search.enableVoiceRecognition(getActivity());
-        for(int x = 0; x < 10; x++){
-            SearchResult option = new SearchResult("Result " + Integer.toString(x), getResources().getDrawable(R.drawable.ic_history_black_24dp));
-            search.addSearchable(option);
-        }
-        search.setSearchListener(new SearchListener(){
-            @Override public void onSearchOpened() {}
-            @Override public void onSearchClosed() { }
-            @Override public void onSearchTermChanged(String term) { }
-            @Override public void onSearch(String searchTerm) {
-                Toast.makeText(getActivity(), searchTerm +" Searched", Toast.LENGTH_LONG).show();
-            }
-            @Override public void onResultClick(SearchResult result) { }
-            @Override public void onSearchCleared() { }
-        });
+
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
