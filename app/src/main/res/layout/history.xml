@@ -7,13 +7,13 @@
     android:layout_height="wrap_content"
     android:text="history"
     android:textStyle="italic"
-    android:textSize="15sp"
+    android:textSize="20sp"
     android:textColor="#000"/>
     <ImageButton  android:id="@+id/cross"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:rotation="45"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="6dp"
         android:src="@drawable/ic_add_black_24dp"/>
 </LinearLayout>

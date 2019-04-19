@@ -40,7 +40,6 @@ public class ChallengeFragment extends Fragment implements  CardStackView.ItemEx
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_challenge, container, false);
         mStackView = (CardStackView) view.findViewById(R.id.stackview_main);
-        mActionButtonContainer = (LinearLayout)     view.findViewById(R.id.button_container);
         mStackView.setItemExpendListener(this);
         mTestStackAdapter = new TestStackAdapter(getActivity());
         mStackView.setAdapter(mTestStackAdapter);

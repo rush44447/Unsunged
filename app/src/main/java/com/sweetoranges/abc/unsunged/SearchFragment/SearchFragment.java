@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.sweetoranges.abc.unsunged.Adapters.MusicTypeAdapter;
@@ -25,26 +26,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class SearchFragment extends Fragment  {
-    private RecyclerView searchRecycler,search,typeRecyc;
-    private AppCompatTextView Profile,Type,Language,Mood;
+    public RecyclerView searchRecycler,search,typeRecyc;
+    public AppCompatTextView Profile,Type,Language,Mood;
     EditText edtsearch;
-    private NotesAdapter mAdapter;
-    private List<Note> notesList = new ArrayList<>();
-    private DatabaseHelper db = new DatabaseHelper(getActivity());
+    Button btn;
+    public List<Note> notesList = new ArrayList<>();
+    public DatabaseHelper db = new DatabaseHelper(getActivity());
 
-    private String name[] = new String[]{};
-    private String lang[] = new String[]{"English","Hindi","Gujrati","Rajasthani"};
-    private String mood[] = new String[]{"Soothing","Travelling","Happy","Nostalgia","Inspirational","Slow"};
-    private String type[] = new String[]{"Jazz","Rock","Indian Classical Music","Popular Music", "Folk Music","Rap","Country Music","Indie Rock","Pop Music","Techno","Rhythm and Blues","Instrumental","Electronic Dance Music"};
+    public String name[] = new String[]{};
+    public String lang[] = new String[]{"English","Hindi","Gujrati","Rajasthani"};
+    public String mood[] = new String[]{"Soothing","Travelling","Happy","Nostalgia","Inspirational","Slow"};
+    public String type[] = new String[]{"Jazz","Rock","Indian Classical Music","Popular Music", "Folk Music","Rap","Country Music","Indie Rock","Pop Music","Techno","Rhythm and Blues","Instrumental","Electronic Dance Music"};
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_search, container, false);
         searchRecycler=(RecyclerView)view.findViewById(R.id.searchRecycler);
         search=(RecyclerView)view.findViewById(R.id.search);
+        btn=(Button)view.findViewById(R.id.btn);
         edtsearch=(EditText)view.findViewById(R.id.editsearch);
         typeRecyc=(RecyclerView)view.findViewById(R.id.typeRecyc);
         Profile = (AppCompatTextView) view.findViewById(R.id.name);
@@ -55,7 +56,6 @@ public class SearchFragment extends Fragment  {
         typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
         searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         searchRecycler.setAdapter(new SearchAdapter(getActivity()));
-
 
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -75,44 +75,45 @@ public class SearchFragment extends Fragment  {
             }});
         edtsearch.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                notesList.addAll(db.getAllNotes());
-
-                searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
-                searchRecycler.setItemAnimator(new DefaultItemAnimator());
-                searchRecycler.setAdapter(mAdapter);
-
-                //  searchRecycler.setAdapter(new SearchAdapter(getActivity()));
+//        try{notesList.addAll(db.getAllNotes());    maybe issue is ghere in addall
+//             Toast.makeText(getActivity(), notesList.get(0).getNote(), Toast.LENGTH_SHORT).show();
+//
+//        }catch (Exception e){
+//            Toast.makeText(getActivity(), "hrere", Toast.LENGTH_SHORT).show();
+//        }
+                search.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
+                //  search.setAdapter(new NotesAdapter(getActivity(),notesList));
             }});
-        edtsearch.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // If the event is a key-down event on the "enter" button
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    createNote(edtsearch.getText().toString());
-                    return true;
-                }
-                return false;
-            }
-        });
-        db = new DatabaseHelper(getActivity());
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                createNote(edtsearch.getText().toString());
+
+            }});
+//        edtsearch.setOnKeyListener(new View.OnKeyListener() {
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                // If the event is a key-down event on the "enter" button
+//                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+//                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+//                    createNote(edtsearch.getText().toString());
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
         return view;
     }
 
     private void createNote(String note) {
-        // inserting note in db and getting
-        // newly inserted note id
-        long id = db.insertNote(note);
-
-        // get the newly inserted note from db
+            long id = db.insertNote(note);
         Note n = db.getNote(id);
-
         if (n != null) {
-            // adding new note to array list at 0 position
             notesList.add(0, n);
-
-            // refreshing the list
-            mAdapter.notifyDataSetChanged();
-
+          //  mAdapter.notifyDataSetChanged();
         }
     }
 }
+// try {
+//
+//        }catch(Exception e){
+//            Toast.makeText(getActivity(), "err", Toast.LENGTH_SHORT).show();
+//        }
