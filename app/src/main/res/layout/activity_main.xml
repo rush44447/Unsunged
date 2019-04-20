@@ -28,8 +28,8 @@
         android:layout_height="44dp"
         android:background="@drawable/round_bottom_nav"
         app:elevation="4dp"
-        app:itemIconTint="#555"
-        app:itemTextColor="#555"
+        app:itemIconTint="#000"
+        app:itemTextColor="#000"
         app:menu="@menu/navigation" />
         <RelativeLayout
             android:layout_width="match_parent"
