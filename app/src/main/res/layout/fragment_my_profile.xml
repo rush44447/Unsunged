@@ -9,7 +9,7 @@
     tools:context=".MyProfileFragment.MyProfileFragment">
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:background="@color/colorPrimaryDark"
+        android:background="#80dddddd"
         android:layout_height="40dp">
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/name"

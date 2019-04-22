@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.sweetoranges.abc.unsunged.R;
-import com.sweetoranges.abc.unsunged.Sqlite.Shop;
+import com.sweetoranges.abc.unsunged.Sqlite.Note;
 
 import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
 
     public Context context;
-    public List<Shop> notesList;
+    private List<Note> notesList;
+
+
+    public NotesAdapter(Context context, List<Note> notesList) {
+        this.context = context;
+        this.notesList = notesList;
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView note;
@@ -29,10 +35,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         }
     }
 
-    public NotesAdapter(Context context, List<Shop> notesList) {
-        this.context = context;
-        this.notesList = notesList;
-    }
+//    public NotesAdapter(Context context, List<Shop> notesList) {
+//        this.context = context;
+//        this.notesList = notesList;
+//    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,10 +46,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
         return new MyViewHolder(itemView);
     }
-
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.note.setText(notesList.get(position).getName());
+       // holder.note.setText(notesList.get(position).getName());
         holder.cross.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +60,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return 3;
+        return notesList.size();
     }
 }

@@ -18,7 +18,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="80dp"
         android:elevation="4dp"
         app:shape_circle_borderColor="@android:color/black"
         app:shape_circle_borderWidth="2dp">

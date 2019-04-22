@@ -50,16 +50,15 @@
         app:progress_color="#80CBC4"
         app:progress_startAngle="-90" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:elevation="4dp"
         android:layout_toEndOf="@+id/album_art"
-        android:layout_below="@+id/album_art"
-        android:layout_marginTop="-62dp"
-        android:layout_marginLeft="-62dp"
+        android:layout_alignBottom="@+id/album_art"
+        android:layout_marginStart="-25dp"
         android:src="@drawable/ic_video_library_black_24dp"
-        app:backgroundTint="#00796B"
+        app:backgroundTint="#000"
         app:rippleColor="#80CBC4" />
     <TextView android:id="@+id/songname"
         android:layout_width="wrap_content"
