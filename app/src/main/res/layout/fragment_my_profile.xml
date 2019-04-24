@@ -7,19 +7,6 @@
     android:id="@+id/mainlayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MyProfileFragment.MyProfileFragment">
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:background="#80dddddd"
-        android:layout_height="40dp">
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" Rushabh"
-            android:textStyle="bold"
-            android:textSize="22sp"
-            android:layout_marginStart="20dp" />
-    </androidx.appcompat.widget.Toolbar>
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/layoutContent"
