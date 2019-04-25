@@ -35,7 +35,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
-    private ImageView mPlayerControl;
+    private ImageView mPlayerControl,Previous,Next;
     float x1,y1;
     float x2,y2;
     Context context;
@@ -49,10 +49,25 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
         loadFragment(new BingeFragment());
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
+        Previous = (ImageView) findViewById(R.id.previous);
+        Next = (ImageView) findViewById(R.id.next);
+
         mPlayerControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 togglePlayPause();            // start playing
+            }
+        });
+        Previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePlayPause();
+            }
+        });
+        Next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePlayPause();
             }
         });
         mMediaPlayer = new MediaPlayer();

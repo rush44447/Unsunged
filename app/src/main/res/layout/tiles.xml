@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:paddingTop="7dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#80ffffff">
+  >
     <RelativeLayout
         android:layout_height="wrap_content"
         android:elevation="8dp"
@@ -78,7 +78,7 @@
                         android:text="Masterpiece: " />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -87,13 +87,13 @@
                         android:text="Uploads:   " />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="15dp"
                         android:layout_marginTop="30dp"
-                        android:layout_below="@+id/textView4"
+                        android:layout_below="@+id/textView3"
                         android:text="Likesper:   " />
                     <View
                         android:layout_width="match_parent"

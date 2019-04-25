@@ -7,9 +7,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/storycircle"
         android:layout_width="80dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
         android:layout_height="80dp"
         android:elevation="4dp"
         app:shape_circle_borderColor="@android:color/black"
@@ -26,6 +25,7 @@
         android:layout_below="@+id/storycircle"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
+        android:textColor="#000"
         android:layout_marginTop="5dp"
         android:text="rushabh"/>
 </RelativeLayout>

@@ -43,6 +43,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.github.aliab:circular-music-progressbar:v1.3.0'
     implementation 'com.github.Ferfalk:SimpleSearchView:0.1.4'
+    implementation 'com.github.Ferfalk:SimpleSearchView:0.1.4'
     implementation 'com.tramsun.libs:prefcompat:0.7'
     implementation 'com.github.DingMouRen:LayoutManagerGroup:1e6f4f96eb'
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'

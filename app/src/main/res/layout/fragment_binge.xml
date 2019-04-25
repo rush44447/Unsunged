@@ -114,6 +114,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_margin="5dp"
+                android:padding="5dp"
                 android:layout_height="80dp"
                 android:layout_alignStart="@+id/firsthero"
                 android:layout_below="@+id/firsthero">
@@ -207,7 +208,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:textColor="#666600"
             android:shadowColor="#000"
             android:text="  Albums of your Followings"/>
@@ -221,7 +222,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:textColor="#666600"
             android:shadowColor="#000"
             android:text="  Shared to you in form of album named after sharer"/>
