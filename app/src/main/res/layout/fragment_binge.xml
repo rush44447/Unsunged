@@ -22,7 +22,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_height="90dp"
+            android:layout_height="110dp"
             android:id="@+id/story"/>
         <TextView
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/firsthero"
                 android:layout_width="200dp"
-                android:layout_height="140dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="#000"
                 app:cardCornerRadius="10dp"
@@ -52,17 +52,20 @@
                 app:cardPreventCornerOverlap="false">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="140dp"
                     android:src="@drawable/imgview"/>
-                <TextView
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="30dp"
+                 android:background="@drawable/shape_rectangle_with_radius"
+                 android:layout_marginTop="140dp"/>
+                <ImageButton
                     android:layout_width="wrap_content"
-                    android:textStyle="bold"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="110dp"
-                    android:layout_marginStart="8dp"
-                    android:textSize="19sp"
-                    android:textColor="#F0E68C"
-                    android:text="I am a Hero"/>
+                    android:src="@drawable/ic_arrow_drop_up_black_24dp"
+                    android:background="#eee"
+                    android:layout_marginTop="140dp"
+                    android:layout_marginStart="90dp"/>
             </androidx.cardview.widget.CardView>
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
@@ -86,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="8dp"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/firsthero"
                 android:layout_alignBottom="@+id/firsthero"
                 app:cardCornerRadius="10dp"
@@ -99,31 +102,27 @@
                 app:cardPreventCornerOverlap="false">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:src="@drawable/sample"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_marginTop="65dp"
-                    android:layout_marginStart="8dp"
-                    android:textColor="#F0E68C"
-                    android:text="I am a Hero"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/shape_rectangle_with_radius"
+                    android:layout_marginTop="100dp"/>
             </androidx.cardview.widget.CardView>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_margin="5dp"
                 android:padding="5dp"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/firsthero"
                 android:layout_below="@+id/firsthero">
             <androidx.cardview.widget.CardView
                 android:id="@+id/thirdhero"
                 android:layout_width="0dp"
                 android:layout_weight=".33"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="10dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
                 android:elevation="8dp"
                 android:layout_marginEnd="10dp"
                 android:divider="@android:color/transparent"
@@ -134,24 +133,20 @@
                 app:cardPreventCornerOverlap="false">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="80dp"
                     android:src="@drawable/sample"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="48dp"
-                    android:textColor="#FFFF99"
-                    android:layout_marginStart="6dp"
-                    android:textSize="13sp"
-                    android:text="I am a Hero"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/shape_rectangle_with_radius"
+                    android:layout_marginTop="80dp"/>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:id="@+id/forthhero"
                 android:layout_width="0dp"
                 android:layout_weight=".33"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="10dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
                 android:elevation="8dp"
                 android:layout_marginEnd="10dp"
                 android:divider="@android:color/transparent"
@@ -162,24 +157,20 @@
                 app:cardPreventCornerOverlap="false">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="80dp"
                     android:src="@drawable/sample"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="#FFFF99"
-                    android:layout_marginStart="6dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="48dp"
-                    android:textSize="13sp"
-                    android:text="I am a Hero"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/shape_rectangle_with_radius"
+                    android:layout_marginTop="80dp"/>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:id="@+id/fisthhero"
                 android:layout_width="0dp"
                 android:layout_weight=".33"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="10dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
                 android:elevation="8dp"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0.0px"
@@ -189,17 +180,13 @@
                 app:cardPreventCornerOverlap="false">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="80dp"
                     android:src="@drawable/sample"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:textStyle="bold"
-                    android:layout_marginStart="6dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="48dp"
-                    android:textSize="13sp"
-                    android:textColor="#F0E68C"
-                    android:text="I am a Hero"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/shape_rectangle_with_radius"
+                    android:layout_marginTop="80dp"/>
             </androidx.cardview.widget.CardView>
             </LinearLayout>
         </RelativeLayout>

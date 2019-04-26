@@ -56,6 +56,6 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         View v = LayoutInflater.from(context).inflate(R.layout.freshstory, parent, false);
 
         return new ViewHolder(v); }
-    @Override public int getItemCount(){ return 3;  }
+    @Override public int getItemCount(){ return 6;  }
 
 }

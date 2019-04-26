@@ -20,9 +20,7 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
         container.startShimmerAnimation();
-       // Intent i = new Intent(Dashboard.this,MainActivity.class);
-        //startActivity(i);
-        //overridePendingTransition(R.anim.slide_from_down, R.anim.slide_upwards);
+
     }
 
 }

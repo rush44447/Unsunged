@@ -12,9 +12,11 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.sweetoranges.abc.unsunged.ChallengeFragment.ChallengeFragment;
 import com.sweetoranges.abc.unsunged.BingeFragment.BingeFragment;
 import com.sweetoranges.abc.unsunged.Classes.ApiClient;
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     float x1,y1;
     float x2,y2;
     Context context;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +56,47 @@ public class MainActivity extends AppCompatActivity {
         Previous = (ImageView) findViewById(R.id.previous);
         Next = (ImageView) findViewById(R.id.next);
 
+
+        LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
+        BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setHideable(false);
+        bottomSheetBehavior.setPeekHeight(110);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+
+
+       // LinearLayout llBottomSheet = (LinearLayout) findViewById(R.id.bottom_sheet);
+
+       // BottomSheetBehavior<LinearLayout> bottomSheetBehavior;
+       // bottomSheetBehavior = BottomSheetBehavior.from((LinearLayout) findViewById(R.id.bottom_sheet));
+
+
+
+
+//// change the state of the bottom sheet
+//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+//
+//// set the peek height
+//        bottomSheetBehavior.setPeekHeight(340);
+//
+//// set hideable or not
+//        bottomSheetBehavior.setHideable(false);
+//
+//// set callback for changes
+//        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+//            @Override
+//            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+//
+//            }
+//
+//            @Override
+//            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+//
+//            }
+//        });
+//
         mPlayerControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,31 +127,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.linear).setOnTouchListener(new View.OnTouchListener()
-        {int prevX,prevY;
-            @Override
-            public boolean onTouch(final View v,final MotionEvent event)
-            {
-                final FrameLayout.LayoutParams par=(FrameLayout.LayoutParams)v.getLayoutParams();
-                switch(event.getAction())
-                {
-                    case MotionEvent.ACTION_MOVE:
-                    {
-                        par.topMargin+=(int)event.getRawY()-prevY;
-                        prevY=(int)event.getRawY();
-                        v.setLayoutParams(par);
-                        return true;
-                    }
-                    case MotionEvent.ACTION_UP:
-                    {
-                        par.topMargin+=(int)event.getRawY()-prevY;
-                        v.setLayoutParams(par);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
+//        findViewById(R.id.linear).setOnTouchListener(new View.OnTouchListener()
+//        {int prevX,prevY;
+//            @Override
+//            public boolean onTouch(final View v,final MotionEvent event)
+//            {
+//                final FrameLayout.LayoutParams par=(FrameLayout.LayoutParams)v.getLayoutParams();
+//                switch(event.getAction())
+//                {
+//                    case MotionEvent.ACTION_MOVE:
+//                    {
+//                        par.topMargin+=(int)event.getRawY()-prevY;
+//                        prevY=(int)event.getRawY();
+//                        v.setLayoutParams(par);
+//                        return true;
+//                    }
+//                    case MotionEvent.ACTION_UP:
+//                    {
+//                        par.topMargin+=(int)event.getRawY()-prevY;
+//                        v.setLayoutParams(par);
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
         callMusicDetail();
     }
 
@@ -181,7 +226,11 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    @Override public void onBackPressed() { super.onBackPressed(); }
+    @Override public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);}
 
     public boolean onTouchEvent(MotionEvent touchevent)
     { switch (touchevent.getAction())
@@ -189,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
             { x2 = touchevent.getX();
               y2 = touchevent.getY();
                 if (y1 < y2+30.00)
-                { Intent i = new Intent(MainActivity.this,Dashboard.class);
+                { Intent i = new Intent(this,Dashboard.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_from_upwards, R.anim.slide_down);}
                 break; }

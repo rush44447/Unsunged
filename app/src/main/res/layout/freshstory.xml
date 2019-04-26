@@ -24,8 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/storycircle"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold"
         android:textColor="#000"
-        android:layout_marginTop="5dp"
         android:text="rushabh"/>
 </RelativeLayout>
