@@ -8,8 +8,9 @@
     android:orientation="vertical"
     app:behavior_hideable="true"
     app:behavior_peekHeight="80dp"
+    android:animateLayoutChanges="true"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-    <RelativeLayout
+    <RelativeLayout android:id="@+id/smallcontroller"
         android:layout_width="match_parent"
         android:background="#000"
         android:layout_height="wrap_content">

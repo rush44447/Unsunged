@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".BingeFragment.BingeFragment">
-    <LinearLayout
+    <LinearLayout android:background="@drawable/cross_fade_background"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
@@ -22,19 +22,21 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_height="110dp"
+            android:layout_height="125dp"
+            android:layoutDirection="rtl"
             android:id="@+id/story"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:textColor="#666600"
             android:shadowColor="#000"
             android:text="  Unsunged Heroes of the week"/>
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
             android:layout_height="wrap_content">
             <androidx.cardview.widget.CardView
                 android:id="@+id/firsthero"
@@ -42,13 +44,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="#000"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 android:elevation="8dp"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0.0px"
                 android:clipToPadding="false"
                 android:clipChildren="false"
-                app:cardElevation="10dp"
+                app:cardElevation="1dp"
                 app:cardPreventCornerOverlap="false">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -56,16 +58,15 @@
                     android:src="@drawable/imgview"/>
              <View
                  android:layout_width="match_parent"
-                 android:layout_height="30dp"
-                 android:background="@drawable/shape_rectangle_with_radius"
+                 android:layout_height="20dp"
+                 android:background="@drawable/fadebottom"
                  android:layout_marginTop="140dp"/>
                 <ImageButton
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_drop_up_black_24dp"
-                    android:background="#eee"
-                    android:layout_marginTop="140dp"
-                    android:layout_marginStart="90dp"/>
+                    android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+                    android:background="#80fff"
+                    android:layout_marginTop="134dp" />
             </androidx.cardview.widget.CardView>
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
@@ -92,13 +93,13 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/firsthero"
                 android:layout_alignBottom="@+id/firsthero"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 android:elevation="8dp"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0.0px"
                 android:clipToPadding="false"
                 android:clipChildren="false"
-                app:cardElevation="10dp"
+                app:cardElevation="1dp"
                 app:cardPreventCornerOverlap="false">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -106,13 +107,22 @@
                     android:src="@drawable/sample"/>
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:background="@drawable/shape_rectangle_with_radius"
-                    android:layout_marginTop="100dp"/>
+                    android:layout_height="20dp"
+                    android:background="@drawable/fadebottom"
+                    android:layout_marginTop="104dp"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+                    android:background="#80fff"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginStart="78dp"/>
             </androidx.cardview.widget.CardView>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="15dp"
                 android:padding="5dp"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/firsthero"
@@ -122,14 +132,14 @@
                 android:layout_width="0dp"
                 android:layout_weight=".33"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
+                app:cardCornerRadius="7dp"
                 android:elevation="8dp"
                 android:layout_marginEnd="10dp"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0.0px"
                 android:clipToPadding="false"
                 android:clipChildren="false"
-                app:cardElevation="10dp"
+                app:cardElevation="1dp"
                 app:cardPreventCornerOverlap="false">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -140,20 +150,27 @@
                     android:layout_height="30dp"
                     android:background="@drawable/shape_rectangle_with_radius"
                     android:layout_marginTop="80dp"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+                    android:background="#eee"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginStart="52dp"/>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:id="@+id/forthhero"
                 android:layout_width="0dp"
                 android:layout_weight=".33"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
+                app:cardCornerRadius="7dp"
                 android:elevation="8dp"
                 android:layout_marginEnd="10dp"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0.0px"
                 android:clipToPadding="false"
                 android:clipChildren="false"
-                app:cardElevation="10dp"
+                app:cardElevation="1dp"
                 app:cardPreventCornerOverlap="false">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -164,19 +181,26 @@
                     android:layout_height="30dp"
                     android:background="@drawable/shape_rectangle_with_radius"
                     android:layout_marginTop="80dp"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+                    android:background="#eee"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginStart="52dp"/>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:id="@+id/fisthhero"
                 android:layout_width="0dp"
                 android:layout_weight=".33"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
+                app:cardCornerRadius="7dp"
                 android:elevation="8dp"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0.0px"
                 android:clipToPadding="false"
                 android:clipChildren="false"
-                app:cardElevation="10dp"
+                app:cardElevation="1dp"
                 app:cardPreventCornerOverlap="false">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -187,6 +211,13 @@
                     android:layout_height="30dp"
                     android:background="@drawable/shape_rectangle_with_radius"
                     android:layout_marginTop="80dp"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+                    android:background="#eee"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginStart="52dp"/>
             </androidx.cardview.widget.CardView>
             </LinearLayout>
         </RelativeLayout>
@@ -195,7 +226,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:textColor="#666600"
             android:shadowColor="#000"
             android:text="  Albums of your Followings"/>
@@ -203,7 +234,8 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="180dp"
-            android:id="@+id/albums"/>
+            android:id="@+id/albums"
+            android:layout_marginTop="15dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

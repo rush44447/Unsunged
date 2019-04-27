@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     float x1,y1;
     float x2,y2;
     Context context;
-
+    RelativeLayout Controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,40 +56,21 @@ public class MainActivity extends AppCompatActivity {
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
         Previous = (ImageView) findViewById(R.id.previous);
         Next = (ImageView) findViewById(R.id.next);
-
+        Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
 
         LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(false);
         bottomSheetBehavior.setPeekHeight(110);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-
-
-
-       // LinearLayout llBottomSheet = (LinearLayout) findViewById(R.id.bottom_sheet);
-
-       // BottomSheetBehavior<LinearLayout> bottomSheetBehavior;
-       // bottomSheetBehavior = BottomSheetBehavior.from((LinearLayout) findViewById(R.id.bottom_sheet));
-
-
-
-
-//// change the state of the bottom sheet
-//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-//
-//// set the peek height
-//        bottomSheetBehavior.setPeekHeight(340);
-//
-//// set hideable or not
-//        bottomSheetBehavior.setHideable(false);
-//
+
 //// set callback for changes
 //        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
 //            @Override
 //            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-//
+//             Controller.setVisibility(View.GONE);
 //            }
 //
 //            @Override

@@ -24,6 +24,7 @@ import com.sweetoranges.abc.unsunged.Search.SearchTypeFragment;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends Fragment {
+    AppCompatButton Name,Mood,Language,Type;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -46,6 +48,10 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_search, container, false);
+           Name=(AppCompatButton)view.findViewById(R.id.name);
+           Type=(AppCompatButton)view.findViewById(R.id.type);
+           Language=(AppCompatButton)view.findViewById(R.id.language);
+           Mood=(AppCompatButton)view.findViewById(R.id.mood);
 
 
         return view;
