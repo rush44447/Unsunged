@@ -3,7 +3,7 @@ package com.sweetoranges.abc.unsunged.Classes;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApiClient {
+public class ApiClient {   // enter base url; here
 
     public static final String BASE_URL = "https://api.clyp.it/";
     private static Retrofit retrofit = null;

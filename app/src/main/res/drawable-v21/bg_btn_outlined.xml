@@ -9,7 +9,7 @@
         <item>
             <shape>
                 <stroke
-                    android:width="2dp"
+                    android:width="4dp"
                     android:color="@color/abc_btn_colored_borderless_text_material"/>
                 <corners android:radius="@dimen/abc_control_corner_material"/>
                 <padding

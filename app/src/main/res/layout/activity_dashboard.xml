@@ -35,6 +35,11 @@
             android:layout_marginTop="38dp"
             android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
     </com.facebook.shimmer.ShimmerFrameLayout>
+    <RelativeLayout android:id="@+id/audionVideo"
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:paddingBottom="60dp"
+        android:layout_height="wrap_content">
     <info.abdolahi.CircularMusicProgressBar
         android:id="@+id/album_art"
         android:layout_width="240dp"
@@ -42,7 +47,6 @@
         android:rotation="50"
         android:src="@drawable/imgview"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
         app:border_color="#00796B"
         app:border_width="2dp"
         app:centercircle_diammterer=".97"
@@ -51,6 +55,7 @@
         app:progress_startAngle="-90" />
 
     <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ToVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="4dp"
@@ -60,13 +65,14 @@
         android:src="@drawable/ic_video_library_black_24dp"
         app:backgroundTint="#000"
         app:rippleColor="#80CBC4" />
+    </RelativeLayout>
     <TextView android:id="@+id/songname"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:textColor="#ffffff"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/album_art"
+        android:layout_below="@+id/audionVideo"
         android:textSize="22sp"
         android:textStyle="bold"
         android:text="Better Not"/>
@@ -76,7 +82,7 @@
         android:textColor="#ffffff"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
-        android:layout_below="@+id/album_art"
+        android:layout_below="@+id/audionVideo"
         android:textSize="18sp"
         android:textStyle="bold"
         android:text="Louis The Child:"/>
@@ -110,13 +116,13 @@
         android:layout_height="wrap_content">
         <ImageView
             android:src="@drawable/ic_skip_previous_black_24dp"
-            android:id="@+id/previous"
+            android:id="@+id/previous_p"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_toStartOf="@+id/player_control" />
+            android:layout_toStartOf="@+id/player_control_p" />
         <ImageView
             android:src="@drawable/ic_play_arrow_black_24dp"
-            android:id="@+id/player_control"
+            android:id="@+id/player_control_p"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginStart="10dp"
@@ -124,13 +130,13 @@
             android:layout_centerHorizontal="true" />
         <ImageView
             android:src="@drawable/ic_skip_next_black_24dp"
-            android:id="@+id/next"
+            android:id="@+id/next_p"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_toEndOf="@+id/player_control" />
+            android:layout_toEndOf="@+id/player_control_p" />
         <ImageView
             android:src="@drawable/ic_repeat_white_24dp"
-            android:id="@+id/repeat"
+            android:id="@+id/repeat_p"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
@@ -138,7 +144,7 @@
             android:layout_marginEnd="30dp"/>
         <ImageView
             android:src="@drawable/ic_shuffle_white_24dp"
-            android:id="@+id/shuffle"
+            android:id="@+id/shuffle_p"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"

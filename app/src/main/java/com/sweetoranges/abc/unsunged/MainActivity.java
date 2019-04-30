@@ -61,23 +61,23 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(false);
-        bottomSheetBehavior.setPeekHeight(110);
+      //  bottomSheetBehavior.setPeekHeight(1000);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
 //// set callback for changes
-//        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-//            @Override
-//            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-//             Controller.setVisibility(View.GONE);
-//            }
-//
-//            @Override
-//            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-//
-//            }
-//        });
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                Toast.makeText(MainActivity.this, "changed", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
 //
         mPlayerControl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,32 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp);
             }
         });
-
-//        findViewById(R.id.linear).setOnTouchListener(new View.OnTouchListener()
-//        {int prevX,prevY;
-//            @Override
-//            public boolean onTouch(final View v,final MotionEvent event)
-//            {
-//                final FrameLayout.LayoutParams par=(FrameLayout.LayoutParams)v.getLayoutParams();
-//                switch(event.getAction())
-//                {
-//                    case MotionEvent.ACTION_MOVE:
-//                    {
-//                        par.topMargin+=(int)event.getRawY()-prevY;
-//                        prevY=(int)event.getRawY();
-//                        v.setLayoutParams(par);
-//                        return true;
-//                    }
-//                    case MotionEvent.ACTION_UP:
-//                    {
-//                        par.topMargin+=(int)event.getRawY()-prevY;
-//                        v.setLayoutParams(par);
-//                        return true;
-//                    }
-//                }
-//                return false;
-//            }
-//        });
         callMusicDetail();
     }
 
@@ -213,19 +187,5 @@ public class MainActivity extends AppCompatActivity {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);}
-
-    public boolean onTouchEvent(MotionEvent touchevent)
-    { switch (touchevent.getAction())
-        { case MotionEvent.ACTION_UP:
-            { x2 = touchevent.getX();
-              y2 = touchevent.getY();
-                if (y1 < y2+30.00)
-                { Intent i = new Intent(this,Dashboard.class);
-                    startActivity(i);
-                    overridePendingTransition(R.anim.slide_from_upwards, R.anim.slide_down);}
-                break; }
-                default:
-                    Toast.makeText(context, "", Toast.LENGTH_SHORT);
-        }return false; }
 
 }

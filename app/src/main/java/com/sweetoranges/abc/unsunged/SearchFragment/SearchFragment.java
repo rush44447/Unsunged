@@ -10,27 +10,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.ferfalk.simplesearchview.SimpleSearchView;
-import com.ferfalk.simplesearchview.utils.DimensUtils;
-import com.google.android.material.tabs.TabLayout;
-import com.sweetoranges.abc.unsunged.MainActivity;
 import com.sweetoranges.abc.unsunged.R;
-import com.sweetoranges.abc.unsunged.Search.SearchLanguageFragment;
-import com.sweetoranges.abc.unsunged.Search.SearchProfileFragment;
-import com.sweetoranges.abc.unsunged.Search.SearchTypeFragment;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import java.util.ArrayList;
 import java.util.List;
 
