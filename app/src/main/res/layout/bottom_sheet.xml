@@ -14,13 +14,19 @@
         android:layout_width="match_parent"
         android:background="#000"
         android:layout_height="wrap_content">
-        <TextView
+        <TextView android:id="@+id/nameOfSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/addtoplay"
-            android:layout_margin="8dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
             android:textColor="#fff"
-            android:text="Better Not"/>
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:text="Louis the child: Better Not"/>
 
         <ImageView
             android:src="@drawable/ic_playlist_add_black_24dp"
@@ -66,6 +72,10 @@
             android:layout_toEndOf="@+id/next"
             android:layout_margin="4dp"
             />
+        <View android:id="@+id/hiderView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#000"/>
     </RelativeLayout>
     <include layout="@layout/activity_dashboard"/>
 </LinearLayout>

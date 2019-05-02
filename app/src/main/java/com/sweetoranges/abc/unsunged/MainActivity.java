@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,6 +31,7 @@ import java.io.IOException;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import retrofit2.Call;
@@ -37,13 +39,12 @@ import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
+    public static ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
     private MediaPlayer mMediaPlayer;
-    private ImageView mPlayerControl,Previous,Next;
-    float x1,y1;
-    float x2,y2;
+    private ImageView mPlayerControl,Previous,Next,mPlayerControlBig;
     Context context;
     RelativeLayout Controller;
-
+    View Hider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,84 +55,106 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
         loadFragment(new BingeFragment());
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
-        Previous = (ImageView) findViewById(R.id.previous);
-        Next = (ImageView) findViewById(R.id.next);
-        Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
+        mPlayerControlBig = (ImageView) findViewById(R.id.player_control_p);
 
+        Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
+        TextView tv = (TextView) this.findViewById(R.id.nameOfSong);
+        Hider=(View)findViewById(R.id.hiderView);
+        tv.setSelected(true);
         LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(false);
-      //  bottomSheetBehavior.setPeekHeight(1000);
+        bottomSheetBehavior.setPeekHeight(100);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
 //// set callback for changes
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            int Sheetstate;
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                Toast.makeText(MainActivity.this, "changed", Toast.LENGTH_SHORT).show();
+               Sheetstate = getStateAsString(newState);
+               if(Sheetstate==0){//collapsed
+
+               }
+                if(Sheetstate==2){//expanded
+                    if (mMediaPlayer.isPlaying()) {
+                        mPlayerControlBig.setImageResource(R.drawable.ic_pause_black_24dp);
+                    } else {
+                        mPlayerControlBig.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                    }
+                }
             }
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
+                Hider.setAlpha(slideOffset);
+//               if(Sheetstate==4){Hider.setAlpha(slideOffset);}
+//                if(Sheetstate==1){Hider.setAlpha(Float.parseFloat("1")-slideOffset);}
             }
         });
 //
-        mPlayerControl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                togglePlayPause();            // start playing
-            }
-        });
-        Previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                togglePlayPause();
-            }
-        });
-        Next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                togglePlayPause();
-            }
-        });
+        findViewById(R.id.player_control).setOnClickListener(smallPlay);
+        findViewById(R.id.previous).setOnClickListener(smallPrevious);
+        findViewById(R.id.next).setOnClickListener(smallNext);
+
+        findViewById(R.id.player_control_p).setOnClickListener(bigPlay);
+        findViewById(R.id.previous_p).setOnClickListener(bigPrevious);
+        findViewById(R.id.next_p).setOnClickListener(bigNext);
+
+        findViewById(R.id.ToVideo).setOnClickListener(startVideo);
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override public void onPrepared(MediaPlayer mp) { }});
+        mMediaPlayer.setOnPreparedListener(mp -> { });
 
-        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-            }
-        });
+        mMediaPlayer.setOnCompletionListener(mp -> mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp));
         callMusicDetail();
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    final View.OnClickListener smallPlay = v -> { togglePlayPause(); };
+    final View.OnClickListener smallPrevious = v -> { togglePlayPause(); };
+    final View.OnClickListener smallNext = v -> { togglePlayPause(); };
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.binge:
-                    loadFragment(new BingeFragment());
-                    return true;
-                case R.id.search:
-                    loadFragment(new SearchFragment());
-                    return true;
-                case R.id.type:
-                    loadFragment(new ChallengeFragment());
-                    return true;
-                case R.id.profile:
-                    loadFragment(new MyProfileFragment());
-                    return true;
-                default: loadFragment(new BingeFragment());
-            }
-            return false; }};
+    final View.OnClickListener bigPlay = v -> { togglePlayPause(); };
+    final View.OnClickListener bigPrevious = v -> { togglePlayPause(); };
+    final View.OnClickListener bigNext = v -> { togglePlayPause(); };
+
+    final View.OnClickListener startVideo = v -> {
+        Toast.makeText(context, "start video", Toast.LENGTH_SHORT).show();
+    };
+    public static int getStateAsString(int newState) {
+        switch (newState) {
+            case BottomSheetBehavior.STATE_COLLAPSED:
+                return 0;
+            case BottomSheetBehavior.STATE_DRAGGING:
+                return 1;
+            case BottomSheetBehavior.STATE_EXPANDED:
+                return 2;
+            case BottomSheetBehavior.STATE_HIDDEN:
+                return 3;
+            case BottomSheetBehavior.STATE_SETTLING:
+                return 4;
+        }
+        return 5;
+    }
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
+                switch (item.getItemId()) {
+                    case R.id.binge:
+                        loadFragment(new BingeFragment());
+                        return true;
+                    case R.id.search:
+                        loadFragment(new SearchFragment());
+                        return true;
+                    case R.id.type:
+                        loadFragment(new ChallengeFragment());
+                        return true;
+                    case R.id.profile:
+                        loadFragment(new MyProfileFragment());
+                        return true;
+                    default: loadFragment(new BingeFragment());
+                }
+                return false; };
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -148,15 +171,13 @@ public class MainActivity extends AppCompatActivity {
             mPlayerControl.setImageResource(R.drawable.ic_pause_black_24dp);
         }
     }
-    private void callMusicDetail() {
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);//connection is built
+    private void callMusicDetail() {//connection is built
         Call<StreamingRequest> call = apiService.getStreaming("idshnmkl");//this is added to baseurl and data is  retrieved
         call.enqueue(new retrofit2.Callback<StreamingRequest>() {
             @Override
             public void onResponse(Call<StreamingRequest> call, Response<StreamingRequest> response) {
                 handleResponse(response);
             }
-
             @Override
             public void onFailure(Call<StreamingRequest> call, Throwable t) {
                 System.out.println("FAILED " + t.toString());

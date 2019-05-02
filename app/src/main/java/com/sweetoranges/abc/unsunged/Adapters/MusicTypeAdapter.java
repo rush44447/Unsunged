@@ -1,7 +1,6 @@
 package com.sweetoranges.abc.unsunged.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MusicTypeAdapter extends RecyclerView.Adapter<MusicTypeAdapter.ViewHolder> {
     public Context context;
     private ViewHolder viewHolder;
-    private String[] searchby;
+    private String[] musictype;
     List<String[]> dataList = new ArrayList<String[]>();
-    public MusicTypeAdapter(FragmentActivity activity,String[] searchby) {this.context = activity;this.searchby=searchby; }
+    public MusicTypeAdapter(FragmentActivity activity,String[] musictype) {this.context = activity;this.musictype = musictype; }
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView listText;
         private MediaPlayer mMediaPlayers;
@@ -31,10 +30,9 @@ public class MusicTypeAdapter extends RecyclerView.Adapter<MusicTypeAdapter.View
         }
     }
     @Override public void onBindViewHolder(final ViewHolder holder, final int position){
-        holder.listText.setText(searchby[position]);
-        holder.listText.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-            }});
+        holder.listText.setText(musictype[position]);
+        holder.listText.setOnClickListener(view -> {
+        });
     }
 
 
@@ -42,7 +40,7 @@ public class MusicTypeAdapter extends RecyclerView.Adapter<MusicTypeAdapter.View
         View v = LayoutInflater.from(context).inflate(R.layout.play, parent, false);
         viewHolder = new ViewHolder(v);
         return viewHolder; }
-    @Override public int getItemCount(){ return searchby.length;}
+    @Override public int getItemCount(){ return musictype.length;}
 }
 
 //

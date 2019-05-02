@@ -20,5 +20,10 @@
     <string name="card_title">Card %1$d</string>
     <string name="reverse_click_animation">Reverse Click Animation</string>
 
-
+    <string name="collapsed">Collapsed</string>
+    <string name="dragging">Dragging</string>
+    <string name="expanded">Expanded</string>
+    <string name="hidden">Hidden</string>
+    <string name="settling">Settling</string>
+    <string name="undefined">Undefined</string>
 </resources>

@@ -11,9 +11,11 @@
     <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#000"
         android:paddingBottom="50dp">
         <FrameLayout
             android:id="@+id/container"
+            android:background="#fff"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true" />
