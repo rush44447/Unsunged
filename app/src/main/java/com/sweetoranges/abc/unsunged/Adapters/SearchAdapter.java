@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private  Context context;
     private ViewHolder viewHolder;
-    private String[] name = new String[]{"Rushabh","Bhakti","Radhika","Parth","Shailesh","Sangita"};
+    private String[] name = new String[]{"Rushabh","Parth","Shailesh","Sangita"};
     private String[] searchby;
 
     public SearchAdapter(FragmentActivity activity,String[] searchby) { context = activity;this.searchby=searchby; }

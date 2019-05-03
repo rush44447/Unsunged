@@ -15,7 +15,7 @@
         android:paddingBottom="50dp">
         <FrameLayout
             android:id="@+id/container"
-            android:background="#fff"
+            android:background="#000"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true" />
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:behavior_hideable="true"
-
+        android:background="#000"
         app:layout_behavior="@string/bottom_sheet_behavior">
         <include layout="@layout/bottom_sheet"/>
     </LinearLayout>

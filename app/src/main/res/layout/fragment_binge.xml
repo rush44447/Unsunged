@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#fff"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent"
@@ -22,7 +23,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_height="140dp"
+            android:layout_height="110dp"
             android:layoutDirection="rtl"
             android:id="@+id/story"/>
         <TextView
@@ -38,129 +39,190 @@
             android:layout_width="match_parent"
             android:layout_marginTop="25dp"
             android:layout_height="wrap_content">
-            <androidx.cardview.widget.CardView
-                android:id="@+id/firsthero"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#000"
-                app:cardCornerRadius="7dp"
-                android:elevation="8dp"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0.0px"
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                app:cardElevation="1dp"
-                app:cardPreventCornerOverlap="false">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="140dp"
-                    android:src="@drawable/imgview"/>
-            </androidx.cardview.widget.CardView>
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
+                android:id="@+id/firsthero"
+                android:layout_width="@dimen/firstherowidth"
+                android:layout_height="170dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/fade_image_background"
+                android:src="@drawable/imgview" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_toEndOf="@+id/firsthero"
+                android:layout_marginStart="-25dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_whatshot_black_24dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/firsttext"
+                android:layout_width="@dimen/firstherowidth"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/secondhero"
-                android:layout_alignTop="@+id/firsthero"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/ic_disc_full_black_24dp"/>
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_alignStart="@+id/secondhero"
-                android:layout_marginStart="37dp"
-                android:layout_alignTop="@+id/firsthero"
-                android:textSize="17sp"
-                android:textColor="#666600"
-                android:text="#1: Rushabh"/>
-            <androidx.cardview.widget.CardView
+                android:textColor="#f6f"
+                android:background="#000"
+                android:textSize="19sp"
+                android:text="Louis the child: Better Not"
+                android:layout_below="@+id/firsthero"
+                android:layout_alignStart="@+id/firsthero"
+                android:paddingStart="10dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="5dp"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/secondhero"
-                android:layout_width="match_parent"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="8dp"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/secondherowidth"
+                android:layout_height="130dp"
+                android:background="#000"
+                android:src="@drawable/imgview"
                 android:layout_toEndOf="@+id/firsthero"
                 android:layout_alignBottom="@+id/firsthero"
-                app:cardCornerRadius="7dp"
-                android:elevation="8dp"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0.0px"
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                app:cardElevation="1dp"
-                app:cardPreventCornerOverlap="false">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:src="@drawable/sample"/>
-            </androidx.cardview.widget.CardView>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="15dp"
-                android:padding="5dp"
+                android:layout_marginStart="12dp"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_toEndOf="@+id/secondhero"
+                android:layout_alignTop="@+id/secondhero"
+                android:layout_marginStart="-25dp"
+                android:layout_marginTop="-10dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_whatshot_black_24dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/secondtext"
+                android:layout_width="@dimen/secondherowidth"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/firsthero"
-                android:layout_below="@+id/firsthero">
-            <androidx.cardview.widget.CardView
+                android:textColor="#f6f"
+                android:background="#000"
+                android:textSize="19sp"
+                android:text="Louis the child: Better Not"
+                android:layout_below="@+id/secondhero"
+               android:layout_alignStart="@+id/secondhero"
+                android:paddingStart="10dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="5dp"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"/>
+            <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/secondhero"
+            android:layout_marginTop="1dp"
+            android:src="@drawable/ic_disc_full_black_24dp"/>
+            <TextView
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_alignStart="@+id/secondhero"
+            android:layout_marginStart="37dp"
+            android:textSize="17sp"
+            android:textColor="#666600"
+            android:text="#1: Rushabh"/>
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/thirdhero"
-                android:layout_width="0dp"
-                android:layout_weight=".33"
+                android:layout_width="@dimen/thirdherodimen"
+                android:layout_height="100dp"
+                android:layout_below="@+id/firsttext"
+                android:layout_alignStart="@+id/firsthero"
+                android:background="#000"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/imgview"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="25dp"
+                android:layout_toEndOf="@+id/thirdhero"
+                android:layout_alignTop="@+id/thirdhero"
+                android:layout_marginStart="-18dp"
+                android:layout_marginTop="-10dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_whatshot_black_24dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/thirdtext"
+                android:layout_width="@dimen/thirdherodimen"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="7dp"
-                android:elevation="8dp"
-                android:layout_marginEnd="10dp"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0.0px"
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                app:cardElevation="1dp"
-                app:cardPreventCornerOverlap="false">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:src="@drawable/sample"/>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
+                android:layout_below="@+id/thirdhero"
+                android:layout_alignStart="@+id/thirdhero"
+                android:textColor="#f6f"
+                android:background="#000"
+                android:textSize="15sp"
+                android:text="Louis the child: Better Not"
+                android:paddingStart="10dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="5dp"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"/>
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/forthhero"
-                android:layout_width="0dp"
-                android:layout_weight=".33"
+                android:layout_width="@dimen/thirdherodimen"
+                android:layout_height="100dp"
+                android:layout_below="@+id/firsttext"
+                android:layout_toEndOf="@+id/thirdhero"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="14dp"
+                android:background="#000"
+                android:src="@drawable/imgview"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="25dp"
+                android:layout_toEndOf="@+id/forthhero"
+                android:layout_alignTop="@+id/forthhero"
+                android:layout_marginStart="-18dp"
+                android:layout_marginTop="-10dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_whatshot_black_24dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/forthtext"
+                android:layout_width="@dimen/thirdherodimen"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="7dp"
-                android:elevation="8dp"
-                android:layout_marginEnd="10dp"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0.0px"
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                app:cardElevation="1dp"
-                app:cardPreventCornerOverlap="false">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:src="@drawable/sample"/>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/fisthhero"
-                android:layout_width="0dp"
-                android:layout_weight=".33"
+                android:layout_below="@+id/forthhero"
+                android:layout_alignStart="@+id/forthhero"
+                android:textColor="#f6f"
+                android:background="#000"
+                android:textSize="15sp"
+                android:text="Louis the child: Better Not"
+                android:paddingStart="10dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="5dp"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/fifthhero"
+                android:layout_width="@dimen/thirdherodimen"
+                android:layout_height="100dp"
+                android:layout_below="@+id/firsttext"
+                android:layout_toEndOf="@+id/forthhero"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="14dp"
+                android:background="#000"
+                android:src="@drawable/imgview"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="25dp"
+                android:layout_toEndOf="@+id/fifthhero"
+                android:layout_alignTop="@+id/fifthhero"
+                android:layout_marginStart="-18dp"
+                android:layout_marginTop="-10dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_whatshot_black_24dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fifthtext"
+                android:layout_width="@dimen/thirdherodimen"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="7dp"
-                android:elevation="8dp"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0.0px"
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                app:cardElevation="1dp"
-                app:cardPreventCornerOverlap="false">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:src="@drawable/sample"/>
-            </androidx.cardview.widget.CardView>
-            </LinearLayout>
+                android:layout_below="@+id/fifthhero"
+                android:layout_alignStart="@+id/fifthhero"
+                android:textColor="#f6f"
+                android:background="#000"
+                android:textSize="15sp"
+                android:text="Louis the child: Better Not"
+                android:paddingStart="10dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="5dp"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"/>
         </RelativeLayout>
         <TextView
             android:layout_width="match_parent"

@@ -11,8 +11,6 @@
         android:roundIcon="@drawable/logob"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Player"></activity>
-        <activity android:name=".Dashboard" />
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan">

@@ -48,7 +48,7 @@ public class SearchFragment extends Fragment {
            Language=(AppCompatButton)view.findViewById(R.id.language);
            Mood=(AppCompatButton)view.findViewById(R.id.mood);
         searchRecycler=(RecyclerView)view.findViewById(R.id.searchRecycler);
-        //search=(RecyclerView)view.findViewById(R.id.search);
+        search=(RecyclerView)view.findViewById(R.id.searchHistory);
         typeRecyc=(RecyclerView)view.findViewById(R.id.typeRecyc);
 
         typeRecyc.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
@@ -59,10 +59,17 @@ public class SearchFragment extends Fragment {
 //
 //        search.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));// sqlite here
 //
-        Name.setOnClickListener(v -> searchRecycler.setAdapter(new SearchAdapter(getActivity(),name)));
-        Type.setOnClickListener(v -> searchRecycler.setAdapter(new SearchAdapter(getActivity(),type)));
-        Language.setOnClickListener(v -> searchRecycler.setAdapter(new SearchAdapter(getActivity(),lang)));
-        Mood.setOnClickListener(v -> searchRecycler.setAdapter(new SearchAdapter(getActivity(),mood)));
+        Name.setOnClickListener(v -> {searchRecycler.setAdapter(new SearchAdapter(getActivity(),name));
+            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));});
+        Type.setOnClickListener(v -> {
+            searchRecycler.setAdapter(new SearchAdapter(getActivity(),type));
+            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),type)); });
+        Language.setOnClickListener(v -> {
+            searchRecycler.setAdapter(new SearchAdapter(getActivity(),lang));
+            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),lang)); });
+        Mood.setOnClickListener(v -> {
+            searchRecycler.setAdapter(new SearchAdapter(getActivity(),mood));
+            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),mood)); });
 
         return view;
     }

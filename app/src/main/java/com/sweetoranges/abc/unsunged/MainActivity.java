@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.sweetoranges.abc.unsunged.ChallengeFragment.ChallengeFragment;
@@ -41,7 +42,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     public static ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
     private MediaPlayer mMediaPlayer;
-    private ImageView mPlayerControl,Previous,Next,mPlayerControlBig;
+    private ImageView mPlayerControl,mPlayerControlBig;
     Context context;
     RelativeLayout Controller;
     View Hider;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         context = getApplicationContext();
+        ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+        container.startShimmerAnimation();
         loadFragment(new BingeFragment());
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
         mPlayerControlBig = (ImageView) findViewById(R.id.player_control_p);
@@ -61,10 +64,11 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = (TextView) this.findViewById(R.id.nameOfSong);
         Hider=(View)findViewById(R.id.hiderView);
         tv.setSelected(true);
+//        Hider.setVisibility(View.GONE);
         LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(false);
-        bottomSheetBehavior.setPeekHeight(100);
+        bottomSheetBehavior.setPeekHeight(85);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                Sheetstate = getStateAsString(newState);
-               if(Sheetstate==0){//collapsed
+               if(Sheetstate==0){
 
                }
                 if(Sheetstate==2){//expanded

@@ -16,27 +16,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/imgview" />
-    <View
-        android:layout_width="40dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/fadeleft"/>
-    <View
-        android:layout_width="40dp"
-        android:layout_marginStart="70dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/faderight"/>
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_playlist_add_black_24dp" />
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="77dp"
+        android:src="@drawable/ic_thumb_up_black_24dp" />
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:src="@drawable/ic_thumb_up_black_24dp"
-        android:layout_marginTop="80dp"/>
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="77dp"
+        android:src="@drawable/ic_playlist_add_black_24dp"
+        android:layout_marginTop="77dp"/>
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -52,5 +42,7 @@
         android:layout_below="@+id/storycircle"
         android:layout_centerHorizontal="true"
         android:textColor="#000"
+        android:textSize="15sp"
+        android:textStyle="bold"
         android:text="rushabh"/>
 </RelativeLayout>

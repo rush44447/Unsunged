@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sweetoranges.abc.unsunged.Classes.ApiClient;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +33,7 @@ public class BingeFragment extends Fragment  {
     private RecyclerView recyclerView;
     private List<StreamingRequest> follow = new ArrayList<>();
     ProgressDialog pd;
+    AppCompatTextView first,second,third,forth,fifth;
    // public ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class); //connection is built
     private List<String> songList=new ArrayList<>();
     @Nullable
@@ -41,7 +44,16 @@ public class BingeFragment extends Fragment  {
 //            colorFade.setDuration(7000);
 //            colorFade.start();
 //        }catch (Exception c){}
-
+        first=view.findViewById(R.id.firsttext);
+        second=view.findViewById(R.id.secondtext);
+        third=view.findViewById(R.id.thirdtext);
+        forth=view.findViewById(R.id.forthtext);
+        fifth=view.findViewById(R.id.fifthtext);
+        first.setSelected(true);
+        second.setSelected(true);
+        third.setSelected(true);
+        forth.setSelected(true);
+        fifth.setSelected(true);
         pd = new ProgressDialog(getActivity());
         pd.setMessage("Fetching Stories...");
         pd.setCancelable(false);
