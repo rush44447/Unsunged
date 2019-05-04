@@ -6,7 +6,7 @@
 
     <dimen name="fab_margin">16dp</dimen>firstherowidth
 
-    <dimen name="firstherowidth">190dp</dimen>
-    <dimen name="secondherowidth">150dp</dimen>
-    <dimen name="thirdherodimen">110dp</dimen>
+    <dimen name="firstherowidth">230dp</dimen>
+    <dimen name="secondherowidth">170dp</dimen>
+    <dimen name="thirdherodimen">170dp</dimen>
 </resources>

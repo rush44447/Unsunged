@@ -11,11 +11,9 @@
     <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000"
         android:paddingBottom="50dp">
         <FrameLayout
             android:id="@+id/container"
-            android:background="#000"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true" />
@@ -29,16 +27,20 @@
             app:itemIconTint="#000"
             app:itemTextColor="#000"
             app:menu="@menu/navigation" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="#000"/>
     </LinearLayout>
     <!-- include app bar -->
 
-    <LinearLayout android:id="@+id/bottom_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:behavior_hideable="true"
-        android:background="#000"
-        app:layout_behavior="@string/bottom_sheet_behavior">
-        <include layout="@layout/bottom_sheet"/>
-    </LinearLayout>
+    <!--<LinearLayout android:id="@+id/bottom_sheet"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--app:behavior_hideable="true"-->
+        <!--android:background="#000"-->
+        <!--app:layout_behavior="@string/bottom_sheet_behavior">-->
+        <!--<include layout="@layout/bottom_sheet"/>-->
+    <!--</LinearLayout>-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
