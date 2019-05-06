@@ -13,21 +13,15 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_arrow_back_black_24dp"
         android:tint="#fff"/>
-    <com.github.florent37.shapeofview.shapes.CircleView
-        android:id="@+id/circle"
+    <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
+        android:id="@+id/circleView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="78dp"
+        android:scaleType="centerCrop"
         android:elevation="4dp"
-        app:shape_circle_borderColor="@android:color/black"
-        app:shape_circle_borderWidth="2dp">
-        <ImageView android:id="@+id/circleView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/imgview" />
-    </com.github.florent37.shapeofview.shapes.CircleView>
+        android:src="@drawable/imgview" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

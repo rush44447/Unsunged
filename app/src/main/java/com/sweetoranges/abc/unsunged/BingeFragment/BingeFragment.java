@@ -54,10 +54,10 @@ public class BingeFragment extends Fragment  {
         third.setSelected(true);
         forth.setSelected(true);
         fifth.setSelected(true);
-        pd = new ProgressDialog(getActivity());
-        pd.setMessage("Fetching Stories...");
-        pd.setCancelable(false);
-        pd.show();
+//        pd = new ProgressDialog(getActivity());
+//        pd.setMessage("Fetching Stories...");
+//        pd.setCancelable(false);
+//        pd.show();
 
      //   followings=getFollowingsId();
         recyclerView = view.findViewById(R.id.story);
@@ -86,7 +86,7 @@ public class BingeFragment extends Fragment  {
                     follow.add(response.body());
                     Toast.makeText(getActivity(), follow.get(0).getTitle(), Toast.LENGTH_SHORT).show();
                     recyclerView.setAdapter(new StoryAdapter(getActivity(),follow));
-                    pd.hide();
+//                    pd.hide();
                 }
                 @Override
                 public void onFailure(Call<StreamingRequest> call, Throwable t) {

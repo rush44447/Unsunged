@@ -12,20 +12,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_width="200dp">
-        <com.github.florent37.shapeofview.shapes.CircleView
-            android:id="@+id/circle"
+        <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
+            android:id="@+id/circleView"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerHorizontal="true"
-            app:shape_circle_borderColor="@android:color/black"
-            app:shape_circle_borderWidth="2dp">
-            <ImageView
-                android:id="@+id/circleView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/imgview" />
-        </com.github.florent37.shapeofview.shapes.CircleView>
+            android:scaleType="centerCrop"
+            android:elevation="4dp"
+            android:src="@drawable/imgview" />
     </RelativeLayout>
     <androidx.cardview.widget.CardView
         android:id="@+id/card_griditem"

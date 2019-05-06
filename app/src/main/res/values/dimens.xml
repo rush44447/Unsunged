@@ -8,5 +8,5 @@
 
     <dimen name="firstherowidth">230dp</dimen>
     <dimen name="secondherowidth">170dp</dimen>
-    <dimen name="thirdherodimen">170dp</dimen>
+    <dimen name="thirdherodimen">160dp</dimen>
 </resources>

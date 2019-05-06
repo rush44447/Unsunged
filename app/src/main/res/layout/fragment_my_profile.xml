@@ -27,21 +27,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                <com.github.florent37.shapeofview.shapes.CircleView
-                    android:id="@+id/circle"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="70dp"
-                    android:elevation="4dp"
-                    app:shape_circle_borderColor="@android:color/black"
-                    app:shape_circle_borderWidth="2dp">
-                    <ImageView android:id="@+id/circleView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
+                    <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
+                        android:id="@+id/circleView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:elevation="4dp"
                         android:src="@drawable/imgview" />
-                </com.github.florent37.shapeofview.shapes.CircleView>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

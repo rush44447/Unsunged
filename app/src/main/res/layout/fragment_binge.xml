@@ -45,9 +45,9 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/firsthero"
                 android:layout_width="@dimen/firstherowidth"
-                android:layout_height="130dp"
+                android:layout_height="125dp"
                 android:layout_marginStart="12dp"
-                android:background="@drawable/fade_image_background"
+                android:background="#000"
                 android:src="@drawable/imgview" />
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="40dp"
@@ -60,9 +60,9 @@
                 android:layout_width="@dimen/firstherowidth"
                 android:layout_height="wrap_content"
                 android:textColor="#f6f"
-                android:background="#99000000"
+                android:background="#D9000000"
                 android:textSize="15sp"
-                android:text="Louis the child: Better Not"
+                android:text="Louis the child: Better Not                   "
                 android:layout_below="@+id/firsthero"
                 android:layout_alignStart="@+id/firsthero"
                 android:paddingStart="10dp"
@@ -95,7 +95,7 @@
                 android:layout_width="@dimen/secondherowidth"
                 android:layout_height="wrap_content"
                 android:textColor="#f6f"
-                android:background="#000"
+                android:background="#D9000000"
                 android:textSize="15sp"
                 android:text="Louis the child: Better Not"
                 android:layout_below="@+id/secondhero"
@@ -121,7 +121,7 @@
             android:layout_marginStart="37dp"
             android:textSize="17sp"
             android:textColor="#666600"
-            android:text="#1: Rushabh"/>
+            android:text="    #1: Rushabh"/>
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/thirdhero"
                 android:layout_width="@dimen/thirdherodimen"
@@ -146,7 +146,7 @@
                 android:layout_below="@+id/thirdhero"
                 android:layout_alignStart="@+id/thirdhero"
                 android:textColor="#f6f"
-                android:background="#000"
+                android:background="#D9000000"
                 android:textSize="15sp"
                 android:text="Louis the child: Better Not"
                 android:paddingStart="10dp"
@@ -181,7 +181,7 @@
                 android:layout_below="@+id/forthhero"
                 android:layout_alignStart="@+id/forthhero"
                 android:textColor="#f6f"
-                android:background="#000"
+                android:background="#D9000000"
                 android:textSize="15sp"
                 android:text="Louis the child: Better Not"
                 android:paddingStart="10dp"
@@ -216,7 +216,7 @@
                 android:layout_below="@+id/fifthhero"
                 android:layout_alignStart="@+id/fifthhero"
                 android:textColor="#f6f"
-                android:background="#000"
+                android:background="#D9000000"
                 android:textSize="15sp"
                 android:text="Louis the child: Better Not"
                 android:paddingStart="10dp"

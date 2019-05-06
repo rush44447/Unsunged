@@ -32,7 +32,6 @@ import java.io.IOException;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import retrofit2.Call;
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(false);
-        bottomSheetBehavior.setPeekHeight(85);
+        bottomSheetBehavior.setPeekHeight(80);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
