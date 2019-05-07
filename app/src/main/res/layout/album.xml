@@ -26,15 +26,6 @@
             android:layout_marginStart="20dp"
            android:layout_marginTop="20dp"
             android:src="@drawable/download" />
-        <ImageView android:id="@+id/playalbum"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="32dp"
-            android:elevation="10dp"
-            android:alpha="50"
-            android:src="@drawable/ic_play_arrow_black_24dp"
-            android:layout_centerHorizontal="true"/>
     </androidx.cardview.widget.CardView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="34dp"

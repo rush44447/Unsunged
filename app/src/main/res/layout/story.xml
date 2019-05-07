@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/firststory"
+        android:layout_width="@dimen/secondherowidth"
+        android:layout_height="90dp"
+        android:background="#000"
+        android:src="@drawable/imgview"
+        android:layout_marginStart="4dp"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/secondstory"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/firststory"
+        android:layout_alignStart="@+id/firststory"
+        android:layout_marginTop="4dp"
+        android:background="#000"
+        android:src="@drawable/imgview" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/thirdstory"
+        android:layout_width="140dp"
+        android:layout_height="70dp"
+        android:background="#000"
+        android:src="@drawable/imgview"
+        android:layout_below="@+id/firststory"
+        android:layout_toEndOf="@+id/secondstory"
+        android:layout_marginStart="4dp"
+    android:layout_marginTop="4dp"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/forthhstory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@+id/fifthstory"
+        android:layout_above="@+id/thirdstory"
+        android:background="#000"
+        android:src="@drawable/imgview"
+        android:layout_toEndOf="@+id/firststory"
+        android:layout_marginStart="4dp"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fifthstory"
+        android:layout_width="140dp"
+        android:layout_height="90dp"
+        android:background="#000"
+        android:src="@drawable/imgview"
+        android:layout_marginStart="4dp"
+        android:layout_toEndOf="@+id/thirdstory"
+        android:layout_alignBottom="@+id/thirdstory"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/sixthstory"
+        android:layout_width="140dp"
+        android:layout_height="70dp"
+        android:background="#000"
+        android:src="@drawable/imgview"
+       android:layout_alignStart="@+id/fifthstory"
+        />
+</RelativeLayout>

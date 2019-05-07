@@ -17,6 +17,7 @@ import com.sweetoranges.abc.unsunged.R;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,20 +35,17 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView Username;
-        ImageView Play;
+        AppCompatImageView Album;
         private ViewHolder(final View v){
             super(v);
-            Username=(TextView) v.findViewById(R.id.storyname);
-            Play=(ImageView)v.findViewById(R.id.playalbum);
+            Album=(AppCompatImageView) v.findViewById(R.id.albumpic);
+
         }
     }
     @Override public void onBindViewHolder(final ViewHolder holder, final int position){
-       // holder.storyImage.setImageResource(R.drawable.imgview);
-        holder.Username.setText(followings.get(0).getStatus());
-        holder.Play.setOnClickListener(v -> {
-            togglePlayPause();
-        });
+//        holder.Album.setOnClickListener(v -> {
+//            togglePlayPause();
+//        });
        // holder.categorytext.setText(followings.get(0).getTitle());
 //        holder.Titletext.setText(followings.get(position).getTitle());
 //        holder.dateCreated.setText(followings.get(position).getDateCreated());
@@ -60,19 +58,17 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         private void togglePlayPause() {
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
-            viewHolder.Play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
         } else {
             mMediaPlayer.start();
-            viewHolder.Play.setImageResource(R.drawable.ic_pause_black_24dp);
         }
     }
 
     @Override public StoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View v = LayoutInflater.from(context).inflate(R.layout.album, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.story, parent, false);
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mMediaPlayer.setOnPreparedListener(mp -> { });
-        mMediaPlayer.setOnCompletionListener(mp -> viewHolder.Play.setImageResource(R.drawable.ic_play_arrow_black_24dp));
+        mMediaPlayer.setOnCompletionListener(mp -> {});
         return new ViewHolder(v); }
     @Override public int getItemCount(){ return 4;  }
 

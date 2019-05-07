@@ -33,8 +33,6 @@ public class BingeFragment extends Fragment  {
     private RecyclerView recyclerView;
     private List<StreamingRequest> follow = new ArrayList<>();
     ProgressDialog pd;
-    AppCompatTextView first,second,third,forth,fifth;
-   // public ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class); //connection is built
     private List<String> songList=new ArrayList<>();
     @Nullable
     @Override
@@ -44,49 +42,46 @@ public class BingeFragment extends Fragment  {
 //            colorFade.setDuration(7000);
 //            colorFade.start();
 //        }catch (Exception c){}
-        first=view.findViewById(R.id.firsttext);
-        second=view.findViewById(R.id.secondtext);
-        third=view.findViewById(R.id.thirdtext);
-        forth=view.findViewById(R.id.forthtext);
-        fifth=view.findViewById(R.id.fifthtext);
+        AppCompatTextView first = view.findViewById(R.id.firsttext);
+        AppCompatTextView second = view.findViewById(R.id.secondtext);
+        AppCompatTextView third = view.findViewById(R.id.thirdtext);
+        AppCompatTextView forth = view.findViewById(R.id.forthtext);
+        AppCompatTextView fifth = view.findViewById(R.id.fifthtext);
         first.setSelected(true);
         second.setSelected(true);
         third.setSelected(true);
         forth.setSelected(true);
         fifth.setSelected(true);
-//        pd = new ProgressDialog(getActivity());
-//        pd.setMessage("Fetching Stories...");
-//        pd.setCancelable(false);
-//        pd.show();
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Fetching Stories...");
+        pd.setCancelable(false);
+        pd.show();
 
      //   followings=getFollowingsId();
         recyclerView = view.findViewById(R.id.story);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         songList=getDataForStory();
+
         loadJSON();
-
-         //   recyclerView.setAdapter(new StoryAdapter(getActivity(),followings));
-
         return view;
     }
 
     private List<String> getDataForStory() {
         List<String> getStory=new ArrayList<>();
 
-
     return getStory;}
 
 
     private void loadJSON() {
-        try { Call<StreamingRequest> call = MainActivity.apiService.getStreaming("idshnmkl");//this is added to baseurl and data is  retrieved
+        try { Call<StreamingRequest> call = MainActivity.apiService.getStreaming("idshnmkl");
             call.enqueue(new retrofit2.Callback<StreamingRequest>() {
                 @Override
                 public void onResponse(Call<StreamingRequest> call, Response<StreamingRequest> response) {
                     follow.add(response.body());
                     Toast.makeText(getActivity(), follow.get(0).getTitle(), Toast.LENGTH_SHORT).show();
                     recyclerView.setAdapter(new StoryAdapter(getActivity(),follow));
-//                    pd.hide();
+                    pd.hide();
                 }
                 @Override
                 public void onFailure(Call<StreamingRequest> call, Throwable t) {

@@ -1,16 +1,15 @@
 package com.sweetoranges.abc.unsunged;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PowerManager;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.MenuItem;
 import android.view.Window;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -27,11 +26,12 @@ import com.sweetoranges.abc.unsunged.Classes.ApiInterface;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
 import com.sweetoranges.abc.unsunged.MyProfileFragment.MyProfileFragment;
 import com.sweetoranges.abc.unsunged.SearchFragment.SearchFragment;
-
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import retrofit2.Call;
@@ -40,107 +40,144 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     public static ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-    private MediaPlayer mMediaPlayer;
+    public MediaPlayer mediaPlayer;
+
     private ImageView mPlayerControl,mPlayerControlBig;
+    private TextView tv,current,total;
+    private BottomNavigationView navigation;
+    private LinearLayout bottomSheet;
+    private AppCompatSeekBar Seek;
     Context context;
+    public Handler myHandler = new Handler();
     RelativeLayout Controller;
-    View Hider;
+    private View Hider;
+   // private double startTime = 0;
+   // private double finalTime = 0;
+    public static int oneTimeOnly = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        context = getApplicationContext();
+        navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
-        container.startShimmerAnimation();
-        loadFragment(new BingeFragment());
+        Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
+
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
         mPlayerControlBig = (ImageView) findViewById(R.id.player_control_p);
+        Seek=(AppCompatSeekBar)findViewById(R.id.seek);
+        tv = (TextView) this.findViewById(R.id.nameOfSong);
+        current = (TextView) this.findViewById(R.id.currenttime);
+        total = (TextView) this.findViewById(R.id.totallikes);
 
-        Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
-        TextView tv = (TextView) this.findViewById(R.id.nameOfSong);
         Hider=(View)findViewById(R.id.hiderView);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        context = getApplicationContext();
+        container.startShimmerAnimation();
         tv.setSelected(true);
-//        Hider.setVisibility(View.GONE);
-        LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
+        Seek.setClickable(true);
+        loadFragment(new BingeFragment());
         BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(false);
-        bottomSheetBehavior.setPeekHeight(80);
+        bottomSheetBehavior.setPeekHeight(78);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-//// set callback for changes
+//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            int Sheetstate;
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-               Sheetstate = getStateAsString(newState);
-               if(Sheetstate==0){
-
-               }
-                if(Sheetstate==2){//expanded
-                    if (mMediaPlayer.isPlaying()) {
-                        mPlayerControlBig.setImageResource(R.drawable.ic_pause_black_24dp);
-                    } else {
-                        mPlayerControlBig.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                    }
-                }
+            @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
+//                switch (newState) {
+//                    case BottomSheetBehavior.STATE_COLLAPSED:
+//                    case BottomSheetBehavior.STATE_DRAGGING:
+//                    case BottomSheetBehavior.STATE_EXPANDED:
+//                    case BottomSheetBehavior.STATE_HIDDEN:
+//                    case BottomSheetBehavior.STATE_SETTLING: }
             }
-
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            @Override public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                 Hider.setAlpha(slideOffset);
-//               if(Sheetstate==4){Hider.setAlpha(slideOffset);}
-//                if(Sheetstate==1){Hider.setAlpha(Float.parseFloat("1")-slideOffset);}
             }
         });
+
+        initdash();
+
 //
-        findViewById(R.id.player_control).setOnClickListener(smallPlay);
-        findViewById(R.id.previous).setOnClickListener(smallPrevious);
-        findViewById(R.id.next).setOnClickListener(smallNext);
+//        if (oneTimeOnly == 0) {
+//            Seek.setMax((int) finalTime);
+//            oneTimeOnly = 1;
+//        }
 
-        findViewById(R.id.player_control_p).setOnClickListener(bigPlay);
-        findViewById(R.id.previous_p).setOnClickListener(bigPrevious);
-        findViewById(R.id.next_p).setOnClickListener(bigNext);
+      //  finalTime = mediaPlayer.getDuration();
+       // startTime = mediaPlayer.getCurrentPosition();
+//        total.setText(String.format("%d min, %d sec",
+//                       TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
+//                       TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
+//                       TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
+//                          finalTime)))
+//                    );
+//        current.setText(String.format("%d min, %d sec",
+//                TimeUnit.MILLISECONDS.toMinutes((long) startTime),
+//                TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
+//                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
+//                                startTime)))
+//        );
 
-        findViewById(R.id.ToVideo).setOnClickListener(startVideo);
-        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mMediaPlayer.setOnPreparedListener(mp -> { });
-
-        mMediaPlayer.setOnCompletionListener(mp -> mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp));
+      //  Seek.setProgress((int) startTime);
+       // myHandler.postDelayed(UpdateSongTime,100);
         callMusicDetail();
+        setupMedia();
     }
+
+    private void setupMedia() {
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setOnPreparedListener(mp -> { });
+        mediaPlayer.setOnCompletionListener(mp -> {togglePlayPause();});
+    }
+
+    private void initdash() {
+        findViewById(R.id.player_control).setOnClickListener(smallPlay);
+//        findViewById(R.id.previous).setOnClickListener(smallPrevious);
+//        findViewById(R.id.next).setOnClickListener(smallNext);
+//        findViewById(R.id.player_control_p).setOnClickListener(bigPlay);
+//        findViewById(R.id.previous_p).setOnClickListener(bigPrevious);
+//        findViewById(R.id.next_p).setOnClickListener(bigNext);
+//        findViewById(R.id.ToVideo).setOnClickListener(startVideo);
+    }
+
 
     final View.OnClickListener smallPlay = v -> { togglePlayPause(); };
-    final View.OnClickListener smallPrevious = v -> { togglePlayPause(); };
-    final View.OnClickListener smallNext = v -> { togglePlayPause(); };
+//
+//    final View.OnClickListener smallPrevious = v -> {   int temp = (int)startTime;
+//        if((temp-5000)>0){
+//            startTime = startTime - 5000;
+//            mediaPlayer.seekTo((int) startTime);
+//        }else{mediaPlayer.reset(); }};
+//
+//    final View.OnClickListener smallNext = v -> {int temp = (int)startTime;
+//        if((temp+5000)<=finalTime){
+//            startTime = startTime + 5000;
+//            mediaPlayer.seekTo((int) startTime);
+//        }else{ mediaPlayer.reset(); } };
+//
+//    final View.OnClickListener bigPlay = v -> { togglePlayPause(); };
+//
+//    final View.OnClickListener bigPrevious = v -> {   int temp = (int)startTime;
+//        if((temp-5000)>0){
+//            startTime = startTime - 5000;
+//            mediaPlayer.seekTo((int) startTime);
+//        }else{mediaPlayer.reset(); }};
+//
+//    final View.OnClickListener bigNext = v -> {int temp = (int)startTime;
+//        if((temp+5000)<=finalTime){
+//            startTime = startTime + 5000;
+//            mediaPlayer.seekTo((int) startTime);
+//        }else{ mediaPlayer.reset(); } };
+//
+//    final View.OnClickListener startVideo = v -> {
+//        Toast.makeText(context, "start video", Toast.LENGTH_SHORT).show();
+//    };
 
-    final View.OnClickListener bigPlay = v -> { togglePlayPause(); };
-    final View.OnClickListener bigPrevious = v -> { togglePlayPause(); };
-    final View.OnClickListener bigNext = v -> { togglePlayPause(); };
-
-    final View.OnClickListener startVideo = v -> {
-        Toast.makeText(context, "start video", Toast.LENGTH_SHORT).show();
-    };
-    public static int getStateAsString(int newState) {
-        switch (newState) {
-            case BottomSheetBehavior.STATE_COLLAPSED:
-                return 0;
-            case BottomSheetBehavior.STATE_DRAGGING:
-                return 1;
-            case BottomSheetBehavior.STATE_EXPANDED:
-                return 2;
-            case BottomSheetBehavior.STATE_HIDDEN:
-                return 3;
-            case BottomSheetBehavior.STATE_SETTLING:
-                return 4;
-        }
-        return 5;
-    }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
                 switch (item.getItemId()) {
                     case R.id.binge:
@@ -157,23 +194,38 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     default: loadFragment(new BingeFragment());
                 }
-                return false; };
-
+                return false;
+    };
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
     private void togglePlayPause() {
-        if (mMediaPlayer.isPlaying()) {
-            mMediaPlayer.pause();
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
             mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+            mPlayerControlBig.setImageResource(R.drawable.ic_play_arrow_black_24dp);
         } else {
-            mMediaPlayer.start();
+            mediaPlayer.start();
             mPlayerControl.setImageResource(R.drawable.ic_pause_black_24dp);
+            mPlayerControlBig.setImageResource(R.drawable.ic_pause_black_24dp);
+
         }
     }
+
+    private Runnable UpdateSongTime = new Runnable() {
+        @SuppressLint("DefaultLocale")
+        public void run() {
+        //    startTime = mediaPlayer.getCurrentPosition();
+         //   current.setText(String.format("%d min, %d sec", TimeUnit.MILLISECONDS.toMinutes((long) startTime), TimeUnit.MILLISECONDS.toSeconds((long) startTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime))));
+          //  Seek.setProgress((int)startTime);
+            myHandler.postDelayed(this, 100);
+        }
+    };
+
     private void callMusicDetail() {//connection is built
         Call<StreamingRequest> call = apiService.getStreaming("idshnmkl");//this is added to baseurl and data is  retrieved
         call.enqueue(new retrofit2.Callback<StreamingRequest>() {
@@ -187,21 +239,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override protected void onDestroy() {
-        super.onDestroy();
-
-        if (mMediaPlayer != null) {
-            if (mMediaPlayer.isPlaying()) {
-                mMediaPlayer.stop();
-            }
-            mMediaPlayer.release();
-            mMediaPlayer = null;
-        }
-    }
     private void handleResponse(Response<StreamingRequest> response) {
-        try { mMediaPlayer.setDataSource(response.body().getMp3Url());//here mp3 file is loaded using retrieved url and fed into mMediaPlayer
-            mMediaPlayer.prepareAsync();
+        try { mediaPlayer.setDataSource(response.body().getMp3Url());//here mp3 file is loaded using retrieved url and fed into mMediaPlayer
+            mediaPlayer.prepareAsync();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -211,5 +251,15 @@ public class MainActivity extends AppCompatActivity {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);}
+    @Override protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
+            }
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
 
 }
