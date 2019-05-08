@@ -40,42 +40,42 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     public static ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-    public MediaPlayer mediaPlayer;
+    public MediaPlayer mediaPlayer = new MediaPlayer();
 
     private ImageView mPlayerControl,mPlayerControlBig;
-    private TextView tv,current,total;
+    private TextView tv,totaltime,currenttime;
     private BottomNavigationView navigation;
-    private LinearLayout bottomSheet;
     private AppCompatSeekBar Seek;
     Context context;
     public Handler myHandler = new Handler();
     RelativeLayout Controller;
-    private View Hider;
-   // private double startTime = 0;
-   // private double finalTime = 0;
-    public static int oneTimeOnly = 0;
+    public View Hider;
+    public double startTime = 0;
+    public double finalTime = 0;
+   // public static int oneTimeOnly = 0;
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
+        LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
+        RelativeLayout Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
         ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
-        Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
+        container.startShimmerAnimation();
 
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
         mPlayerControlBig = (ImageView) findViewById(R.id.player_control_p);
         Seek=(AppCompatSeekBar)findViewById(R.id.seek);
-        tv = (TextView) this.findViewById(R.id.nameOfSong);
-        current = (TextView) this.findViewById(R.id.currenttime);
-        total = (TextView) this.findViewById(R.id.totallikes);
+        tv = (TextView) findViewById(R.id.nameOfSong);
+        currenttime = (TextView) findViewById(R.id.currenttime);
+        totaltime = (TextView) findViewById(R.id.totaltime);
 
         Hider=(View)findViewById(R.id.hiderView);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         context = getApplicationContext();
-        container.startShimmerAnimation();
         tv.setSelected(true);
         Seek.setClickable(true);
         loadFragment(new BingeFragment());
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
 //                switch (newState) {
-//                    case BottomSheetBehavior.STATE_COLLAPSED:
+                    if(newState==BottomSheetBehavior.STATE_COLLAPSED){Hider.setAlpha(0);}
 //                    case BottomSheetBehavior.STATE_DRAGGING:
 //                    case BottomSheetBehavior.STATE_EXPANDED:
 //                    case BottomSheetBehavior.STATE_HIDDEN:
@@ -98,85 +98,76 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        initdash();
+        findViewById(R.id.player_control).setOnClickListener(smallPlay);
+        findViewById(R.id.previous).setOnClickListener(smallPrevious);
+        findViewById(R.id.next).setOnClickListener(smallNext);
+        findViewById(R.id.player_control_p).setOnClickListener(bigPlay);
+        findViewById(R.id.previous_p).setOnClickListener(bigPrevious);
+        findViewById(R.id.next_p).setOnClickListener(bigNext);
+        findViewById(R.id.ToVideo).setOnClickListener(startVideo);
 
-//
-//        if (oneTimeOnly == 0) {
-//            Seek.setMax((int) finalTime);
-//            oneTimeOnly = 1;
-//        }
-
-      //  finalTime = mediaPlayer.getDuration();
-       // startTime = mediaPlayer.getCurrentPosition();
-//        total.setText(String.format("%d min, %d sec",
-//                       TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
-//                       TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
-//                       TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
-//                          finalTime)))
-//                    );
-//        current.setText(String.format("%d min, %d sec",
-//                TimeUnit.MILLISECONDS.toMinutes((long) startTime),
-//                TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
-//                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
-//                                startTime)))
-//        );
-
-      //  Seek.setProgress((int) startTime);
-       // myHandler.postDelayed(UpdateSongTime,100);
-        callMusicDetail();
-        setupMedia();
-    }
-
-    private void setupMedia() {
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
+        finalTime = mediaPlayer.getDuration();
+        startTime = mediaPlayer.getCurrentPosition();
+        Toast.makeText(context, String.valueOf((long)finalTime), Toast.LENGTH_SHORT).show();
+        //mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setOnPreparedListener(mp -> { });
-        mediaPlayer.setOnCompletionListener(mp -> {togglePlayPause();});
-    }
+        mediaPlayer.setOnCompletionListener(mp -> {});
+         Seek.setProgress((int) startTime);
+        myHandler.postDelayed(UpdateSongTime,100);
+//        if (oneTimeOnly == 0) {
+//            Seek.setMax((int) finalTime);
+//            oneTimeOnly = 1; }
+        callMusicDetail();
+         totaltime.setText(String.format("%d : %d",
+                 TimeUnit.MILLISECONDS.toMinutes((long) finalTime), TimeUnit.MILLISECONDS.toSeconds((long) finalTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime))));
+        currenttime.setText(String.format("%d : %d", TimeUnit.MILLISECONDS.toMinutes((long) startTime), TimeUnit.MILLISECONDS.toSeconds((long) startTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime))));
 
-    private void initdash() {
-        findViewById(R.id.player_control).setOnClickListener(smallPlay);
-//        findViewById(R.id.previous).setOnClickListener(smallPrevious);
-//        findViewById(R.id.next).setOnClickListener(smallNext);
-//        findViewById(R.id.player_control_p).setOnClickListener(bigPlay);
-//        findViewById(R.id.previous_p).setOnClickListener(bigPrevious);
-//        findViewById(R.id.next_p).setOnClickListener(bigNext);
-//        findViewById(R.id.ToVideo).setOnClickListener(startVideo);
     }
+    private void togglePlayPause() {
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+            mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+            mPlayerControlBig.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+        } else {
+            mediaPlayer.start();
+            mPlayerControl.setImageResource(R.drawable.ic_pause_black_24dp);
+            mPlayerControlBig.setImageResource(R.drawable.ic_pause_black_24dp);
 
+        }
+    }
 
     final View.OnClickListener smallPlay = v -> { togglePlayPause(); };
-//
-//    final View.OnClickListener smallPrevious = v -> {   int temp = (int)startTime;
-//        if((temp-5000)>0){
-//            startTime = startTime - 5000;
-//            mediaPlayer.seekTo((int) startTime);
-//        }else{mediaPlayer.reset(); }};
-//
-//    final View.OnClickListener smallNext = v -> {int temp = (int)startTime;
-//        if((temp+5000)<=finalTime){
-//            startTime = startTime + 5000;
-//            mediaPlayer.seekTo((int) startTime);
-//        }else{ mediaPlayer.reset(); } };
-//
-//    final View.OnClickListener bigPlay = v -> { togglePlayPause(); };
-//
-//    final View.OnClickListener bigPrevious = v -> {   int temp = (int)startTime;
-//        if((temp-5000)>0){
-//            startTime = startTime - 5000;
-//            mediaPlayer.seekTo((int) startTime);
-//        }else{mediaPlayer.reset(); }};
-//
-//    final View.OnClickListener bigNext = v -> {int temp = (int)startTime;
-//        if((temp+5000)<=finalTime){
-//            startTime = startTime + 5000;
-//            mediaPlayer.seekTo((int) startTime);
-//        }else{ mediaPlayer.reset(); } };
-//
-//    final View.OnClickListener startVideo = v -> {
-//        Toast.makeText(context, "start video", Toast.LENGTH_SHORT).show();
-//    };
+
+    final View.OnClickListener smallPrevious = v -> {   int temp = (int)startTime;
+        if((temp-5000)>0){
+            startTime = startTime - 5000;
+            mediaPlayer.seekTo((int) startTime);
+        }else{mediaPlayer.reset(); }};
+
+    final View.OnClickListener smallNext = v -> {int temp = (int)startTime;
+        if((temp+5000)<=finalTime){
+            startTime = startTime + 5000;
+            mediaPlayer.seekTo((int) startTime);
+        }else{ mediaPlayer.reset(); } };
+
+    final View.OnClickListener bigPlay = v -> { togglePlayPause(); };
+
+    final View.OnClickListener bigPrevious = v -> {   int temp = (int)startTime;
+        if((temp-5000)>0){
+            startTime = startTime - 5000;
+            mediaPlayer.seekTo((int) startTime);
+        }else{mediaPlayer.reset(); }};
+
+    final View.OnClickListener bigNext = v -> {int temp = (int)startTime;
+        if((temp+5000)<=finalTime){
+            startTime = startTime + 5000;
+            mediaPlayer.seekTo((int) startTime);
+        }else{ mediaPlayer.reset(); } };
+
+    final View.OnClickListener startVideo = v -> {
+        Toast.makeText(context, "start video", Toast.LENGTH_SHORT).show();
+    };
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
                 switch (item.getItemId()) {
@@ -196,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
     };
+
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
@@ -203,25 +195,12 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    private void togglePlayPause() {
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-            mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-            mPlayerControlBig.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-        } else {
-            mediaPlayer.start();
-            mPlayerControl.setImageResource(R.drawable.ic_pause_black_24dp);
-            mPlayerControlBig.setImageResource(R.drawable.ic_pause_black_24dp);
-
-        }
-    }
-
     private Runnable UpdateSongTime = new Runnable() {
         @SuppressLint("DefaultLocale")
         public void run() {
-        //    startTime = mediaPlayer.getCurrentPosition();
-         //   current.setText(String.format("%d min, %d sec", TimeUnit.MILLISECONDS.toMinutes((long) startTime), TimeUnit.MILLISECONDS.toSeconds((long) startTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime))));
-          //  Seek.setProgress((int)startTime);
+            startTime = mediaPlayer.getCurrentPosition();
+            currenttime.setText(String.format("%d : %d", TimeUnit.MILLISECONDS.toMinutes((long) startTime), TimeUnit.MILLISECONDS.toSeconds((long) startTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime))));
+            Seek.setProgress((int)startTime);
             myHandler.postDelayed(this, 100);
         }
     };

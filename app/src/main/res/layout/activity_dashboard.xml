@@ -48,6 +48,7 @@
         android:layout_centerHorizontal="true"
         app:border_color="#00796B"
         app:border_width="2dp"
+        android:clickable="false"
         app:centercircle_diammterer=".97"
         app:draw_anticlockwise="false"
         app:progress_color="#80CBC4"
@@ -159,7 +160,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"/>
-    <androidx.appcompat.widget.AppCompatTextView
+    <TextView
         android:id="@+id/currenttime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -169,7 +170,7 @@
         android:layout_marginStart="-20dp"
         android:layout_marginBottom="-24dp"
         android:layout_above="@+id/seek"/>
-    <androidx.appcompat.widget.AppCompatTextView
+    <TextView
         android:id="@+id/totaltime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
