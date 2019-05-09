@@ -2,6 +2,7 @@ package com.sweetoranges.abc.unsunged.Classes;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.sweetoranges.abc.unsunged.R;
 
 public class StreamingRequest {
 
@@ -41,6 +42,8 @@ public class StreamingRequest {
     @SerializedName("DateCreated")
     @Expose
     private String dateCreated;
+
+    private int photo = R.drawable.imgview;
 
     public String getStatus() {
         return status;
@@ -136,6 +139,13 @@ public class StreamingRequest {
 
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
+    }
+    public int getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(int photo) {
+        this.photo = photo;
     }
 
 }

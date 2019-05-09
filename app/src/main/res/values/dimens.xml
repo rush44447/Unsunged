@@ -7,6 +7,9 @@
     <dimen name="fab_margin">16dp</dimen>firstherowidth
 
     <dimen name="firstherowidth">230dp</dimen>
-    <dimen name="secondherowidth">170dp</dimen>
-    <dimen name="thirdherodimen">160dp</dimen>
+    <dimen name="secondherowidth">180dp</dimen>
+    <dimen name="thirdherodimen">180dp</dimen>
+    <dimen name="spacing">8dp</dimen>
+    <dimen name="heroinfo">100dp</dimen>
+    <dimen name="firststorywidth">190dp</dimen>
 </resources>

@@ -47,7 +47,7 @@
                         android:textColor="@android:color/white"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        android:layout_below="@+id/circle"/>
+                        android:layout_below="@+id/circleView"/>
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

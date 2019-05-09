@@ -1,6 +1,8 @@
 package com.sweetoranges.abc.unsunged.BingeFragment;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -34,6 +37,7 @@ public class BingeFragment extends Fragment  {
     private List<StreamingRequest> follow = new ArrayList<>();
     ProgressDialog pd;
     private List<String> songList=new ArrayList<>();
+    AppCompatImageView firstImage;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class BingeFragment extends Fragment  {
 //            colorFade.setDuration(7000);
 //            colorFade.start();
 //        }catch (Exception c){}
+        firstImage=(AppCompatImageView)view.findViewById(R.id.firsthero) ;
         AppCompatTextView first = view.findViewById(R.id.firsttext);
         AppCompatTextView second = view.findViewById(R.id.secondtext);
         AppCompatTextView third = view.findViewById(R.id.thirdtext);
@@ -62,7 +67,7 @@ public class BingeFragment extends Fragment  {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         songList=getDataForStory();
-
+        firstImage.setOnClickListener(v -> recyclerView.smoothScrollBy(500, 0));
         loadJSON();
         return view;
     }
