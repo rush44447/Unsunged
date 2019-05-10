@@ -31,7 +31,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         private EchelonLayoutManager mLayoutManager;
         private ViewHolder(final View v){
             super(v);
-            text11=(TextView)v.findViewById(R.id.text11);
+            text11=(TextView)v.findViewById(R.id.username);
             card=(CardView)v.findViewById(R.id.card_griditem);
             mRecyclerView = v.findViewById(R.id.recycler_view);
         }

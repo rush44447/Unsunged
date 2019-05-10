@@ -91,6 +91,7 @@
             android:paddingTop="7dp"
             android:layoutDirection="rtl"
             android:paddingBottom="14dp"
+            android:background="#90dddddd"
             android:layout_marginBottom="60dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

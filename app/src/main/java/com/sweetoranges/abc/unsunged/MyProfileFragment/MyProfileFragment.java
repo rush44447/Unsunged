@@ -13,13 +13,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+
+import com.sweetoranges.abc.unsunged.Classes.DetailsTransition;
 import com.sweetoranges.abc.unsunged.Classes.OnBackPressed;
+import com.sweetoranges.abc.unsunged.Classes.PlayListViewHolder;
+import com.sweetoranges.abc.unsunged.DetailsFragment.DetailsFragment;
 import com.sweetoranges.abc.unsunged.R;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,8 +36,9 @@ import android.widget.Toast;
 
 import com.sweetoranges.abc.unsunged.Adapters.PlaylistAdapter;
 import com.sweetoranges.abc.unsunged.Classes.ImageConverter;
+import com.sweetoranges.abc.unsunged.interfaces.PlayListClickListener;
 
-public class MyProfileFragment extends Fragment {
+public class MyProfileFragment extends Fragment implements PlayListClickListener {
     private RecyclerView playlistRv;
     private ImageView backImage;
     private ImageView circularImageView;
@@ -110,6 +116,23 @@ public class MyProfileFragment extends Fragment {
         playlistRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         playlistRv.setAdapter(new PlaylistAdapter(getActivity()));
         return view;
+    }
+    @Override
+    public void onPlayListClicked(PlayListViewHolder holder, int position) {
+        int kittenNumber = (position % 6) + 1;
+
+        DetailsFragment kittenDetails = DetailsFragment.newInstance(kittenNumber);
+        kittenDetails.setSharedElementEnterTransition(new DetailsTransition());
+        kittenDetails.setEnterTransition(new Fade());
+        kittenDetails.setExitTransition(new Fade());
+        kittenDetails.setSharedElementReturnTransition(new DetailsTransition());
+
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+             //   .addSharedElement(, "playImage")
+                .replace(R.id.container, kittenDetails)
+                .addToBackStack(null)
+                .commit();
     }
 
 }

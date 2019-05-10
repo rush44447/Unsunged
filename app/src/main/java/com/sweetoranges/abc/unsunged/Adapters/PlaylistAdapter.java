@@ -15,7 +15,10 @@ import android.widget.Toast;
 
 import com.sweetoranges.abc.unsunged.Classes.ApiClient;
 import com.sweetoranges.abc.unsunged.Classes.ApiInterface;
+import com.sweetoranges.abc.unsunged.Classes.DetailsTransition;
+import com.sweetoranges.abc.unsunged.Classes.PlayListViewHolder;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
+import com.sweetoranges.abc.unsunged.DetailsFragment.DetailsFragment;
 import com.sweetoranges.abc.unsunged.MyProfileFragment.YourPlaylist;
 import com.sweetoranges.abc.unsunged.R;
 import com.sweetoranges.abc.unsunged.interfaces.PlayListClickListener;
@@ -61,28 +64,8 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         View v = LayoutInflater.from(context).inflate(R.layout.playlist, parent, false);
         viewHolder = new ViewHolder(v);
         return viewHolder; }
-//    @Override
-//    public void onKittenClicked(KittenViewHolder holder, int position) {
-//        int kittenNumber = (position % 6) + 1;
-//
-//        DetailsFragment kittenDetails = DetailsFragment.newInstance(kittenNumber);
-//
-//        // Note that we need the API version check here because the actual transition classes (e.g. Fade)
-//        // are not in the support library and are only available in API 21+. The methods we are calling on the Fragment
-//        // ARE available in the support library (though they don't do anything on API < 21)
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            kittenDetails.setSharedElementEnterTransition(new DetailsTransition());
-//            kittenDetails.setEnterTransition(new Fade());
-//            setExitTransition(new Fade());
-//            kittenDetails.setSharedElementReturnTransition(new DetailsTransition());
-//        }
-//
-//        getActivity().getSupportFragmentManager()
-//                .beginTransaction()
-//                .addSharedElement(holder.image, "kittenImage")
-//                .replace(R.id.container, kittenDetails)
-//                .addToBackStack(null)
-//                .commit();
-//    }
+
+
+
     @Override public int getItemCount(){ return name.length;  }
 }
