@@ -39,43 +39,39 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:fadingEdge="horizontal"
-                android:background="#fff"
+                android:background="?attr/selectableItemBackground"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                style="@style/Button.Outlined"
                 android:text="Search By Profile"
                 android:padding="6dp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/type"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:fadingEdge="horizontal"
-                android:background="#fff"
+                android:background="?attr/selectableItemBackground"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                style="@style/Button.Outlined"
                 android:text="Search By Type"
                 android:padding="6dp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/language"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:fadingEdge="horizontal"
-                android:background="#fff"
+                android:background="?attr/selectableItemBackground"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                style="@style/Button.Outlined"
                 android:text="Search By Language"
                 android:padding="6dp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mood"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:fadingEdge="horizontal"
-                android:background="#fff"
-                style="@style/Button.Outlined"
+                android:background="?attr/selectableItemBackground"
                 android:text="Search By Mood"
                 android:padding="6dp"/>
             </LinearLayout>
@@ -99,8 +95,8 @@
             android:id="@+id/typeRecyc"
             android:orientation="horizontal"
             android:layoutDirection="rtl"
-            android:layout_marginTop="-70dp"
+            android:layout_marginTop="-80dp"
             android:layout_width="match_parent"
-            android:layout_height="73dp"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </LinearLayout>

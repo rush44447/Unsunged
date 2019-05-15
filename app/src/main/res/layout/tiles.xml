@@ -3,26 +3,26 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginStart="4dp"
-    android:layout_marginEnd="4dp"
+    android:layout_marginStart="6dp"
+    android:layout_marginEnd="6dp"
     android:paddingTop="7dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
         android:id="@+id/circleView"
-        android:layout_width="60dp"
-        android:layout_marginTop="20dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
+        android:layout_width="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="80dp"
         android:scaleType="centerCrop"
+        android:layout_marginStart="116dp"
         android:elevation="10dp"
         android:src="@drawable/imgview" />
     <androidx.cardview.widget.CardView
         android:id="@+id/card_griditem"
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_marginBottom="4dp"
         android:layout_height="match_parent"
         android:layout_below="@+id/circleView"
-        android:layout_marginTop="-30dp"
+        android:layout_marginTop="-40dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="6dp">
         <TextView
@@ -49,10 +49,14 @@
             android:layout_width="match_parent"
             android:layout_height="24dp"
             android:background="#33000000"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            android:background="@drawable/deep"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/quickrecycler"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"/>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

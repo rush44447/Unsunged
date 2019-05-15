@@ -4,46 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000">
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/shimmer_view_container"
+    android:background="#ffffff">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dash"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="12dp"
-            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
-    </com.facebook.shimmer.ShimmerFrameLayout>
+        app:cardCornerRadius="30dp"
+        app:cardElevation="12dp"
+        android:layout_height="wrap_content">
     <RelativeLayout android:id="@+id/audionVideo"
         android:layout_width="match_parent"
-        android:layout_marginTop="100dp"
         android:paddingBottom="10dp"
-        android:layout_height="wrap_content">
+        android:background="@drawable/backi"
+        android:layout_height="450dp">
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+        </com.facebook.shimmer.ShimmerFrameLayout>
     <info.abdolahi.CircularMusicProgressBar
         android:id="@+id/album_art"
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:rotation="50"
+        android:layout_marginTop="80dp"
         android:src="@drawable/imgview"
         android:layout_centerHorizontal="true"
         app:border_color="#00796B"
@@ -53,68 +58,100 @@
         app:draw_anticlockwise="false"
         app:progress_color="#80CBC4"
         app:progress_startAngle="-90" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/ToVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="4dp"
-        android:layout_toEndOf="@+id/album_art"
-        android:layout_alignBottom="@+id/album_art"
-        android:layout_marginStart="-25dp"
-        android:src="@drawable/ic_video_library_black_24dp"
-        app:backgroundTint="#000"
-        app:rippleColor="#80CBC4" />
+        <TextView android:id="@+id/artist"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textColor="#000"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="48dp"
+            android:layout_below="@+id/album_art"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Louis The Child:"/>
+        <TextView android:id="@+id/songname"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="#000"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/album_art"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:text="Better Not"/>
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/artist"/>
+        <TextView
+            android:id="@+id/currenttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textColor="#ffffff"
+            android:layout_alignStart="@+id/seek"
+            android:layout_marginStart="-20dp"
+            android:layout_marginBottom="-10dp"
+            android:layout_above="@+id/seek"/>
+        <TextView
+            android:id="@+id/totaltime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textColor="#ffffff"
+            android:layout_alignEnd="@+id/seek"
+            android:layout_marginStart="-20dp"
+            android:layout_marginEnd="-20dp"
+            android:layout_marginBottom="-10dp"
+            android:layout_above="@+id/seek"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/votein"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="-12dp"
+            android:layout_below="@+id/album_art"
+            android:background="@drawable/ic_people_black_24dp"
+            />
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/likeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/votein"
+            android:layout_toStartOf="@+id/votein"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/heart_unliked" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/addToPlay"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+           android:layout_alignTop="@+id/votein"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_add_black_24dp" />
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/votein"
+            android:layout_toEndOf="@+id/addToPlay"
+            android:layout_marginStart="25dp"
+            android:background="@drawable/ic_thumb_down_black_24dp" />
     </RelativeLayout>
-    <TextView android:id="@+id/artist"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:textColor="#ffffff"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/audionVideo"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="Louis The Child:"/>
-    <TextView android:id="@+id/songname"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:textColor="#ffffff"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:layout_below="@+id/audionVideo"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:text="Better Not"/>
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/likeButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/ic_thumb_up_black_24dp"
-        android:layout_below="@+id/songname"
-        />
-    <androidx.appcompat.widget.AppCompatImageButton
-    android:layout_width="30dp"
-    android:layout_height="30dp"
-    android:layout_alignParentEnd="true"
-    android:layout_marginEnd="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/ic_people_black_24dp"
-    android:layout_below="@+id/songname" />
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/ic_playlist_add_black_24dp"
-        android:layout_below="@+id/songname" />
+    </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/dash" />
     <RelativeLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_marginBottom="15dp"
+        android:background="@drawable/round_image"
+        android:layout_margin="10dp"
         android:layout_height="wrap_content">
+
         <ImageView
             android:src="@drawable/ic_skip_previous_black_24dp"
             android:id="@+id/previous_p"
@@ -135,50 +172,38 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_toEndOf="@+id/player_control_p" />
-        <ImageView
-            android:src="@drawable/ic_repeat_white_24dp"
+        <TextView
             android:id="@+id/repeat_p"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-           android:layout_alignParentEnd="true"
-            android:layout_marginEnd="30dp"/>
-        <ImageView
-            android:src="@drawable/ic_shuffle_white_24dp"
+            android:layout_toEndOf="@+id/next_p"
+            android:layout_marginStart="18dp"
+            android:layout_centerVertical="true"
+            android:text="Repeat"
+            android:textSize="16sp"
+            android:textColor="#aacccccc"/>
+        <TextView
             android:id="@+id/shuffle_p"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="30dp"/>
+            android:text="Shuffle"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:textColor="#aacccccc"
+            android:layout_toStartOf="@+id/previous_p"
+            android:layout_marginEnd="18dp"/>
     </RelativeLayout>
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/seek"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/likeButton"
-        android:backgroundTint="#fff"
-        android:layout_marginTop="28dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"/>
-    <TextView
-        android:id="@+id/currenttime"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ToVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00:00"
-        android:textColor="#ffffff"
-        android:layout_alignStart="@+id/seek"
-        android:layout_marginStart="-20dp"
-        android:layout_marginBottom="-24dp"
-        android:layout_above="@+id/seek"/>
-    <TextView
-        android:id="@+id/totaltime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="00:00"
-        android:textColor="#ffffff"
-        android:layout_alignEnd="@+id/seek"
-        android:layout_marginStart="-20dp"
-        android:layout_marginEnd="-20dp"
-        android:layout_marginBottom="-24dp"
-        android:layout_above="@+id/seek"/>
+        android:elevation="4dp"
+        android:layout_marginTop="428dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_video_library_black_24dp"
+        app:backgroundTint="#ff007f"
+        app:rippleColor="#80CBC4" />
 </RelativeLayout>
