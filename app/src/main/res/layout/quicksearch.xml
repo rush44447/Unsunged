@@ -5,7 +5,7 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="30dp"
     app:cardElevation="12dp"
-    android:layout_width="200dp"
+    android:layout_width="match_parent"
     android:layout_height="400dp">
 <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:layout_width="wrap_content"
@@ -17,7 +17,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/modelc">
+        android:background="#000">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/modelc"/>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
