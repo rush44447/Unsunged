@@ -52,7 +52,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/deep"/>
+            android:background="@drawable/backimage"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/quickrecycler"
             android:layout_width="240dp"

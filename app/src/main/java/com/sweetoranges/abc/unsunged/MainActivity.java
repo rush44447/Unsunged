@@ -3,8 +3,11 @@ package com.sweetoranges.abc.unsunged;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.sweetoranges.abc.unsunged.Activities.LoginActivity;
 import com.sweetoranges.abc.unsunged.ChallengeFragment.ChallengeFragment;
 import com.sweetoranges.abc.unsunged.BingeFragment.BingeFragment;
 import com.sweetoranges.abc.unsunged.Classes.ApiClient;
@@ -63,9 +67,13 @@ public class MainActivity extends AppCompatActivity {
         navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         RelativeLayout Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
-        ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
-        container.startShimmerAnimation();
-
+        try {
+            ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+            container.startShimmerAnimation();
+            Toast.makeText(context, "shimmer should be worjking", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Toast.makeText(context, "cant shimmer", Toast.LENGTH_SHORT).show();
+        }
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
         mPlayerControlBig = (ImageView) findViewById(R.id.player_control_p);
         Seek=(AppCompatSeekBar)findViewById(R.id.seek);
@@ -106,24 +114,23 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.next_p).setOnClickListener(bigNext);
         findViewById(R.id.ToVideo).setOnClickListener(startVideo);
 
-        finalTime = mediaPlayer.getDuration();
-        startTime = mediaPlayer.getCurrentPosition();
-        Toast.makeText(context, String.valueOf((long)finalTime), Toast.LENGTH_SHORT).show();
-        //mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
+        SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
+        if (prefs.getBoolean("logininfo", false)) {
+                    SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
+        editor.putBoolean("logininfo", true);// turn this true when login is made       i.e. api returns success after registeration
+        editor.apply();
+                Intent intent =new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+        }
+
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setOnPreparedListener(mp -> { });
         mediaPlayer.setOnCompletionListener(mp -> {});
          Seek.setProgress((int) startTime);
-        myHandler.postDelayed(UpdateSongTime,100);
-//        if (oneTimeOnly == 0) {
-//            Seek.setMax((int) finalTime);
-//            oneTimeOnly = 1; }
-        callMusicDetail();
-         totaltime.setText(String.format("%d : %d",
-                 TimeUnit.MILLISECONDS.toMinutes((long) finalTime), TimeUnit.MILLISECONDS.toSeconds((long) finalTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime))));
-        currenttime.setText(String.format("%d : %d", TimeUnit.MILLISECONDS.toMinutes((long) startTime), TimeUnit.MILLISECONDS.toSeconds((long) startTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime))));
+        if(isNetworkAvailable())  callMusicDetail();
 
     }
+
     private void togglePlayPause() {
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
@@ -187,14 +194,18 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
     };
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
     private Runnable UpdateSongTime = new Runnable() {
         @SuppressLint("DefaultLocale")
         public void run() {
@@ -204,7 +215,6 @@ public class MainActivity extends AppCompatActivity {
             myHandler.postDelayed(this, 100);
         }
     };
-
     private void callMusicDetail() {//connection is built
         Call<StreamingRequest> call = apiService.getStreaming("idshnmkl");//this is added to baseurl and data is  retrieved
         call.enqueue(new retrofit2.Callback<StreamingRequest>() {
@@ -218,9 +228,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @SuppressLint("DefaultLocale")
     private void handleResponse(Response<StreamingRequest> response) {
         try { mediaPlayer.setDataSource(response.body().getMp3Url());//here mp3 file is loaded using retrieved url and fed into mMediaPlayer
             mediaPlayer.prepareAsync();
+            finalTime = mediaPlayer.getDuration();
+            startTime = mediaPlayer.getCurrentPosition();
+            totaltime.setText(String.format("%d : %d",
+                    TimeUnit.MILLISECONDS.toMinutes((long) finalTime), TimeUnit.MILLISECONDS.toSeconds((long) finalTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime))));
+            currenttime.setText(String.format("%d : %d", TimeUnit.MILLISECONDS.toMinutes((long) startTime), TimeUnit.MILLISECONDS.toSeconds((long) startTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime))));
+            myHandler.postDelayed(UpdateSongTime,100);
         } catch (IOException e) {
             e.printStackTrace();
         }

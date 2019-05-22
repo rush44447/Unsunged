@@ -107,29 +107,32 @@
             android:layout_marginEnd="-20dp"
             android:layout_marginBottom="-10dp"
             android:layout_above="@+id/seek"/>
-        <androidx.appcompat.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/votein"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="-12dp"
+            android:background="?attr/selectableItemBackground"
             android:layout_below="@+id/album_art"
-            android:background="@drawable/ic_people_black_24dp"
+            android:src="@drawable/ic_people_black_24dp"
             />
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/likeButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignTop="@+id/votein"
+            android:background="?attr/selectableItemBackground"
             android:layout_toStartOf="@+id/votein"
             android:layout_marginEnd="25dp"
             android:src="@drawable/heart_unliked" />
-        <androidx.appcompat.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/addToPlay"
             android:layout_width="30dp"
             android:layout_height="30dp"
            android:layout_alignTop="@+id/votein"
+            android:background="?attr/selectableItemBackground"
             android:layout_marginStart="20dp"
             android:src="@drawable/ic_add_black_24dp" />
         <androidx.appcompat.widget.AppCompatImageButton
@@ -137,8 +140,9 @@
             android:layout_height="30dp"
             android:layout_alignTop="@+id/votein"
             android:layout_toEndOf="@+id/addToPlay"
+            android:background="?attr/selectableItemBackground"
             android:layout_marginStart="25dp"
-            android:background="@drawable/ic_thumb_down_black_24dp" />
+            android:src="@drawable/ic_thumb_down_black_24dp" />
     </RelativeLayout>
     </androidx.cardview.widget.CardView>
     <androidx.recyclerview.widget.RecyclerView
@@ -156,6 +160,7 @@
             android:src="@drawable/ic_skip_previous_black_24dp"
             android:id="@+id/previous_p"
             android:layout_width="55dp"
+            android:background="?attr/selectableItemBackground"
             android:layout_height="55dp"
             android:layout_toStartOf="@+id/player_control_p" />
         <ImageView
@@ -165,12 +170,14 @@
             android:layout_height="55dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:background="?attr/selectableItemBackground"
             android:layout_centerHorizontal="true" />
         <ImageView
             android:src="@drawable/ic_skip_next_black_24dp"
             android:id="@+id/next_p"
             android:layout_width="55dp"
             android:layout_height="55dp"
+            android:background="?attr/selectableItemBackground"
             android:layout_toEndOf="@+id/player_control_p" />
         <TextView
             android:id="@+id/repeat_p"
@@ -180,6 +187,7 @@
             android:layout_toEndOf="@+id/next_p"
             android:layout_marginStart="18dp"
             android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackground"
             android:text="Repeat"
             android:textSize="16sp"
             android:textColor="#aacccccc"/>
@@ -190,6 +198,7 @@
             android:layout_marginTop="10dp"
             android:text="Shuffle"
             android:textSize="16sp"
+            android:background="?attr/selectableItemBackground"
             android:layout_centerVertical="true"
             android:textColor="#aacccccc"
             android:layout_toStartOf="@+id/previous_p"
