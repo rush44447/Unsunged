@@ -7,15 +7,37 @@
 <androidx.appcompat.widget.AppCompatImageView
     android:id="@+id/loginScreen"
     android:elevation="0dp"
+    android:background="#000"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
-    <Button android:id="@+id/loginButton"
+    <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
+        android:id="@+id/ProfileImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:elevation="12dp"
+        android:src="@drawable/imgview" />
+    <TextView android:id="@+id/statustext"
         android:layout_width="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"/>
+    <TextView android:id="@+id/mailid"
+        android:layout_width="wrap_content"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/statustext"/>
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/loginButton"
+        android:layout_width="fill_parent"
+        android:layout_margin="40dp"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:layout_centerHorizontal="true"
-        android:elevation="4dp"
-        android:text="Login"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"/>
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

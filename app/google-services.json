@@ -1,29 +1,42 @@
 {
   "project_info": {
-    "project_number": "873844004129",
-    "firebase_url": "https://unsunged-70cb4.firebaseio.com",
-    "project_id": "unsunged-70cb4",
-    "storage_bucket": "unsunged-70cb4.appspot.com"
+    "project_number": "275313358065",
+    "firebase_url": "https://unsunged-d5b3d.firebaseio.com",
+    "project_id": "unsunged-d5b3d",
+    "storage_bucket": "unsunged-d5b3d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:873844004129:android:28506995b5210afc",
+        "mobilesdk_app_id": "1:275313358065:android:28506995b5210afc",
         "android_client_info": {
           "package_name": "com.sweetoranges.abc.unsunged"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "275313358065-97d2f2hqjpp63ff1fml5gioqjf0mi5r7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sweetoranges.abc.unsunged",
+            "certificate_hash": "add18d8df1b4146895620a5cf09e1a8ac4c0378f"
+          }
+        },
+        {
+          "client_id": "275313358065-ok2ufdhcb0r0quscq05tfi1hqh2t0rht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAgv_r-TPoFBupBtYEx6_GjhRInbKOqTKg"
+          "current_key": "AIzaSyBiuVrW7KvYeq4Jxeesh95ZShwZDJzHync"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "873844004129-5fb1e5907p6tjkdaq6lpkloe2opliq5g.apps.googleusercontent.com",
+              "client_id": "275313358065-ok2ufdhcb0r0quscq05tfi1hqh2t0rht.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

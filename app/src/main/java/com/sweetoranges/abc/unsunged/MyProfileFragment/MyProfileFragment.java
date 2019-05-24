@@ -86,14 +86,10 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
             }
 
             private void revealShow(View dialogView, boolean b, final Dialog dialog) {
-
                 final View view = dialogView.findViewById(R.id.dialog);
-
                 int w = view.getWidth();
                 int h = view.getHeight();
-
                 int endRadius = (int) Math.hypot(w, h);
-
                 int cx = (int) (circularImageView.getX() +334);
                 int cy = (int) (circularImageView.getY())+ circularImageView.getHeight() + 48;
 

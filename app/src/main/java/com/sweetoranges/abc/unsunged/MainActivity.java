@@ -67,13 +67,10 @@ public class MainActivity extends AppCompatActivity {
         navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         RelativeLayout Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
-        try {
+
             ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
             container.startShimmerAnimation();
-            Toast.makeText(context, "shimmer should be worjking", Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
-            Toast.makeText(context, "cant shimmer", Toast.LENGTH_SHORT).show();
-        }
+
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
         mPlayerControlBig = (ImageView) findViewById(R.id.player_control_p);
         Seek=(AppCompatSeekBar)findViewById(R.id.seek);
@@ -119,15 +116,16 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
         editor.putBoolean("logininfo", true);// turn this true when login is made       i.e. api returns success after registeration
         editor.apply();
-                Intent intent =new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
 
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setOnPreparedListener(mp -> { });
         mediaPlayer.setOnCompletionListener(mp -> {});
          Seek.setProgress((int) startTime);
-        if(isNetworkAvailable())  callMusicDetail();
+      //  if(isNetworkAvailable())
+          callMusicDetail();
 
     }
 
