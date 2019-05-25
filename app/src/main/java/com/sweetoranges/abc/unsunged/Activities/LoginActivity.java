@@ -10,6 +10,9 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +40,9 @@ import com.google.android.gms.tasks.Task;
 import com.sweetoranges.abc.unsunged.MainActivity;
 import com.sweetoranges.abc.unsunged.R;
 import com.google.android.gms.common.api.Status;
+
+import java.io.InputStream;
+
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 AppCompatImageView BackScreen;
     private SignInButton Loginpage;
@@ -44,6 +50,7 @@ AppCompatImageView BackScreen;
     private ImageView imgProfilePic;
     private GoogleApiClient googleApiClient;
     private static final int RC_SIGN_IN = 1;
+    private ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,15 +103,86 @@ AppCompatImageView BackScreen;
             handleSignInResult(result);
         }
     }
-    private void handleSignInResult(GoogleSignInResult result){
-        if(result.isSuccess()){
-            gotoProfile();
-        }else{
-            Toast.makeText(getApplicationContext(),"Sign in cancel",Toast.LENGTH_LONG).show();
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
+            // Signed in successfolly, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            Status.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+            //Similarly you can get the email and photourl using acct.getEmail() and  acct.getPhotoUrl()
+
+            if(acct.getPhotoUrl() != null)
+                new LoadProfileImage(imgProfilePic).execute(acct.getPhotoUrl().toString());
+
+            updateUI(true);
+        } else {
+            // Signed out, show unauthenticated UI.
+            updateUI(false);
         }
     }
-    private void gotoProfile(){
-        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-        startActivity(intent);
+    private void updateUI(boolean signedIn) {
+        if (signedIn) {
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        } else {
+            Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+        }
     }
+    private void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(getApplicationContext());
+            mProgressDialog.setMessage(getString(R.string.loading));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.hide();
+        }
+
+    }
+
+    private class LoadProfileImage extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public LoadProfileImage(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... uri) {
+            String url = uri[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(url).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+
+            if (result != null) {
+                Bitmap resized = Bitmap.createScaledBitmap(result,200,200, true);
+                bmImage.setImageBitmap(ImageHelper.getRoundedCornerBitmap(getApplicationContext(),resized,250,200,200, false, false, false, false));
+
+            }
+        }
+    }
+//    signOutButton.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+//                    new ResultCallback<Status>() {
+//                        @Override
+//                        public void onResult(Status status) {
+//                            updateUI(false);
+//                        }
+//                    });
+//        }
+//    });
 }
