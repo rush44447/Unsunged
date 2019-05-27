@@ -18,6 +18,11 @@
         android:layout_marginTop="70dp"
         android:elevation="12dp"
         android:src="@drawable/imgview" />
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
     <TextView android:id="@+id/statustext"
         android:layout_width="wrap_content"
         android:textSize="18sp"

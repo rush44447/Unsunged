@@ -10,6 +10,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -51,6 +52,7 @@ AppCompatImageView BackScreen;
     private GoogleApiClient googleApiClient;
     private static final int RC_SIGN_IN = 1;
     private ProgressDialog mProgressDialog;
+    Button BTN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +61,13 @@ AppCompatImageView BackScreen;
         Loginpage=(SignInButton)findViewById(R.id.loginButton);
         Status=(TextView)findViewById(R.id.statustext);
         mailId=(TextView)findViewById(R.id.mailid);
+        BTN=(Button)findViewById(R.id.btn);
         imgProfilePic = (ImageView) findViewById(R.id.ProfileImage);
 //        Glide.with(getApplicationContext()).load(R.drawable.musica).into(BackScreen);
         Loginpage.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        });
+        BTN.setOnClickListener(v -> {
             Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
             startActivityForResult(intent,RC_SIGN_IN);
         });
@@ -109,7 +115,19 @@ AppCompatImageView BackScreen;
             // Signed in successfolly, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             Status.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+            if( acct.getDisplayName()!=null){
+                SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
+                editor.putBoolean("logininfo", true);
+                editor.apply();
+             //   startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            }
             //Similarly you can get the email and photourl using acct.getEmail() and  acct.getPhotoUrl()
+            SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
+            if (!prefs.getBoolean("logininfo", false)) {
+                // startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                Toast.makeText(getApplicationContext(), "fasle", Toast.LENGTH_SHORT).show();
+            }else{            Toast.makeText(getApplicationContext(), "true", Toast.LENGTH_SHORT).show();
+            }
 
             if(acct.getPhotoUrl() != null)
                 new LoadProfileImage(imgProfilePic).execute(acct.getPhotoUrl().toString());

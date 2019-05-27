@@ -111,14 +111,16 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.next_p).setOnClickListener(bigNext);
         findViewById(R.id.ToVideo).setOnClickListener(startVideo);
 
-        SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
-        if (prefs.getBoolean("logininfo", false)) {
-                    SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
-        editor.putBoolean("logininfo", true);// turn this true when login is made       i.e. api returns success after registeration
-        editor.apply();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        }
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//      try {
+//          SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
+//          if (!prefs.getBoolean("logininfo", false)) {
+//              // startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//              Toast.makeText(context, "fasle", Toast.LENGTH_SHORT).show();
+//          } else {
+//              Toast.makeText(context, "true", Toast.LENGTH_SHORT).show();
+//          }
+//     }catch (Exception E){              Toast.makeText(context, "err", Toast.LENGTH_SHORT).show();
+//      }
 
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setOnPreparedListener(mp -> { });
