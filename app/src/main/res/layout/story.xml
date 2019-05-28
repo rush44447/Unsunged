@@ -10,13 +10,15 @@
         android:background="#000"
         android:src="@drawable/download"
         android:layout_marginStart="4dp" />
-    <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignBottom="@+id/firststory"
         android:layout_alignEnd="@+id/firststory"
         android:layout_margin="6dp"
         android:background="#000"/>
+
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/secondstory"
         android:layout_width="150dp"
@@ -26,13 +28,16 @@
         android:layout_marginTop="4dp"
         android:background="#000"
         android:src="@drawable/imgview" />
-    <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignBottom="@+id/secondstory"
         android:layout_alignEnd="@+id/secondstory"
         android:layout_margin="6dp"
         android:src="#000"/>
+
+
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/thirdstory"
         android:layout_width="150dp"
@@ -43,13 +48,15 @@
         android:layout_toEndOf="@+id/secondstory"
         android:layout_marginStart="4dp"
     android:layout_marginTop="4dp"/>
-    <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignBottom="@+id/thirdstory"
         android:layout_alignEnd="@+id/thirdstory"
         android:layout_margin="6dp"
         android:src="#000"/>
+
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/forthhstory"
         android:layout_width="match_parent"
@@ -60,13 +67,15 @@
         android:src="@drawable/imgview"
         android:layout_toEndOf="@+id/firststory"
         android:layout_marginStart="4dp"/>
-    <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignBottom="@+id/forthhstory"
         android:layout_alignEnd="@+id/forthhstory"
         android:layout_margin="6dp"
         android:src="#000"/>
+
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/fifthstory"
         android:layout_width="190dp"
@@ -76,13 +85,15 @@
         android:layout_marginStart="4dp"
         android:layout_toEndOf="@+id/thirdstory"
         android:layout_alignBottom="@+id/thirdstory"/>
-    <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignBottom="@+id/fifthstory"
         android:layout_alignEnd="@+id/fifthstory"
         android:layout_margin="6dp"
         android:src="#000"/>
+
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/sixthstory"
         android:layout_width="190dp"
@@ -91,7 +102,7 @@
         android:src="@drawable/imgview"
        android:layout_alignStart="@+id/fifthstory"
         />
-    <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignBottom="@+id/sixthstory"

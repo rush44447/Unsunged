@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="8dp"
-    app:cardCornerRadius="30dp"
+    app:cardCornerRadius="20dp"
     app:cardElevation="12dp"
     android:layout_width="match_parent"
-    android:layout_height="400dp">
+    android:layout_height="310dp">
 <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             android:elevation="0dp"
             android:layout_centerVertical="true"
             android:background="@drawable/modelc"/>
-        <ImageView
+        <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="30dp"
@@ -56,10 +56,10 @@
             android:layout_marginBottom="30dp"/>
         <ImageView
             android:id="@+id/likesearch"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_toEndOf="@+id/playsearch"
-            android:layout_marginStart="30dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="30dp"
             android:src="@drawable/heart_unliked"
             android:background="#44000000"/>
     </RelativeLayout>

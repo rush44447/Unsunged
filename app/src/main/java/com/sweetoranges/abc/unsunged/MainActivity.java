@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,11 +32,15 @@ import com.sweetoranges.abc.unsunged.Classes.ApiInterface;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
 import com.sweetoranges.abc.unsunged.MyProfileFragment.MyProfileFragment;
 import com.sweetoranges.abc.unsunged.SearchFragment.SearchFragment;
+import com.sweetoranges.abc.unsunged.utils.MyBounceInterpolator;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -56,7 +62,9 @@ public class MainActivity extends AppCompatActivity {
     public View Hider;
     public double startTime = 0;
     public double finalTime = 0;
-   // public static int oneTimeOnly = 0;
+    public String UserName;
+    private AppCompatImageButton likeButton;
+    // public static int oneTimeOnly = 0;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -77,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.nameOfSong);
         currenttime = (TextView) findViewById(R.id.currenttime);
         totaltime = (TextView) findViewById(R.id.totaltime);
-
         Hider=(View)findViewById(R.id.hiderView);
+        likeButton=(AppCompatImageButton)findViewById(R.id.likeButton);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         context = getApplicationContext();
         tv.setSelected(true);
@@ -88,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior.setHideable(false);
         bottomSheetBehavior.setPeekHeight(78);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
 //                switch (newState) {
@@ -103,6 +110,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bounceButton(v);
+                likeButton.setBackgroundResource(R.drawable.heart);
+            }
+        });
+
+        setUpPlayerControl();
+        checkAccount();
+
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setOnPreparedListener(mp -> { });
+        mediaPlayer.setOnCompletionListener(mp -> {});
+         Seek.setProgress((int) startTime);
+        if(isNetworkAvailable())
+          callMusicDetail();
+
+    }
+
+    private void bounceButton(View view) {
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+        likeButton.startAnimation(myAnim);
+    }
+
+    private void setUpPlayerControl() {
         findViewById(R.id.player_control).setOnClickListener(smallPlay);
         findViewById(R.id.previous).setOnClickListener(smallPrevious);
         findViewById(R.id.next).setOnClickListener(smallNext);
@@ -110,25 +145,15 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.previous_p).setOnClickListener(bigPrevious);
         findViewById(R.id.next_p).setOnClickListener(bigNext);
         findViewById(R.id.ToVideo).setOnClickListener(startVideo);
+    }
 
-//      try {
-//          SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
-//          if (!prefs.getBoolean("logininfo", false)) {
-//              // startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//              Toast.makeText(context, "fasle", Toast.LENGTH_SHORT).show();
-//          } else {
-//              Toast.makeText(context, "true", Toast.LENGTH_SHORT).show();
-//          }
-//     }catch (Exception E){              Toast.makeText(context, "err", Toast.LENGTH_SHORT).show();
-//      }
-
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.setOnPreparedListener(mp -> { });
-        mediaPlayer.setOnCompletionListener(mp -> {});
-         Seek.setProgress((int) startTime);
-      //  if(isNetworkAvailable())
-          callMusicDetail();
-
+    private void checkAccount() {
+        try { SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
+            if (!prefs.getBoolean("logininfo", false)) {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }else{UserName=prefs.getString("username",null);}
+        }catch (Exception E){ Toast.makeText(context, "Couldn't Login", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void togglePlayPause() {
@@ -195,8 +220,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
     };
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }

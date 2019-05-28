@@ -3,6 +3,8 @@ package com.sweetoranges.abc.unsunged.Activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 
@@ -15,10 +17,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,27 +51,25 @@ import java.io.InputStream;
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 AppCompatImageView BackScreen;
     private SignInButton Loginpage;
-    private TextView Status,mailId;
+    private TextView Status;
     private ImageView imgProfilePic;
     private GoogleApiClient googleApiClient;
     private static final int RC_SIGN_IN = 1;
     private ProgressDialog mProgressDialog;
-    Button BTN;
+    private ProgressBar progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         BackScreen=(AppCompatImageView)findViewById(R.id.loginScreen);
         Loginpage=(SignInButton)findViewById(R.id.loginButton);
+        progress=(ProgressBar)findViewById(R.id.progress);
         Status=(TextView)findViewById(R.id.statustext);
-        mailId=(TextView)findViewById(R.id.mailid);
-        BTN=(Button)findViewById(R.id.btn);
         imgProfilePic = (ImageView) findViewById(R.id.ProfileImage);
+
 //        Glide.with(getApplicationContext()).load(R.drawable.musica).into(BackScreen);
         Loginpage.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this,MainActivity.class));
-        });
-        BTN.setOnClickListener(v -> {
+        progress.setVisibility(View.VISIBLE);
             Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
             startActivityForResult(intent,RC_SIGN_IN);
         });
@@ -115,18 +117,18 @@ AppCompatImageView BackScreen;
             // Signed in successfolly, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             Status.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+            imgProfilePic.setImageResource(R.drawable.imgview);
             if( acct.getDisplayName()!=null){
                 SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
                 editor.putBoolean("logininfo", true);
+                editor.putString("username",acct.getDisplayName());
                 editor.apply();
-             //   startActivity(new Intent(LoginActivity.this,MainActivity.class));
             }
             //Similarly you can get the email and photourl using acct.getEmail() and  acct.getPhotoUrl()
             SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
             if (!prefs.getBoolean("logininfo", false)) {
                 // startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 Toast.makeText(getApplicationContext(), "fasle", Toast.LENGTH_SHORT).show();
-            }else{            Toast.makeText(getApplicationContext(), "true", Toast.LENGTH_SHORT).show();
             }
 
             if(acct.getPhotoUrl() != null)
@@ -139,8 +141,14 @@ AppCompatImageView BackScreen;
         }
     }
     private void updateUI(boolean signedIn) {
-        if (signedIn) {
+        if (signedIn) {        progress.setVisibility(View.GONE);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);}
+            }, 2000);
         } else {
             Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
         }
