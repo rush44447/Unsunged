@@ -28,5 +28,5 @@
     <string name="undefined">Undefined</string>
     <string name="loading">Please Wait...</string>
     <string name="signed_out">Signed Out</string>
-    <string name="signed_in_fmt">Signed in as: %s</string>
+    <string name="signed_in_fmt">Sign in as: %s</string>
 </resources>

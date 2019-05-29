@@ -1,27 +1,19 @@
 package com.sweetoranges.abc.unsunged.Story;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
-import com.sweetoranges.abc.unsunged.Model.Story;
 import com.sweetoranges.abc.unsunged.R;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 

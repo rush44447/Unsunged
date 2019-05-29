@@ -44,11 +44,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.github.aliab:circular-music-progressbar:v1.3.0'
-    implementation 'com.github.Ferfalk:SimpleSearchView:0.1.4'
-    implementation 'com.tramsun.libs:prefcompat:0.7'
-    implementation 'com.github.DingMouRen:LayoutManagerGroup:1e6f4f96eb'
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
     implementation 'com.github.florent37:arclayout:1.0.3'
+    implementation 'com.sdsmdg.harjot:rotatingtext:1.0.2'
 
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.google.code.gson:gson:2.8.2'

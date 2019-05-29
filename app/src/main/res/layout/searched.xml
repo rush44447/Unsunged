@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="rush44447"
+        android:textColor="#000"
         android:textSize="18sp"
         android:gravity="center"/>
     <ImageButton android:id="@+id/cross"

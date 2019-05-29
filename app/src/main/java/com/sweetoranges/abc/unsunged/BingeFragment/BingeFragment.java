@@ -1,21 +1,15 @@
 package com.sweetoranges.abc.unsunged.BingeFragment;
 
 import android.app.ProgressDialog;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sweetoranges.abc.unsunged.Classes.ApiClient;
-import com.sweetoranges.abc.unsunged.Classes.ApiInterface;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
 import com.sweetoranges.abc.unsunged.MainActivity;
-import com.sweetoranges.abc.unsunged.Model.Story;
 import com.sweetoranges.abc.unsunged.R;
 import com.sweetoranges.abc.unsunged.Story.StoryAdapter;
 
@@ -84,7 +78,6 @@ public class BingeFragment extends Fragment  {
                 @Override
                 public void onResponse(Call<StreamingRequest> call, Response<StreamingRequest> response) {
                     follow.add(response.body());
-                    Toast.makeText(getActivity(), follow.get(0).getTitle(), Toast.LENGTH_SHORT).show();
                     recyclerView.setAdapter(new StoryAdapter(getActivity(),follow));
                     pd.hide();
                 }

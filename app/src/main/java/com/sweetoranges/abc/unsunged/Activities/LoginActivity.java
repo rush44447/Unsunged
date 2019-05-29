@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,6 +43,8 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
+import com.sdsmdg.harjot.rotatingtext.models.Rotatable;
 import com.sweetoranges.abc.unsunged.MainActivity;
 import com.sweetoranges.abc.unsunged.R;
 import com.google.android.gms.common.api.Status;
@@ -67,21 +70,26 @@ AppCompatImageView BackScreen;
         Status=(TextView)findViewById(R.id.statustext);
         imgProfilePic = (ImageView) findViewById(R.id.ProfileImage);
 
-//        Glide.with(getApplicationContext()).load(R.drawable.musica).into(BackScreen);
+        startColorFade(BackScreen);
+
+        GoogleSignInOptions gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        googleApiClient=new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
+        RotatingTextWrapper rotatingTextWrapper = (RotatingTextWrapper) findViewById(R.id.custom_switcher);
+        rotatingTextWrapper.setSize(35);
+
+        Rotatable rotatable = new Rotatable(Color.parseColor("#FFA036"), 1000, "Redefined", "Reimagined", "Experience Redesigned","Fresh","Upcoming");
+        rotatable.setSize(35);
+        rotatable.setAnimationDuration(500);
+
+        rotatingTextWrapper.setContent("Unsunged is Music", rotatable);
+
         Loginpage.setOnClickListener(v -> {
-        progress.setVisibility(View.VISIBLE);
+            progress.setVisibility(View.VISIBLE);
             Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
             startActivityForResult(intent,RC_SIGN_IN);
         });
-        startColorFade(BackScreen);
-        GoogleSignInOptions gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        googleApiClient=new GoogleApiClient.Builder(this)
-                .enableAutoManage(this,this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
-                .build();
-
     }
 
     private void startColorFade(View v){
@@ -118,6 +126,7 @@ AppCompatImageView BackScreen;
             GoogleSignInAccount acct = result.getSignInAccount();
             Status.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             imgProfilePic.setImageResource(R.drawable.imgview);
+            progress.setVisibility(View.GONE);
             if( acct.getDisplayName()!=null){
                 SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
                 editor.putBoolean("logininfo", true);
@@ -141,14 +150,14 @@ AppCompatImageView BackScreen;
         }
     }
     private void updateUI(boolean signedIn) {
-        if (signedIn) {        progress.setVisibility(View.GONE);
+        if (signedIn) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);}
-            }, 2000);
+            }, 1000);
         } else {
             Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
         }

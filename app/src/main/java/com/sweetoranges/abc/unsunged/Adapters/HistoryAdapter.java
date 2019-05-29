@@ -53,13 +53,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                         }
                     }
                     searchby = numlist .toArray(new String[numlist .size()]);
-                    notifyItemRemoved(position);
                 }
             });
     }
 
     @Override public HistoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View v = LayoutInflater.from(context).inflate(R.layout.tiles, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.searched, parent, false);
 
         return new ViewHolder(v); }
     @Override public int getItemCount(){ return searchby.length;  }
