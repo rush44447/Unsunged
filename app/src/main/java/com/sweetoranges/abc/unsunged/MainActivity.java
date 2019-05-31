@@ -75,10 +75,8 @@ public class MainActivity extends AppCompatActivity {
         navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         RelativeLayout Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
-
             ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
             container.startShimmerAnimation();
-
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
         mPlayerControlBig = (ImageView) findViewById(R.id.player_control_p);
         Seek=(AppCompatSeekBar)findViewById(R.id.seek);
@@ -110,12 +108,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        likeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bounceButton(v);
-                likeButton.setBackgroundResource(R.drawable.heart);
-            }
+        likeButton.setOnClickListener(v -> {
+            bounceButton(v);
+            likeButton.setBackgroundResource(R.drawable.heart);
         });
 
         setUpPlayerControl();
@@ -126,8 +121,7 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.setOnCompletionListener(mp -> {});
          Seek.setProgress((int) startTime);
         if(isNetworkAvailable())
-          callMusicDetail();
-
+            callMusicDetail();
     }
 
     private void bounceButton(View view) {

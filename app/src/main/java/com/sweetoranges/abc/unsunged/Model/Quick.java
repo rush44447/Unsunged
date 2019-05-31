@@ -15,10 +15,6 @@ public class Quick {
     @Expose
     private String phone;
 
-
-    public Quick() {
-    }
-
     public String getName() {
         return name;
     }
@@ -29,5 +25,17 @@ public class Quick {
 
     public String getPhone() {
         return phone;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

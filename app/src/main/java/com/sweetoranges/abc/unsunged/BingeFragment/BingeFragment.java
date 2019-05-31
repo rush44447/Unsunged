@@ -1,6 +1,9 @@
 package com.sweetoranges.abc.unsunged.BingeFragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,7 +65,8 @@ public class BingeFragment extends Fragment  {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         songList=getDataForStory();
         firstImage.setOnClickListener(v -> recyclerView.smoothScrollBy(500, 0));
-        loadJSON();
+        if(isNetworkAvailable())
+            loadJSON();
         return view;
     }
 
@@ -71,6 +75,11 @@ public class BingeFragment extends Fragment  {
 
     return getStory;}
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     private void loadJSON() {
         try { Call<StreamingRequest> call = MainActivity.apiService.getStreaming("idshnmkl");
@@ -84,6 +93,7 @@ public class BingeFragment extends Fragment  {
                 @Override
                 public void onFailure(Call<StreamingRequest> call, Throwable t) {
                     Toast.makeText(getActivity(), "failed to connect", Toast.LENGTH_SHORT).show();
+                    pd.hide();
                 }
             });
 

@@ -23,6 +23,7 @@ import com.sweetoranges.abc.unsunged.Adapters.SearchAdapter;
 import com.sweetoranges.abc.unsunged.Classes.ApiCaller;
 import com.sweetoranges.abc.unsunged.Classes.ApiClient;
 import com.sweetoranges.abc.unsunged.Classes.ApiInteract;
+import com.sweetoranges.abc.unsunged.MainActivity;
 import com.sweetoranges.abc.unsunged.Model.Quick;
 import com.sweetoranges.abc.unsunged.R;
 
@@ -30,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +40,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 
@@ -53,11 +56,11 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
     public String[] history = new String[]{"Arijit","Shreya","Vishal","Neha"};
     private static final String URL = "https://api.androidhive.info/json/contacts.json";
     private List<Quick> contactList = new ArrayList<>();
-
+Context context=getActivity();
     private SearchView searchView;
     public RecyclerView searchRecycler,search,typeRecyc;
     private SearchAdapter mAdapter;
-
+    private SearchView.OnQueryTextListener queryTextListener;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -115,18 +118,19 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
         try {
              ApiInteract apiService = ApiCaller.getClient().create(ApiInteract.class);
 
-            Call<Quick> call = apiService.getStreaming();
-            call.enqueue(new retrofit2.Callback<Quick>() {
+            Call<List<Quick>> call = apiService.getStreaming();
+            call.enqueue(new retrofit2.Callback<List<Quick>>() {
                 @Override
-                public void onResponse(Call<Quick> call, retrofit2.Response<Quick> response) {
-                    contactList.add(response.body());
-                    Toast.makeText(getActivity(), contactList.get(0).getName(), Toast.LENGTH_SHORT).show();
+                public void onResponse(Call<List<Quick>> call, retrofit2.Response<List<Quick>> response) {
+//                    contactList.add(response.body());
+                    List<Quick> cont=response.body();
+                    Toast.makeText(getActivity(), cont.get(0).getName(), Toast.LENGTH_SHORT).show();
 
                    // recyclerView.setAdapter(new StoryAdapter(getActivity(),follow));
                 }
                 @Override
-                public void onFailure(Call<Quick> call, Throwable t) {
-                    Toast.makeText(getActivity(), "failed to connect", Toast.LENGTH_SHORT).show();
+                public void onFailure(Call<List<Quick>> call, Throwable t) {
+                    Toast.makeText(getActivity(), "failed to ", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -134,70 +138,52 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
             Log.d("Error", e.getMessage());
             Toast.makeText(getActivity(),"err", Toast.LENGTH_SHORT).show();
         }
-//        JsonArrayRequest request = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
-//                    @Override
-//                    public void onResponse(JSONArray response) {
-//                        if (response == null) {
-//                            Toast.makeText(getActivity(), "Couldn't fetch the contacts! Pleas try again.", Toast.LENGTH_LONG).show();
-//                            return;
-//                        }
-//
-//                        List<Quick> items = new Gson().fromJson(response.toString(), new TypeToken<List<Quick>>() {
-//                        }.getType());
-//
-//                        // adding contacts to contacts list
-//                        contactList.clear();
-//                        contactList.addAll(items);
-//
-//                        // refreshing recycler view
-//                        mAdapter.notifyDataSetChanged();
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                // error in getting json
-//                Log.e(TAG, "Error: " + error.getMessage());
-//            }
-//        });
-//
-//        MyApplication.getInstance().addToRequestQueue(request);
     }
-//
-//
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        getActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-//
-//        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-//        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-//        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.main_menu, menu);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+       // searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+
+      //  searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+      //  searchView.setMaxWidth(Integer.MAX_VALUE);
+
 //        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 //            @Override
 //            public boolean onQueryTextSubmit(String query) {
+//                // filter recycler view when query submitted
 //                mAdapter.getFilter().filter(query);
 //                return false;
 //            }
 //
 //            @Override
 //            public boolean onQueryTextChange(String query) {
+//                // filter recycler view when text is changed
 //                mAdapter.getFilter().filter(query);
 //                return false;
 //            }
 //        });
-//     //   return true;
-//    }
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-//
+
 //    @Override
 //    public void onBackPressed() {
 //        // close search view on back button pressed
@@ -216,7 +202,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
             getActivity().getWindow().setStatusBarColor(Color.WHITE);
         }
     }
-
     @Override
     public void onContactSelected(Quick contact) {
         Toast.makeText(getActivity(), "Selected: " + contact.getName() + ", " + contact.getPhone(), Toast.LENGTH_LONG).show();
