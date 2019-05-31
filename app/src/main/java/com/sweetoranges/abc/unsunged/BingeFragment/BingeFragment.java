@@ -54,19 +54,19 @@ public class BingeFragment extends Fragment  {
         third.setSelected(true);
         forth.setSelected(true);
         fifth.setSelected(true);
-        pd = new ProgressDialog(getActivity());
-        pd.setMessage("Fetching Stories...");
-        pd.setCancelable(false);
-        pd.show();
-
      //   followings=getFollowingsId();
         recyclerView = view.findViewById(R.id.story);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         songList=getDataForStory();
         firstImage.setOnClickListener(v -> recyclerView.smoothScrollBy(500, 0));
-        if(isNetworkAvailable())
+        if(isNetworkAvailable()){
+            pd = new ProgressDialog(getActivity());
+            pd.setMessage("Fetching Stories...");
+            pd.setCancelable(false);
+            pd.show();
             loadJSON();
+        }
         return view;
     }
 

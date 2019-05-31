@@ -125,7 +125,7 @@ Context context=getActivity();
 //                    contactList.add(response.body());
                     List<Quick> cont=response.body();
                     Toast.makeText(getActivity(), cont.get(0).getName(), Toast.LENGTH_SHORT).show();
-
+                    searchRecycler.setAdapter(new SearchAdapter(getActivity(), cont, SearchFragment.this::onContactSelected,name));
                    // recyclerView.setAdapter(new StoryAdapter(getActivity(),follow));
                 }
                 @Override
