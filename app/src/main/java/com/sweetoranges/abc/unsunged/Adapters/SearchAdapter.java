@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +24,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.Toast;
+
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHolder> implements Filterable{
     private  Context context;
    // private ViewHolder viewHolder;
@@ -77,12 +80,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final Quick contact = contactListFiltered.get(position);
-        holder.Username.setText(contact.getName());
-        holder.Userrank.setText(contact.getPhone());
-
+        holder.Userrank.setText(contact.getName());
+        holder.Username.setText(contact.getPhone());
+        Toast.makeText(context, contact.getName(), Toast.LENGTH_SHORT).show();
         Glide.with(context)
                 .load(contact.getImage())
-                //.apply(RequestOptions.circleCropTransform())
+               // .apply(RequestOptions.circleCropTransform())
                 .into(holder.ProfilePic);
 
 

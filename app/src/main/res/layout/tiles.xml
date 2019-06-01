@@ -7,21 +7,33 @@
     android:layout_marginEnd="6dp"
     android:paddingTop="7dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
-        android:id="@+id/circleView"
+    <androidx.cardview.widget.CardView
         android:layout_width="80dp"
-        android:layout_marginTop="10dp"
         android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        android:layout_marginStart="116dp"
-        android:elevation="10dp"
-        android:src="@drawable/imgview" />
+        android:elevation="22dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/view2"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="12dp"
+        android:layout_marginStart="90dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9">
+        <ImageView
+            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:id="@+id/circleView"
+            android:src="@drawable/imgview"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+        </ImageView>
+    </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:id="@+id/card_griditem"
         android:layout_width="280dp"
         android:layout_marginBottom="4dp"
         android:layout_height="match_parent"
-        android:layout_below="@+id/circleView"
+        android:layout_below="@+id/view2"
         android:layout_marginTop="-40dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="6dp">
@@ -30,7 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="cursive"
-            android:textColor="#42ebf4"
+            android:textColor="#000"
+            android:elevation="12dp"
             android:text="ru5h.97"
             android:layout_marginStart="14dp"
             android:textSize="18sp"
@@ -40,7 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="cursive"
-            android:textColor="#42ebf4"
+            android:textColor="#000"
+            android:elevation="12dp"
             android:text="this will go right"
             android:layout_marginStart="190dp"
             android:textSize="18sp"

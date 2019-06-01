@@ -54,12 +54,13 @@ import java.io.InputStream;
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 AppCompatImageView BackScreen;
     private SignInButton Loginpage;
-    private TextView Status;
+    private TextView Status,PhoneVerify;
     private ImageView imgProfilePic;
     private GoogleApiClient googleApiClient;
     private static final int RC_SIGN_IN = 1;
     private ProgressDialog mProgressDialog;
     private ProgressBar progress;
+    private AppCompatEditText phoneNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +69,10 @@ AppCompatImageView BackScreen;
         Loginpage=(SignInButton)findViewById(R.id.loginButton);
         progress=(ProgressBar)findViewById(R.id.progress);
         Status=(TextView)findViewById(R.id.statustext);
+        PhoneVerify=(TextView)findViewById(R.id.phoneVerify);
         imgProfilePic = (ImageView) findViewById(R.id.ProfileImage);
+        phoneNumber=(AppCompatEditText)findViewById(R.id.phoneNumber);
+        phoneNumber.setVisibility(View.GONE);
 
         startColorFade(BackScreen);
 
@@ -89,6 +93,17 @@ AppCompatImageView BackScreen;
             progress.setVisibility(View.VISIBLE);
             Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
             startActivityForResult(intent,RC_SIGN_IN);
+        });
+        PhoneVerify.setOnClickListener(v -> {
+            if(Loginpage.getVisibility()==View.VISIBLE){
+            Loginpage.setVisibility(View.GONE);
+            phoneNumber.setVisibility(View.VISIBLE);
+            PhoneVerify.setText("Gmail Id ?");}
+            else{
+                Loginpage.setVisibility(View.VISIBLE);
+                phoneNumber.setVisibility(View.GONE);
+                PhoneVerify.setText("Phone Number ?");
+            }
         });
     }
 
