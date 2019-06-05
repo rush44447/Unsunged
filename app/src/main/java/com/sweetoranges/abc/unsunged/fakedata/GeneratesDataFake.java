@@ -104,11 +104,11 @@ public class GeneratesDataFake {
     private final ArrayList<Integer> photos = new ArrayList<Integer>() {
         {
             add(R.drawable.imgview);
-            add(R.drawable.download);
+            add(R.drawable.modelb);
             add(R.drawable.imgview);
-            add(R.drawable.download);
+            add(R.drawable.modelb);
             add(R.drawable.imgview);
-            add(R.drawable.download);
+            add(R.drawable.modelc);
 
            }
     };

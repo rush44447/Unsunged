@@ -14,7 +14,7 @@
         android:src="@drawable/ic_arrow_back_black_24dp"
         android:tint="#fff"/>
     <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
-        android:id="@+id/circleView"
+        android:id="@+id/circleViewX"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"

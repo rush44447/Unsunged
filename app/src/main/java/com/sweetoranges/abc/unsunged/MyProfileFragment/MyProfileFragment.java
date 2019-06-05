@@ -6,13 +6,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -38,10 +45,21 @@ import com.sweetoranges.abc.unsunged.Adapters.PlaylistAdapter;
 import com.sweetoranges.abc.unsunged.Classes.ImageConverter;
 import com.sweetoranges.abc.unsunged.interfaces.PlayListClickListener;
 
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
+import static android.app.Activity.RESULT_OK;
+
 public class MyProfileFragment extends Fragment implements PlayListClickListener {
     private RecyclerView playlistRv;
     private ImageView backImage;
     private ImageView circularImageView;
+    private String imageName;
+    private static int RESULT_LOAD_IMAGE = 1;
+    String picturePath="";
+    private Handler myHandler = new Handler();
+    Bitmap myBitmap;
+    Boolean Flag=false;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +69,7 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
         Bitmap circularBitmap = ImageConverter.getRoundedCornerBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.imgview), 100);
         Bitmap back = ImageConverter.getRoundedCornerBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.music), 100);
         circularImageView = (ImageView)view.findViewById(R.id.circleView);
-        backImage = (ImageView)view.findViewById(R.id.backimage);
+                backImage = (ImageView)view.findViewById(R.id.backimage);
         circularImageView.setImageBitmap(circularBitmap);
         backImage.setImageBitmap(back);
         circularImageView.setOnClickListener(new View.OnClickListener() {
@@ -66,24 +84,38 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
                 final Dialog dialog = new Dialog(getContext(),R.style.MyAlertDialogStyle);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(dialogView);
-
+                ImageView circularImageDialog = (ImageView) dialog.findViewById(R.id.circleViewX);
                 ImageView imageView = (ImageView)dialog.findViewById(R.id.closeDialogImg);
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
-                        revealShow(dialogView, false, dialog);
-                    }});
-                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override public void onShow(DialogInterface dialogInterface) {
-                        revealShow(dialogView, true, null);
-                    }});
-                dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                    @Override public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-                        if (i == KeyEvent.KEYCODE_BACK){
-                            revealShow(dialogView, false, dialog);return true; }
-                        return false; }});
+                imageView.setOnClickListener(v -> revealShow(dialogView, false, dialog));
+
+                dialog.setOnShowListener(dialogInterface -> revealShow(dialogView, true, null));
+
+                dialog.setOnKeyListener((dialogInterface, i, keyEvent) -> {
+                    if (i == KeyEvent.KEYCODE_BACK){
+                        revealShow(dialogView, false, dialog);return true; }
+                    return false; });
+                circularImageDialog.setOnClickListener(v -> {
+                    browsePhoto("Unsunged");
+                    myHandler.postDelayed(new Runnable() {
+                        @SuppressLint("DefaultLocale")
+                        public void run() {
+                            if(Flag){
+                                //circularImageDialog.setImageBitmap(myBitmap);
+                                circularImageDialog.setImageResource(R.drawable.model);//setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                Toast.makeText(getActivity(), "here"+picturePath, Toast.LENGTH_SHORT).show();
+                                Flag=false;
+                            }
+                            myHandler.postDelayed(this, 100);
+                        }
+                    },100);
+                    // circularImageDialog.setImageBitmap(myBitmap);
+
+                });
+
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                 dialog.show();
             }
+
 
             private void revealShow(View dialogView, boolean b, final Dialog dialog) {
                 final View view = dialogView.findViewById(R.id.dialog);
@@ -109,6 +141,8 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
                             view.setVisibility(View.INVISIBLE); }});
                     anim.setDuration(300);
                     anim.start(); } }});
+
+
         playlistRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         playlistRv.setAdapter(new PlaylistAdapter(getActivity()));
         return view;
@@ -130,5 +164,29 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
                 .addToBackStack(null)
                 .commit();
     }
+    private void browsePhoto(String imageName) {
+        if (this.imageName != null && !this.imageName.equals(""))
+            this.imageName = imageName;
+        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, RESULT_LOAD_IMAGE);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            picturePath = cursor.getString(columnIndex);
+            cursor.close();
+            File imgFile = new File(picturePath);
+            if(imgFile.exists()) { myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+               Flag=true; }
+        }
+    }
+
 
 }

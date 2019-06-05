@@ -7,17 +7,11 @@
         android:background="#fff"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#555"
-        android:theme="@style/AppTheme.AppBarOverlay">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searchHistory"
-            android:layout_width="130dp"
-            android:orientation="horizontal"
-            android:background="#f4f"
-            android:layout_height="?attr/actionBarSize"/>
+    <!--<com.google.android.material.appbar.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#555"-->
+        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             app:title="Search "
@@ -25,7 +19,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/white"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-    </com.google.android.material.appbar.AppBarLayout>
+    <!--</com.google.android.material.appbar.AppBarLayout>-->
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -77,16 +71,17 @@
                     android:padding="6dp"/>
             </LinearLayout>
         </HorizontalScrollView>
-    <androidx.core.widget.ContentLoadingProgressBar
-        android:layout_width="wrap_content"
-        android:backgroundTint="#000"
-
-        android:layout_height="wrap_content" />
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="-10dp"
             android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="80dp"
+                android:visibility="gone"
+                android:backgroundTint="#000"
+                android:layout_height="80dp" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/searchRecycler"
                 android:orientation="horizontal"

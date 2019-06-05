@@ -8,7 +8,7 @@
         android:layout_width="@dimen/firststorywidth"
         android:layout_height="110dp"
         android:background="#000"
-        android:src="@drawable/download"
+        android:src="@drawable/modelb"
         android:layout_marginStart="4dp" />
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="30dp"
