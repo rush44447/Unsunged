@@ -27,6 +27,27 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+                    <!--<androidx.cardview.widget.CardView-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="100dp"-->
+                        <!--android:elevation="22dp"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:layout_marginTop="70dp"-->
+                        <!--android:id="@+id/view2"-->
+                        <!--app:cardCornerRadius="50dp"-->
+                        <!--app:cardElevation="12dp"-->
+                        <!--android:innerRadius="0dp"-->
+                        <!--android:shape="ring"-->
+                        <!--android:thicknessRatio="1.9">-->
+                        <!--<ImageView-->
+                            <!--android:layout_height="100dp"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:id="@+id/circleView"-->
+                            <!--android:src="@drawable/imgview"-->
+                            <!--android:layout_alignParentTop="true"-->
+                            <!--android:layout_centerHorizontal="true">-->
+                        <!--</ImageView>-->
+                    <!--</androidx.cardview.widget.CardView>-->
                     <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
                         android:id="@+id/circleView"
                         android:layout_width="100dp"
@@ -181,12 +202,28 @@
             </com.github.florent37.arclayout.ArcLayout>
 
         </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
+    <View
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_height="1dp"
+        android:background="#000"/>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="fixed"
+            app:tabGravity="fill"/>
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/playlistRecycle" />
-
-
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>
