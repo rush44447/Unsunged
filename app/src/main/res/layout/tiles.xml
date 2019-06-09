@@ -16,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:id="@+id/view2"
         app:cardCornerRadius="40dp"
-        app:cardElevation="12dp"
+        app:cardElevation="3dp"
         android:layout_marginStart="90dp"
         android:innerRadius="0dp"
         android:shape="ring"
@@ -38,7 +38,7 @@
         android:layout_below="@+id/view2"
         android:layout_marginTop="-40dp"
         app:cardCornerRadius="16dp"
-        app:cardElevation="6dp">
+        app:cardElevation="2dp">
         <TextView
             android:id="@+id/username"
             android:layout_width="wrap_content"

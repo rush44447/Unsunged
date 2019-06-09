@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
+import com.sweetoranges.abc.unsunged.Model.Story;
 import com.sweetoranges.abc.unsunged.R;
 
 import java.util.List;
@@ -25,8 +26,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
     private  Context context;
     private ViewHolder viewHolder;
     private MediaPlayer mMediaPlayer;
-    private List<StreamingRequest> followings;
-    public StoryAdapter(FragmentActivity activity, List<StreamingRequest> followings) {
+    private List<Story> followings;
+    public StoryAdapter(FragmentActivity activity, List<Story> followings) {
         this.followings=followings;
         this.context=activity;
     }

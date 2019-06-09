@@ -1,5 +1,7 @@
 package com.sweetoranges.abc.unsunged;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     CircularMusicProgressBar musciProgresss;
     TextView artist;
     private AppCompatImageButton likeButton;
+    private View viewx;
     // public static int oneTimeOnly = 0;
 
     @SuppressLint("DefaultLocale")
@@ -88,9 +91,14 @@ public class MainActivity extends AppCompatActivity {
         bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         RelativeLayout Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
         musciProgresss=(CircularMusicProgressBar)findViewById(R.id.album_art);
+        viewx=(View)findViewById(R.id.Views);
             ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
             container.startShimmerAnimation();
 
+         try{ ObjectAnimator colorFade = ObjectAnimator.ofObject(viewx, "backgroundColor", new ArgbEvaluator(), Color.argb(255,255,255,255), 0xff000000);
+            colorFade.setDuration(3000);
+            colorFade.start();
+        }catch (Exception c){}
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
         mPlayerControlBig = (ImageView) findViewById(R.id.player_control_p);
         Seek=(AppCompatSeekBar)findViewById(R.id.seek);
@@ -188,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void transitionBottomSheetBackgroundColor(float slideOffset) {
         int colorFrom = getResources().getColor(R.color.colorAccent);
-        int colorTo = getResources().getColor(R.color.colorAccentAlpha60);
+        int colorTo = getResources().getColor(R.color.colorAccentAlpha);
         bottomSheet.setBackgroundColor(interpolateColor(slideOffset,
                 colorFrom, colorTo));
     }

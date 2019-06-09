@@ -1,6 +1,5 @@
 package com.sweetoranges.abc.unsunged.BingeFragment;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,10 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.sweetoranges.abc.unsunged.Adapters.BingeAdapter;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
 import com.sweetoranges.abc.unsunged.MainActivity;
+import com.sweetoranges.abc.unsunged.Model.Binge;
+import com.sweetoranges.abc.unsunged.Model.Story;
 import com.sweetoranges.abc.unsunged.R;
 import com.sweetoranges.abc.unsunged.Story.StoryAdapter;
 
@@ -30,10 +33,12 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class BingeFragment extends Fragment  {
-    private RecyclerView recyclerView;
+    private RecyclerView storyRecycler;
+    private RecyclerView sharedRecycler;
     private List<StreamingRequest> follow = new ArrayList<>();
-    ProgressDialog pd;
-    private List<String> songList=new ArrayList<>();
+    private List<Story> storyList=new ArrayList<Story>();
+    private List<Binge> sharedList=new ArrayList<Binge>();
+    ProgressBar progressBar;
     AppCompatImageView firstImage;
     @Nullable
     @Override
@@ -46,6 +51,7 @@ public class BingeFragment extends Fragment  {
         firstImage=(AppCompatImageView)view.findViewById(R.id.firsthero) ;
         AppCompatTextView first = view.findViewById(R.id.firsttext);
         AppCompatTextView second = view.findViewById(R.id.secondtext);
+        progressBar=(ProgressBar)view.findViewById(R.id.progressBar);
         AppCompatTextView third = view.findViewById(R.id.thirdtext);
         AppCompatTextView forth = view.findViewById(R.id.forthtext);
         AppCompatTextView fifth = view.findViewById(R.id.fifthtext);
@@ -55,25 +61,24 @@ public class BingeFragment extends Fragment  {
         forth.setSelected(true);
         fifth.setSelected(true);
      //   followings=getFollowingsId();
-        recyclerView = view.findViewById(R.id.story);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        songList=getDataForStory();
-        firstImage.setOnClickListener(v -> recyclerView.smoothScrollBy(500, 0));
+        storyRecycler = view.findViewById(R.id.story);
+        sharedRecycler=view.findViewById(R.id.shared);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
+        layoutManager.setReverseLayout(true);
+
+        storyRecycler.setLayoutManager(layoutManager);
+        storyRecycler.setItemAnimator(new DefaultItemAnimator());
+        sharedRecycler.setLayoutManager(layoutManager);
+        sharedRecycler.setItemAnimator(new DefaultItemAnimator());
+        firstImage.setOnClickListener(v -> storyRecycler.smoothScrollBy(500, 0));
         if(isNetworkAvailable()){
-            pd = new ProgressDialog(getActivity());
-            pd.setMessage("Fetching Stories...");
-            pd.setCancelable(false);
-            pd.show();
-            loadJSON();
+           progressBar.setVisibility(View.VISIBLE);
+          //  loadStory();
+           // loadShared();
         }
         return view;
     }
 
-    private List<String> getDataForStory() {
-        List<String> getStory=new ArrayList<>();
-
-    return getStory;}
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -81,26 +86,32 @@ public class BingeFragment extends Fragment  {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    private void loadJSON() {
-        try { Call<StreamingRequest> call = MainActivity.apiService.getStreaming("idshnmkl");
+    private void loadStory() {
+         Call<StreamingRequest> call = MainActivity.apiService.getStory();
             call.enqueue(new retrofit2.Callback<StreamingRequest>() {
                 @Override
                 public void onResponse(Call<StreamingRequest> call, Response<StreamingRequest> response) {
                     follow.add(response.body());
-                    recyclerView.setAdapter(new StoryAdapter(getActivity(),follow));
-                    pd.hide();
+                    storyRecycler.setAdapter(new StoryAdapter(getActivity(),storyList));
                 }
                 @Override
-                public void onFailure(Call<StreamingRequest> call, Throwable t) {
-                    Toast.makeText(getActivity(), "failed to connect", Toast.LENGTH_SHORT).show();
-                    pd.hide();
-                }
+                public void onFailure(Call<StreamingRequest> call, Throwable t) { }
             });
+        progressBar.setVisibility(View.GONE);
+    }
 
-        } catch (Exception e) {
-            Log.d("Error", e.getMessage());
-            Toast.makeText(getActivity(),"err", Toast.LENGTH_SHORT).show();
-        }
+    private void loadShared(){
+        Call<List<Binge>> call = MainActivity.apiService.getShared();
+        call.enqueue(new retrofit2.Callback<List<Binge>>() {
+            @Override
+            public void onResponse(Call<List<Binge>> call, Response<List<Binge>> response) {
+                sharedList=response.body();
+                storyRecycler.setAdapter(new BingeAdapter(getActivity(),sharedList));
+            }
+            @Override
+            public void onFailure(Call<List<Binge>> call, Throwable t) { }
+        });
+        progressBar.setVisibility(View.GONE);
     }
 
 
