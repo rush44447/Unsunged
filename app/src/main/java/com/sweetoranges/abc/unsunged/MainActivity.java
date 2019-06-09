@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -47,6 +49,8 @@ import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import info.abdolahi.CircularMusicProgressBar;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -67,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
     public double startTime = 0;
     public double finalTime = 0;
     public String UserName;
+    LinearLayout bottomSheet;
+    CircularMusicProgressBar musciProgresss;
+    TextView artist;
     private AppCompatImageButton likeButton;
     // public static int oneTimeOnly = 0;
 
@@ -78,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        LinearLayout bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
+        bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         RelativeLayout Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
-
+        musciProgresss=(CircularMusicProgressBar)findViewById(R.id.album_art);
             ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
             container.startShimmerAnimation();
 
@@ -92,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         totaltime = (TextView) findViewById(R.id.totaltime);
         Hider=(View)findViewById(R.id.hiderView);
         likeButton=(AppCompatImageButton)findViewById(R.id.likeButton);
+        artist=(TextView)findViewById(R.id.artist);
+
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         context = getApplicationContext();
         tv.setSelected(true);
@@ -99,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         loadFragment(new BingeFragment());
         BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(false);
-        bottomSheetBehavior.setPeekHeight(90);
+        bottomSheetBehavior.setPeekHeight(108);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -112,6 +121,35 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                 Hider.setAlpha(slideOffset);
+
+//                    transitionBottomSheetBackgroundColor(slideOffset);
+//                    animateBottomSheetArrows(slideOffset);
+
+
+//                AdditiveAnimator.animate(view).setDuration(1000)
+//                        .x(touch.getX())
+//                        .y(touch.getY())
+//                        .start();
+//                TranslateAnimation anim = new TranslateAnimation(0, amountToMoveRight, 0, amountToMoveDown);
+//                anim.setDuration(1000);
+//
+//                anim.setAnimationListener(new TranslateAnimation.AnimationListener() {
+//
+//                    @Override
+//                    public void onAnimationStart(Animation animation) { }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animation animation) { }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animation animation)
+//                    {
+//                        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view.getLayoutParams();
+//                        params.topMargin += amountToMoveDown;
+//                        params.leftMargin += amountToMoveRight;
+//                        view.setLayoutParams(params);
+//                    }
+//                });
             }
         });
 
@@ -146,6 +184,35 @@ public class MainActivity extends AppCompatActivity {
             textView.setTextColor(Color.YELLOW);
             snackbar.show();
         }
+    }
+
+    private void transitionBottomSheetBackgroundColor(float slideOffset) {
+        int colorFrom = getResources().getColor(R.color.colorAccent);
+        int colorTo = getResources().getColor(R.color.colorAccentAlpha60);
+        bottomSheet.setBackgroundColor(interpolateColor(slideOffset,
+                colorFrom, colorTo));
+    }
+
+    private void animateBottomSheetArrows(float slideOffset) {
+//        mPlayerControl.setY(slideOffset);//setRotation(slideOffset * -180);
+        artist.setText(String.valueOf(slideOffset));
+        musciProgresss.setY(slideOffset*10);//setRotation(slideOffset * 180);
+    }
+
+    // Helper method to interpolate colors
+    private int interpolateColor(float fraction, int startValue, int endValue) {
+        int startA = (startValue >> 24) & 0xff;
+        int startR = (startValue >> 16) & 0xff;
+        int startG = (startValue >> 8) & 0xff;
+        int startB = startValue & 0xff;
+        int endA = (endValue >> 24) & 0xff;
+        int endR = (endValue >> 16) & 0xff;
+        int endG = (endValue >> 8) & 0xff;
+        int endB = endValue & 0xff;
+        return ((startA + (int) (fraction * (endA - startA))) << 24) |
+                ((startR + (int) (fraction * (endR - startR))) << 16) |
+                ((startG + (int) (fraction * (endG - startG))) << 8) |
+                ((startB + (int) (fraction * (endB - startB))));
     }
 
     private void bounceButton(View view) {

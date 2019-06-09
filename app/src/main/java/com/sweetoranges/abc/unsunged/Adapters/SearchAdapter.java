@@ -82,7 +82,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
         final Quick contact = contactListFiltered.get(position);
         holder.Userrank.setText(contact.getName());
         holder.Username.setText(contact.getPhone());
-        Toast.makeText(context, contact.getName(), Toast.LENGTH_SHORT).show();
         Glide.with(context)
                 .load(contact.getImage())
                // .apply(RequestOptions.circleCropTransform())

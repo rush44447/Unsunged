@@ -12,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Response;
@@ -42,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import info.abdolahi.CircularMusicProgressBar;
 import retrofit2.Call;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -56,11 +59,12 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
     public String[] history = new String[]{"Arijit","Shreya","Vishal","Neha"};
     private static final String URL = "https://api.androidhive.info/json/contacts.json";
     private List<Quick> contactList = new ArrayList<>();
-Context context=getActivity();
+    Context context=getActivity();
     private SearchView searchView;
-    public RecyclerView searchRecycler,search,typeRecyc;
+    public RecyclerView searchRecycler,typeRecyc;
     private SearchAdapter mAdapter;
     private SearchView.OnQueryTextListener queryTextListener;
+    ProgressBar progress;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -72,30 +76,28 @@ Context context=getActivity();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {       // new HistoryAdapter(getActivity(),history)
         View view=inflater.inflate(R.layout.fragment_search, container, false);
-           Name=(AppCompatButton)view.findViewById(R.id.name);
-           Type=(AppCompatButton)view.findViewById(R.id.type);
-           Language=(AppCompatButton)view.findViewById(R.id.language);
-           Mood=(AppCompatButton)view.findViewById(R.id.mood);
+         Name=(AppCompatButton)view.findViewById(R.id.name);
+         Type=(AppCompatButton)view.findViewById(R.id.type);
+         Language=(AppCompatButton)view.findViewById(R.id.language);
+         Mood=(AppCompatButton)view.findViewById(R.id.mood);
         searchRecycler=(RecyclerView)view.findViewById(R.id.searchRecycler);
-        search=(RecyclerView)view.findViewById(R.id.searchHistory);
+        progress=(ProgressBar)view.findViewById(R.id.progress);
         typeRecyc=(RecyclerView)view.findViewById(R.id.typeRecyc);
         typeRecyc.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
-        search.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
-        typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
+        //typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
         fetchContacts();
+
+        typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),history));
         searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,name));
 
-        search.setOnClickListener(v -> {
-            search.setAdapter(new HistoryAdapter(getActivity(),history));
-        });
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Unsunged");
-        whiteNotificationBar(search);
+        whiteNotificationBar(view);
         contactList = new ArrayList<>();
 
 
@@ -115,7 +117,7 @@ Context context=getActivity();
     }
 
     private void fetchContacts() {
-        try {
+        try {progress.setVisibility(View.VISIBLE);
              ApiInteract apiService = ApiCaller.getClient().create(ApiInteract.class);
 
             Call<List<Quick>> call = apiService.getStreaming();
@@ -138,6 +140,7 @@ Context context=getActivity();
             Log.d("Error", e.getMessage());
             Toast.makeText(getActivity(),"err", Toast.LENGTH_SHORT).show();
         }
+        progress.setVisibility(View.GONE);
     }
 
     @Override
@@ -149,8 +152,8 @@ Context context=getActivity();
 
       //  searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
 
-      //  searchView.setMaxWidth(Integer.MAX_VALUE);
-
+//        searchView.setMaxWidth(Integer.MAX_VALUE);
+//
 //        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 //            @Override
 //            public boolean onQueryTextSubmit(String query) {

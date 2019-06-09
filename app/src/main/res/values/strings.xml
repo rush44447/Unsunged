@@ -29,4 +29,6 @@
     <string name="loading">Please Wait...</string>
     <string name="signed_out">Signed Out</string>
     <string name="signed_in_fmt">Sign in as: %s</string>
+    <string name="red">Uploaded</string>
+    <string name="blue">Playlist</string>
 </resources>
