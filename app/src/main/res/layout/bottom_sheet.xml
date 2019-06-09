@@ -12,11 +12,15 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
     <RelativeLayout android:id="@+id/smallcontroller"
         android:layout_width="match_parent"
-        android:background="#000"
         android:layout_height="wrap_content">
+        <View android:id="@+id/Views"
+            android:elevation="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
         <TextView android:id="@+id/nameOfSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:elevation="4dp"
             android:layout_toStartOf="@+id/addtoplay"
             android:layout_centerVertical="true"
             android:layout_marginLeft="6dp"
@@ -33,6 +37,7 @@
             android:id="@+id/addtoplay"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:elevation="4dp"
             android:layout_toStartOf="@+id/previous"
             android:layout_margin="4dp"
             />
@@ -40,6 +45,7 @@
             android:src="@drawable/ic_skip_next_black_24dp"
             android:id="@+id/next"
             android:layout_width="35dp"
+            android:elevation="4dp"
             android:layout_height="35dp"
             android:layout_toEndOf="@+id/player_control"
             android:layout_margin="4dp"
@@ -53,11 +59,12 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_margin="4dp"
-
+            android:elevation="4dp"
             android:layout_centerHorizontal="true" />
         <ImageView
             android:src="@drawable/ic_skip_previous_black_24dp"
             android:id="@+id/previous"
+            android:elevation="4dp"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_toStartOf="@+id/player_control"
@@ -68,12 +75,14 @@
             android:src="@drawable/ic_share_white_24dp"
             android:id="@+id/sharetoprofile"
             android:layout_width="35dp"
+            android:elevation="4dp"
             android:layout_height="35dp"
             android:layout_toEndOf="@+id/next"
             android:layout_margin="4dp"
             />
         <View android:id="@+id/hiderView"
             android:layout_width="match_parent"
+            android:elevation="4dp"
             android:layout_height="50dp"
             android:background="#ffffff"/>
     </RelativeLayout>
