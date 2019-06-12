@@ -65,14 +65,14 @@ public class AutoPlayVideoAdapter extends VideosAdapter {
             img_playback.setImageResource(R.drawable.ic_play);
         }
     }
-    public AutoPlayVideoAdapter(List<VideoModel> list_urls, Picasso p) {
+    public AutoPlayVideoAdapter(List<QuickSearchModel> list_urls, Picasso p) {
         this.list = list_urls;
         this.picasso = p;
     }
 
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_card, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.quicksearch, parent, false);
         return new MyViewHolder(itemView);
     }
 
