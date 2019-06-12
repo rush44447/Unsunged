@@ -220,13 +220,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
                 editor.putBoolean("logininfo", true);
                 editor.putString("username",acct.getDisplayName());
+                editor.putString("email",acct.getEmail());
                 editor.apply();
             }
             //Similarly you can get the email and photourl using acct.getEmail() and  acct.getPhotoUrl()
             SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
             if (!prefs.getBoolean("logininfo", false)) {
                 // startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                Toast.makeText(getApplicationContext(), "fasle", Toast.LENGTH_SHORT).show();
             }
 
             if(acct.getPhotoUrl() != null)
@@ -336,23 +336,16 @@ protected void onStart() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-
                             FirebaseUser user = task.getResult().getUser();
-
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-
                                 phoneNumber.setError("Invalid code.");
-
                             }
-
                         }
                     }
                 });
@@ -364,8 +357,6 @@ protected void onStart() {
             phoneNumber.setError("Enter verification Code.");
             return false;
         }
-
-
         return true;
     }
 
@@ -375,7 +366,6 @@ protected void onStart() {
             phoneNumber.setError("Enter verification Code.");
             return false;
         }
-
         return true;
     }
 

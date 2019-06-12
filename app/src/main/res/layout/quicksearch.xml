@@ -7,13 +7,6 @@
     app:cardElevation="12dp"
     android:layout_width="match_parent"
     android:layout_height="310dp">
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:backgroundTint="#ffffff"
-    android:layout_marginStart="240dp"
-    android:layout_marginTop="30dp"
-    android:src="@drawable/ic_add_black_24dp"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,6 +38,11 @@
             android:layout_centerHorizontal="true"
             android:textColor="#dd42ebf4"
             android:layout_marginTop="100dp" />
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/playsearch"
             android:layout_width="wrap_content"

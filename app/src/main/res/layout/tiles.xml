@@ -43,23 +43,21 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="cursive"
             android:textColor="#000"
             android:elevation="12dp"
             android:text="ru5h.97"
             android:layout_marginStart="14dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/userrank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="cursive"
             android:textColor="#000"
             android:elevation="12dp"
-            android:text="this will go right"
+            android:text="Followers: 250"
             android:layout_marginStart="190dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
         <View
             android:layout_width="match_parent"

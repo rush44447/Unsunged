@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activitloginy_main);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
