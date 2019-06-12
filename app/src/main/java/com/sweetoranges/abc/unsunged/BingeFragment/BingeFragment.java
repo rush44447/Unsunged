@@ -1,6 +1,8 @@
 package com.sweetoranges.abc.unsunged.BingeFragment;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -29,6 +31,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -44,11 +48,11 @@ public class BingeFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_binge, container, false);
-//        try{ ObjectAnimator colorFade = ObjectAnimator.ofObject(view, "backgroundColor", new ArgbEvaluator(), Color.argb(255,255,255,255), 0xff000000);
-//            colorFade.setDuration(7000);
-//            colorFade.start();
-//        }catch (Exception c){}
-        firstImage=(AppCompatImageView)view.findViewById(R.id.firsthero) ;
+        try{ ObjectAnimator colorFade = ObjectAnimator.ofObject(view, "backgroundColor", new ArgbEvaluator(), Color.argb(255,255,255,255), 0xff000000);
+            colorFade.setDuration(7000);
+            colorFade.start();
+        }catch (Exception c){}
+        firstImage=(AppCompatImageView)view.findViewById(R.id.firsthero1) ;
         AppCompatTextView first = view.findViewById(R.id.firsttext);
         AppCompatTextView second = view.findViewById(R.id.secondtext);
         progressBar=(ProgressBar)view.findViewById(R.id.progressBar);
@@ -68,13 +72,15 @@ public class BingeFragment extends Fragment  {
 
         storyRecycler.setLayoutManager(layoutManager);
         storyRecycler.setItemAnimator(new DefaultItemAnimator());
-        sharedRecycler.setLayoutManager(layoutManager);
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
+        layoutManager1.setReverseLayout(true);
+        sharedRecycler.setLayoutManager(layoutManager1);
         sharedRecycler.setItemAnimator(new DefaultItemAnimator());
         firstImage.setOnClickListener(v -> storyRecycler.smoothScrollBy(500, 0));
         if(isNetworkAvailable()){
            progressBar.setVisibility(View.VISIBLE);
-          //  loadStory();
-           // loadShared();
+            loadStory();
+            loadShared();
         }
         return view;
     }
@@ -106,7 +112,7 @@ public class BingeFragment extends Fragment  {
             @Override
             public void onResponse(Call<List<Binge>> call, Response<List<Binge>> response) {
                 sharedList=response.body();
-                storyRecycler.setAdapter(new BingeAdapter(getActivity(),sharedList));
+               // storyRecycler.setAdapter(new BingeAdapter(getActivity(),sharedList));
             }
             @Override
             public void onFailure(Call<List<Binge>> call, Throwable t) { }

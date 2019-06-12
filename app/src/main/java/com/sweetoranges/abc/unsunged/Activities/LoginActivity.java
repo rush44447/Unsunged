@@ -11,6 +11,7 @@ import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +46,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskExecutors;
 import com.sweetoranges.abc.unsunged.BingeFragment.BingeFragment;
 import com.sweetoranges.abc.unsunged.ChallengeFragment.ChallengeFragment;
 import com.sweetoranges.abc.unsunged.MainActivity;
@@ -73,20 +76,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private static final int RC_SIGN_IN = 1;
     private ProgressDialog mProgressDialog;
     private ProgressBar progress;
-    private AppCompatEditText phoneNumber;
+    private AppCompatEditText phoneNumber,verifyNumber;
     int i=0;
-//    public static final int RC_SIGN_IN = 001;
     private static final String TAG = LoginActivity.class.getSimpleName();
     private String verificationid;
-
-    // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
-
+String contact="9869344447";
     private boolean mVerificationInProgress = false;
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+//    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,36 +99,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         OkB=(AppCompatButton)findViewById(R.id.ok);
         verify=(AppCompatButton)findViewById(R.id.verify);
         phoneNumber=(AppCompatEditText)findViewById(R.id.phoneNumber);
+        verifyNumber=(AppCompatEditText)findViewById(R.id.verifyNumber);
         phoneNumber.setVisibility(View.GONE);
-        OkB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!validatePhoneNumberAndCode()) {
-                    return;
-                }
-                startPhoneNumberVerification(phoneNumber.getText().toString());
-            }
-        });
-        verify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!validateSMSCode()) {
-                    return;
-                }
-
-                verifyPhoneNumberWithCode(verificationid, phoneNumber.getText().toString());
-            }
-        });
-        mAuth = FirebaseAuth.getInstance();
-
         showText();
         startColorFade(BackScreen);
-
         GoogleSignInOptions gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        googleApiClient=new GoogleApiClient.Builder(this)
-                .enableAutoManage(this,this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
-
+        googleApiClient=new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
         Loginpage.setOnClickListener(v -> {
             progress.setVisibility(View.VISIBLE);
             Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
@@ -137,49 +112,154 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         });
         PhoneVerify.setOnClickListener(v -> {
             if(Loginpage.getVisibility()==View.VISIBLE){
-            Loginpage.setVisibility(View.GONE);
-            phoneNumber.setVisibility(View.VISIBLE);
-            PhoneVerify.setText("Gmail Id ?");}
+                Loginpage.setVisibility(View.GONE);
+                phoneNumber.setVisibility(View.VISIBLE);
+                PhoneVerify.setText("Gmail Id ?");}
             else{
                 Loginpage.setVisibility(View.VISIBLE);
                 phoneNumber.setVisibility(View.GONE);
                 PhoneVerify.setText("Phone Number ?");
             }
         });
-    }
-    private void showText(){
-    Handler handler = new Handler();
-    final Runnable r = new Runnable() {
-        public void run() {
-            switch (i) {
-                case 0:
-                    Status.setText("Let's Redefine Music");i++;
-                case 1:
-                    Status.setText("Login To Another Space Of Music");i++;
-                case 2:
-                    Status.setText("Originals Have New Meaning Now");
-                case 4:
-                    Status.setText("Failed To Connect");i++;
-                case 6:
-                    Status.setText("Check Your Network");i++;
-                case 7:
-                    Status.setText("And Try Again");i++;
-                case 8:
-                    Status.setText("Use Your Phone Number To Login");i++;
-                case 9:
-                    Status.setText("Unsunged: Let's Make Music for Every Audience");
-                case 10:
-                    Status.setText("Login Successful");i++;
-                case 11:
-                    Status.setText("Entering Another Space Of Music");
-                default:
-                    Status.setText("Login Using EmailId or Phone Number");
+
+
+        mAuth = FirebaseAuth.getInstance();
+       String abc= GetCountryZipCode();
+//        Toast.makeText(this, GetCountryZipCode(), Toast.LENGTH_SHORT).show();
+        //sendVerificationCode("");
+
+
+        OkB.setOnClickListener(view -> {
+            String code = phoneNumber.getText().toString().trim();
+            if (code.isEmpty() || code.length() < 6) {
+                phoneNumber.setError("Enter valid code");
+                phoneNumber.requestFocus();
+                return;
             }
-            handler.postDelayed(this, 1500);
+
+            //verifying the code entered manually
+         //   verifyVerificationCode(code);
+        });
+//        verify.setOnClickListener(view -> {
+//
+//        });
+
+    }
+
+    public String GetCountryZipCode(){
+        String CountryID="";
+        String CountryZipCode="";
+
+        TelephonyManager manager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        //getNetworkCountryIso
+        CountryID= manager.getSimCountryIso().toUpperCase();
+        Toast.makeText(this, CountryID, Toast.LENGTH_SHORT).show();
+        String[] rl=this.getResources().getStringArray(R.array.DialingCountryCode);
+        for(int i=0;i<rl.length;i++){
+            String[] g=rl[i].split(",");
+            if(g[1].trim().equals(CountryID.trim())){
+                CountryZipCode=g[0];
+                break;
+            }
+        }
+        return CountryZipCode;
+    }
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+            String code = phoneAuthCredential.getSmsCode();
+            if (code != null) {
+                phoneNumber.setText(code);
+                verifyVerificationCode(code);
+            }
+        }
+
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent(s, forceResendingToken);
+            mVerificationId = s;
         }
     };
 
-    handler.postDelayed(r, 1500);
+
+    private void verifyVerificationCode(String code) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
+        signInWithPhoneAuthCredential(credential);
+    }
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            getIntent().putExtra("number",contact);
+                            startActivity(intent);
+                            Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String message = "Somthing is wrong, we will fix it soon...";
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                message = "Invalid code entered...";
+                            }
+                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void sendVerificationCode(String mobile) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+91" + mobile,
+                60,
+                TimeUnit.SECONDS,
+                TaskExecutors.MAIN_THREAD,
+                mCallbacks);
+    }
+
+
+    private void showText(){i=0;
+        Status.setText("Login To Another Space Of Music");
+
+//        Handler handler = new Handler();
+//    final Runnable r = new Runnable() {
+//        public void run() {
+//            for(int j=0;j<12;j++){
+//                switch (j) {
+//                    case 0:
+//                        Status.setText("Let's Redefine Music");
+//                    case 1:
+//                        Status.setText("Login To Another Space Of Music");
+//                    case 2:
+//                        Status.setText("Originals Have New Meaning Now");
+//                    case 4:
+//                        Status.setText("Failed To Connect");
+//                    case 6:
+//                        Status.setText("Check Your Network");
+//                    case 7:
+//                        Status.setText("And Try Again");
+//                    case 8:
+//                        Status.setText("Use Your Phone Number To Login");
+//                    case 9:
+//                        Status.setText("Unsunged: Let's Make Music for Every Audience");
+//                    case 10:
+//                        Status.setText("Login Successful");
+//                    case 11:
+//                        Status.setText("Entering Another Space Of Music");
+//                    default:
+//                        Status.setText("Login Using EmailId or Phone Number");
+//                }
+//                handler.postDelayed(this, 1500);
+//            }
+//
+//        }
+//    };
+//
+//    handler.postDelayed(r, 1500);
 }
     private void startColorFade(View v){
         int colorStart=0xFFFF007F;
@@ -290,83 +370,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 //                    });
 //        }
 //    });
-@Override
-protected void onStart() {
-    super.onStart();
-
-    mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-        @Override
-        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-            signInWithPhoneAuthCredential(phoneAuthCredential);
-        }
-
-        @Override
-        public void onVerificationFailed(FirebaseException e) {
-            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-            super.onCodeSent(s, forceResendingToken);
-            verificationid = s;
-        }
-    };
-}
-
-    private void startPhoneNumberVerification(String phoneNumber) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,               // Activity (for callback binding)
-                mCallbacks);        // OnVerificationStateChangedCallbacks
 
 
-    }
 
-    private void verifyPhoneNumberWithCode(String verificationId, String code) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        signInWithPhoneAuthCredential(credential);
-    }
-
-
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = task.getResult().getUser();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
-                        } else {
-                            // Sign in failed, display a message and update the UI
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                phoneNumber.setError("Invalid code.");
-                            }
-                        }
-                    }
-                });
-    }
-
-    private boolean validatePhoneNumberAndCode() {
-        String code = phoneNumber.getText().toString();
-        if (TextUtils.isEmpty(code)) {
-            phoneNumber.setError("Enter verification Code.");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean validateSMSCode(){
-        String code = phoneNumber.getText().toString();
-        if (TextUtils.isEmpty(code)) {
-            phoneNumber.setError("Enter verification Code.");
-            return false;
-        }
-        return true;
-    }
 
 }

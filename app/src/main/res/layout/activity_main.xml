@@ -9,20 +9,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <RelativeLayout
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:background="#fff"
-        android:layout_height="50dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_alignParentBottom="true"
-            android:textAlignment="center"
-            android:text="New Post"/>
-    </RelativeLayout>
 
     <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent"
@@ -60,6 +46,6 @@
         app:behavior_hideable="true"
         android:background="#000"
         app:layout_behavior="@string/bottom_sheet_behavior">
-        <!--<include layout="@layout/bottom_sheet"/>-->
+        <include layout="@layout/bottom_sheet"/>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

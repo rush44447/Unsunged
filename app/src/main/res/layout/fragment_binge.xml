@@ -56,6 +56,8 @@
                 android:id="@+id/firsthero"
                 android:layout_height="wrap_content">
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/firsthero1"
+
                     android:layout_width="@dimen/firstherowidth"
                     android:layout_height="125dp"
                     android:background="#000"

@@ -28,35 +28,35 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <!--<androidx.cardview.widget.CardView-->
-                        <!--android:layout_width="100dp"-->
-                        <!--android:layout_height="100dp"-->
-                        <!--android:elevation="22dp"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:layout_marginTop="70dp"-->
-                        <!--android:id="@+id/view2"-->
-                        <!--app:cardCornerRadius="50dp"-->
-                        <!--app:cardElevation="12dp"-->
-                        <!--android:innerRadius="0dp"-->
-                        <!--android:shape="ring"-->
-                        <!--android:thicknessRatio="1.9">-->
-                        <!--<ImageView-->
-                            <!--android:layout_height="100dp"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:id="@+id/circleView"-->
-                            <!--android:src="@drawable/imgview"-->
-                            <!--android:layout_alignParentTop="true"-->
-                            <!--android:layout_centerHorizontal="true">-->
-                        <!--</ImageView>-->
-                    <!--</androidx.cardview.widget.CardView>-->
-                    <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
-                        android:id="@+id/circleView"
+                    <androidx.cardview.widget.CardView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:elevation="22dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="70dp"
-                        android:elevation="4dp"
-                        android:src="@drawable/imgview" />
+                        android:id="@+id/view2"
+                        app:cardCornerRadius="50dp"
+                        app:cardElevation="12dp"
+                        android:innerRadius="0dp"
+                        android:shape="ring"
+                        android:thicknessRatio="1.9">
+                        <ImageView
+                            android:layout_height="100dp"
+                            android:layout_width="match_parent"
+                            android:id="@+id/circleView"
+                            android:src="@drawable/imgview"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true">
+                        </ImageView>
+                    </androidx.cardview.widget.CardView>
+                    <!--<com.sweetoranges.abc.unsunged.Cover.RoundedImageView-->
+                        <!--android:id="@+id/circleView"-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="100dp"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:layout_marginTop="70dp"-->
+                        <!--android:elevation="4dp"-->
+                        <!--android:src="@drawable/imgview" />-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

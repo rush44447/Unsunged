@@ -1,7 +1,6 @@
 package com.sweetoranges.abc.unsunged.Adapters;
 
 import android.content.Context;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 import com.sweetoranges.abc.unsunged.Classes.ArcTranslateAnimation;
 import com.sweetoranges.abc.unsunged.Model.Quick;
-import com.sweetoranges.abc.unsunged.Model.QuickSearchModel;
 import com.sweetoranges.abc.unsunged.R;
 
 import java.util.ArrayList;
@@ -23,7 +20,6 @@ import java.util.List;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.widget.Filter;
@@ -39,7 +35,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     private ContactsAdapterListener listener;
     public int[] id=new int[]{1,2,3,4};
     private String[] searchby;
-    private final List<QuickSearchModel> modelList = new ArrayList<>();
 
     public SearchAdapter(FragmentActivity activity, List<Quick> contactList,  ContactsAdapterListener listener,String[] searchby) {
         this.searchby=searchby;
@@ -47,18 +42,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
         this.contactList=contactList;
         this.listener = listener;
         this.contactListFiltered = contactList;
-        Picasso p = Picasso.with(context);
-
-        modelList.add(new QuickSearchModel("http://video.pp.cn/fs08/2017/02/23/10/aa74cfad-fca1-4aa4-9969-4a22d0d2b45b.mp4", "http://android-imgs.25pp.com/fs08/2017/02/23/2/48da103a3a21d8a1dea01570bc35de8e.jpg", "Video1"));
-        modelList.add(new QuickSearchModel("https://firebasestorage.googleapis.com/v0/b/flickering-heat-5334.appspot.com/o/demo1.mp4?alt=media&token=f6d82bb0-f61f-45bc-ab13-16970c7432c4", "http://res.cloudinary.com/krupen/video/upload/w_300,h_150,c_crop,q_70,so_0/v1481795681/2_rp0zyy.jpg", "Video1"));
-        modelList.add(new QuickSearchModel("http://res.cloudinary.com/krupen/video/upload/w_300,h_150,c_crop,q_70/v1491561340/hello_cuwgcb.mp4", "http://res.cloudinary.com/krupen/video/upload/w_300,h_150,c_crop,q_70,so_0/v1491561340/hello_cuwgcb.jpg", "Video2"));
-        modelList.add(new QuickSearchModel("http://res.cloudinary.com/krupen/image/upload/q_70/v1481795690/3_lfndfq.jpg", "Image3"));
-        modelList.add(new QuickSearchModel("http://res.cloudinary.com/krupen/video/upload/w_300,h_150,c_crop,q_70/v1481795675/3_yqeudi.mp4", "http://res.cloudinary.com/krupen/video/upload/w_300,h_150,c_crop,q_70,so_0/v1481795675/3_yqeudi.jpg", "Video4"));
-        modelList.add(new QuickSearchModel("http://res.cloudinary.com/krupen/video/upload/w_300,h_150,c_crop,q_70/v1481795675/1_pyn1fm.mp4", "http://res.cloudinary.com/krupen/video/upload/w_300,h_150,c_crop,q_70,so_0/v1481795675/1_pyn1fm.jpg", "Video5"));
-        modelList.add(new QuickSearchModel("http://res.cloudinary.com/krupen/video/upload/w_300,h_150,c_crop,q_70/v1491561340/hello_cuwgcb.mp4", "http://res.cloudinary.com/krupen/video/upload/w_300,h_150,c_crop,q_70,so_0/v1491561340/hello_cuwgcb.jpg", "Video6"));
-        modelList.add(new QuickSearchModel("http://res.cloudinary.com/krupen/image/upload/q_70/v1481795690/2_qwpgis.jpg", "Image7"));
-        modelList.add(new QuickSearchModel("http://res.cloudinary.com/krupen/image/upload/q_70/v1481795690/1_ybonak.jpg", "Image8"));
-
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -66,7 +49,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
         private AppCompatImageView ProfilePic;
         private CardView card;
         private RecyclerView mRecyclerView;
-        CustomRecyclerView recyclerView;
 
         public MyViewHolder(View view) {
             super(view);
@@ -89,8 +71,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tiles, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.tiles, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -109,24 +90,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.mRecyclerView.setAdapter(new QuickAdapter(context,id));
         onHitMeToShowBezier(holder.itemView, position);
-        AutoPlayVideoAdapter mAdapter = new AutoPlayVideoAdapter(modelList, p);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
-
-        holder.recyclerView.setLayoutManager(mLayoutManager);
-        holder.recyclerView.setItemAnimator(new DefaultItemAnimator());
-        holder.recyclerView.setActivity(context);
-        holder. recyclerView.setPlayOnlyFirstVideo(true);
-        holder.recyclerView.setCheckForMp4(false); //true by default
-        holder.recyclerView.setDownloadPath(Environment.getExternalStorageDirectory() + "/video"); // (Environment.getExternalStorageDirectory() + "/Video") by default
-        holder.recyclerView.setDownloadVideos(true); // false by default
-        List<String> urls = new ArrayList<>();
-        for (QuickSearchModel object : modelList) {
-            if (object.getVideo_url() != null && object.getVideo_url().contains("http"))
-                urls.add(object.getVideo_url());
-        }
-        holder.recyclerView.preDownload(urls);
-        holder.recyclerView.setAdapter(mAdapter);
-
     }
 
     @Override
@@ -177,5 +140,4 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     public interface ContactsAdapterListener {
         void onContactSelected(Quick contact);
     }
-
 }

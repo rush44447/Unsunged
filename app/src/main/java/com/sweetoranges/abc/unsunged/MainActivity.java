@@ -1,6 +1,5 @@
 package com.sweetoranges.abc.unsunged;
 
-import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -51,6 +50,7 @@ import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 
 import info.abdolahi.CircularMusicProgressBar;
 import retrofit2.Call;
@@ -77,15 +77,15 @@ public class MainActivity extends AppCompatActivity {
     CircularMusicProgressBar musciProgresss;
     TextView artist;
     private AppCompatImageButton likeButton;
-    private View viewx;
-    // public static int oneTimeOnly = 0;
-
+    View viewx;
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activitloginy_main);
+        setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("number");
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         loadFragment(new BingeFragment());
         BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(false);
-        bottomSheetBehavior.setPeekHeight(108);
+        bottomSheetBehavior.setPeekHeight(100);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void transitionBottomSheetBackgroundColor(float slideOffset) {
         int colorFrom = getResources().getColor(R.color.colorAccent);
-        int colorTo = getResources().getColor(R.color.colorAccentAlpha);
+        int colorTo = getResources().getColor(R.color.colorAc);
         bottomSheet.setBackgroundColor(interpolateColor(slideOffset,
                 colorFrom, colorTo));
     }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.Filter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,7 @@ public class BingeAdapter extends RecyclerView.Adapter<BingeAdapter.MyViewHolder
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView Username,Userrank;
-        private AppCompatImageView ProfilePic;
+        private ImageView ProfilePic;
         private CardView card;
         private RecyclerView mRecyclerView;
 
@@ -49,7 +50,7 @@ public class BingeAdapter extends RecyclerView.Adapter<BingeAdapter.MyViewHolder
             Userrank=(TextView)view.findViewById(R.id.userrank);
             card=(CardView)view.findViewById(R.id.card_griditem);
             mRecyclerView=(RecyclerView)view.findViewById(R.id.quickrecycler);
-            ProfilePic=(AppCompatImageView)view.findViewById(R.id.circleView);
+            ProfilePic=(ImageView)view.findViewById(R.id.circleView);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -87,7 +88,7 @@ public class BingeAdapter extends RecyclerView.Adapter<BingeAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return contactListFiltered.size();
+        return 1;
     }
 
 }
