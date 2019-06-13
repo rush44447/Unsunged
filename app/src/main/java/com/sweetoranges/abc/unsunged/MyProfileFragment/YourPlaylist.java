@@ -15,6 +15,9 @@ import com.sweetoranges.abc.unsunged.Classes.OnBackPressed;
 import com.sweetoranges.abc.unsunged.R;
 
 public class YourPlaylist extends Fragment implements OnBackPressed{
+    public static final String MOVIE = "movie";
+    private static final String LOG_TAG = "DetailsActivity";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

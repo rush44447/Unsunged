@@ -105,9 +105,7 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
                 ImageView circularImageDialog = (ImageView) dialog.findViewById(R.id.circleViewX);
                 ImageView imageView = (ImageView)dialog.findViewById(R.id.closeDialogImg);
                 imageView.setOnClickListener(v -> revealShow(dialogView, false, dialog));
-
                 dialog.setOnShowListener(dialogInterface -> revealShow(dialogView, true, null));
-
                 dialog.setOnKeyListener((dialogInterface, i, keyEvent) -> {
                     if (i == KeyEvent.KEYCODE_BACK){
                         revealShow(dialogView, false, dialog);return true; }
@@ -115,7 +113,6 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
                 circularImageDialog.setOnClickListener(v -> {
                     imageSelect();
                 });
-
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                 dialog.show();
             }
@@ -128,8 +125,6 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
                 int endRadius = (int) Math.hypot(w, h);
                 int cx = (int) (circularImageView.getX() +334);
                 int cy = (int) (circularImageView.getY())+ circularImageView.getHeight() + 48;
-
-
                 if(b){
                     Animator revealAnimator = ViewAnimationUtils.createCircularReveal(view, cx,cy, 0, endRadius);
                     view.setVisibility(View.VISIBLE);

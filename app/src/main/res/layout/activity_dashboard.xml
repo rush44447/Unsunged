@@ -51,7 +51,7 @@
         android:layout_marginTop="80dp"
         android:src="@drawable/imgview"
         android:layout_centerHorizontal="true"
-        app:border_color="#00796B"
+        app:border_color="#55000000"
         app:border_width="2dp"
         android:clickable="false"
         app:centercircle_diammterer=".97"
@@ -151,9 +151,11 @@
         android:layout_below="@+id/dash" />
     <RelativeLayout
         android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:background="@drawable/round_image"
         android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
         android:layout_height="wrap_content">
 
         <ImageView

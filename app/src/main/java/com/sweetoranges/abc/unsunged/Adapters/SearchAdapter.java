@@ -14,17 +14,14 @@ import com.sweetoranges.abc.unsunged.Model.Quick;
 import com.sweetoranges.abc.unsunged.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.Toast;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHolder> implements Filterable{
     private  Context context;
@@ -46,7 +43,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView Username,Userrank;
-        private AppCompatImageView ProfilePic;
+        private ImageView ProfilePic;
         private CardView card;
         private RecyclerView mRecyclerView;
 
@@ -56,13 +53,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
             Userrank=(TextView)view.findViewById(R.id.userrank);
             card=(CardView)view.findViewById(R.id.card_griditem);
             mRecyclerView=(RecyclerView)view.findViewById(R.id.quickrecycler);
-            ProfilePic=(AppCompatImageView)view.findViewById(R.id.circleView);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // send selected contact in callback
-                    listener.onContactSelected(contactListFiltered.get(getAdapterPosition()));
-                }
+            ProfilePic=(ImageView)view.findViewById(R.id.circleView);
+            view.setOnClickListener(view1 -> {
+                listener.onContactSelected(contactListFiltered.get(getAdapterPosition()));
             });
         }
     }

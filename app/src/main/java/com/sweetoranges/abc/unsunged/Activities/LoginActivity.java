@@ -6,7 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
+import androidx.viewpager.widget.ViewPager;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -47,8 +51,11 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
+import com.google.android.material.tabs.TabLayout;
 import com.sweetoranges.abc.unsunged.BingeFragment.BingeFragment;
 import com.sweetoranges.abc.unsunged.ChallengeFragment.ChallengeFragment;
+import com.sweetoranges.abc.unsunged.LoginFragment.MailFragment;
+import com.sweetoranges.abc.unsunged.LoginFragment.NumberFragment;
 import com.sweetoranges.abc.unsunged.MainActivity;
 
 import com.sweetoranges.abc.unsunged.R;
@@ -64,86 +71,70 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
-public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class LoginActivity extends AppCompatActivity {
     //"Unsunged is Music"+"Redefined", "Reimagined", "Experience Redesigned","Fresh","Upcoming"
 
     AppCompatImageView BackScreen;
-    AppCompatButton OkB,verify;
-    private SignInButton Loginpage;
-    private TextView Status,PhoneVerify;
+    private TextView Status;
     private ImageView imgProfilePic;
-    private GoogleApiClient googleApiClient;
     private static final int RC_SIGN_IN = 1;
     private ProgressDialog mProgressDialog;
-    private ProgressBar progress;
-    private AppCompatEditText phoneNumber,verifyNumber;
+    public ProgressBar progress;
+    private TabLayout tabLayout;
     int i=0;
     private static final String TAG = LoginActivity.class.getSimpleName();
     private String verificationid;
     private FirebaseAuth mAuth;
-String contact="9869344447";
+    String contact="9869344447";
     private boolean mVerificationInProgress = false;
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
-//    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+
+    //    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         BackScreen=(AppCompatImageView)findViewById(R.id.loginScreen);
-        Loginpage=(SignInButton)findViewById(R.id.loginButton);
         progress=(ProgressBar)findViewById(R.id.progress);
         Status=(TextView)findViewById(R.id.statustext);
-        PhoneVerify=(TextView)findViewById(R.id.phoneVerify);
         imgProfilePic = (ImageView) findViewById(R.id.ProfileImage);
-        OkB=(AppCompatButton)findViewById(R.id.ok);
-        verify=(AppCompatButton)findViewById(R.id.verify);
-        phoneNumber=(AppCompatEditText)findViewById(R.id.phoneNumber);
-        verifyNumber=(AppCompatEditText)findViewById(R.id.verifyNumber);
-        phoneNumber.setVisibility(View.GONE);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Number"));
+        tabLayout.addTab(tabLayout.newTab().setText("Email"));
+        replaceFragment(new NumberFragment());
+        mAuth = FirebaseAuth.getInstance();
         showText();
         startColorFade(BackScreen);
-        GoogleSignInOptions gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        googleApiClient=new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
-        Loginpage.setOnClickListener(v -> {
-            progress.setVisibility(View.VISIBLE);
-            Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-            startActivityForResult(intent,RC_SIGN_IN);
-        });
-        PhoneVerify.setOnClickListener(v -> {
-            if(Loginpage.getVisibility()==View.VISIBLE){
-                Loginpage.setVisibility(View.GONE);
-                phoneNumber.setVisibility(View.VISIBLE);
-                PhoneVerify.setText("Gmail Id ?");}
-            else{
-                Loginpage.setVisibility(View.VISIBLE);
-                phoneNumber.setVisibility(View.GONE);
-                PhoneVerify.setText("Phone Number ?");
-            }
-        });
 
+        String abc= GetCountryZipCode();
 
-        mAuth = FirebaseAuth.getInstance();
-       String abc= GetCountryZipCode();
-//        Toast.makeText(this, GetCountryZipCode(), Toast.LENGTH_SHORT).show();
-        //sendVerificationCode("");
-
-
-        OkB.setOnClickListener(view -> {
-            String code = phoneNumber.getText().toString().trim();
-            if (code.isEmpty() || code.length() < 6) {
-                phoneNumber.setError("Enter valid code");
-                phoneNumber.requestFocus();
-                return;
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    replaceFragment(new NumberFragment());
+                } else if (tab.getPosition() == 1) {
+                    replaceFragment(new MailFragment());
+                }
             }
 
-            //verifying the code entered manually
-         //   verifyVerificationCode(code);
-        });
-//        verify.setOnClickListener(view -> {
-//
-//        });
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commit();
     }
 
     public String GetCountryZipCode(){
@@ -164,13 +155,14 @@ String contact="9869344447";
         }
         return CountryZipCode;
     }
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+    public PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             String code = phoneAuthCredential.getSmsCode();
             if (code != null) {
-                phoneNumber.setText(code);
                 verifyVerificationCode(code);
+                     //2nd
             }
         }
 
@@ -186,33 +178,35 @@ String contact="9869344447";
         }
     };
 
-
-    private void verifyVerificationCode(String code) {
+    public void verifyVerificationCode(String code) {     //3rd
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
         signInWithPhoneAuthCredential(credential);
     }
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+
+    public void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {                                         // 4th  step
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+                .addOnCompleteListener(LoginActivity.this, task -> {
+                    if (task.isSuccessful()) {
+                            SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
+                            editor.putBoolean("logininfo", true);
+                            editor.apply();
+                        final Handler handler = new Handler();
+                        handler.postDelayed(() -> {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             getIntent().putExtra("number",contact);
                             startActivity(intent);
-                            Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                        } else {
-                            String message = "Somthing is wrong, we will fix it soon...";
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                message = "Invalid code entered...";
-                            }
-                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);}, 2000);
+                    } else {
+                        String message = "Somthing is wrong, we will fix it soon...";
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            message = "Invalid code entered...";
                         }
+                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void sendVerificationCode(String mobile) {
+    public void sendVerificationCode(String mobile) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+91" + mobile,
                 60,
@@ -220,7 +214,6 @@ String contact="9869344447";
                 TaskExecutors.MAIN_THREAD,
                 mCallbacks);
     }
-
 
     private void showText(){i=0;
         Status.setText("Login To Another Space Of Music");
@@ -261,6 +254,7 @@ String contact="9869344447";
 //
 //    handler.postDelayed(r, 1500);
 }
+
     private void startColorFade(View v){
         int colorStart=0xFFFF007F;
         int colorEnd = 0x8806239f;
@@ -277,21 +271,9 @@ String contact="9869344447";
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);}
-    @Override public void onConnectionFailed(@NonNull ConnectionResult connectionResult) { i=4;
-        Toast.makeText(this, String.valueOf(connectionResult), Toast.LENGTH_SHORT).show();}
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==RC_SIGN_IN){
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
-    }
-
-    private void handleSignInResult(GoogleSignInResult result) {
+    public void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
-            // Signed in successfolly, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             Status.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             imgProfilePic.setImageResource(R.drawable.imgview);
@@ -318,6 +300,7 @@ String contact="9869344447";
             updateUI(false);
         }
     }
+
     private void updateUI(boolean signedIn) {
         if (signedIn) {
             final Handler handler = new Handler();

@@ -86,7 +86,6 @@
                 android:id="@+id/searchRecycler"
                 android:orientation="horizontal"
                 android:paddingTop="2dp"
-                android:layoutDirection="rtl"
                 android:paddingBottom="16dp"
                 android:background="#90dddddd"
                 android:layout_marginBottom="60dp"
