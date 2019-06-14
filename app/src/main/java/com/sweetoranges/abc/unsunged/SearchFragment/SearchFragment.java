@@ -13,41 +13,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.common.api.Response;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.sweetoranges.abc.unsunged.Adapters.HistoryAdapter;
-import com.sweetoranges.abc.unsunged.Adapters.MusicTypeAdapter;
 import com.sweetoranges.abc.unsunged.Adapters.SearchAdapter;
 import com.sweetoranges.abc.unsunged.Classes.ApiCaller;
-import com.sweetoranges.abc.unsunged.Classes.ApiClient;
 import com.sweetoranges.abc.unsunged.Classes.ApiInteract;
-import com.sweetoranges.abc.unsunged.MainActivity;
 import com.sweetoranges.abc.unsunged.Model.Quick;
 import com.sweetoranges.abc.unsunged.R;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import info.abdolahi.CircularMusicProgressBar;
 import retrofit2.Call;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class SearchFragment extends Fragment implements SearchAdapter.ContactsAdapterListener{
@@ -61,7 +42,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
     private List<Quick> contactList = new ArrayList<>();
     Context context=getActivity();
     private SearchView searchView;
-    public RecyclerView searchRecycler,typeRecyc;
+    public RecyclerView searchRecycler;
     private SearchAdapter mAdapter;
     private SearchView.OnQueryTextListener queryTextListener;
     ProgressBar progress;
@@ -84,13 +65,13 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
          Mood=(AppCompatButton)view.findViewById(R.id.mood);
         searchRecycler=(RecyclerView)view.findViewById(R.id.searchRecycler);
         progress=(ProgressBar)view.findViewById(R.id.progress);
-        typeRecyc=(RecyclerView)view.findViewById(R.id.typeRecyc);
-        typeRecyc.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
+//        typeRecyc=(RecyclerView)view.findViewById(R.id.typeRecyc);
+//        typeRecyc.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         //typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
         fetchContacts();
 
-        typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),history));
+//        typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),history));
         searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,name));
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
@@ -102,16 +83,20 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
 
 
         Name.setOnClickListener(v -> {searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,name));
-            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));});
+//            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
+        });
         Type.setOnClickListener(v -> {
             searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,type));
-            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),type)); });
+//            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),type));
+        });
         Language.setOnClickListener(v -> {
             searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,lang));
-            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),lang)); });
+//            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),lang));
+        });
         Mood.setOnClickListener(v -> {
             searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,mood));
-            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),mood)); });
+//            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),mood));
+        });
 
         return view;
     }
@@ -126,7 +111,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
                 public void onResponse(Call<List<Quick>> call, retrofit2.Response<List<Quick>> response) {
 //                    contactList.add(response.body());
                     List<Quick> cont=response.body();
-                    Toast.makeText(getActivity(), cont.get(0).getName(), Toast.LENGTH_SHORT).show();
                     searchRecycler.setAdapter(new SearchAdapter(getActivity(), cont, SearchFragment.this::onContactSelected,name));
                    // recyclerView.setAdapter(new StoryAdapter(getActivity(),follow));
                 }

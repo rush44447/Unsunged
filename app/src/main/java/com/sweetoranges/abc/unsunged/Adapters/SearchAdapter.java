@@ -87,7 +87,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
 
     @Override
     public int getItemCount() {
-        return contactListFiltered.size();
+        if(contactListFiltered.size()<7)return contactListFiltered.size();
+        else return 7;
     }
 
     @Override

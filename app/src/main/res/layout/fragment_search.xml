@@ -88,15 +88,8 @@
                 android:paddingTop="2dp"
                 android:paddingBottom="16dp"
                 android:background="#90dddddd"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/typeRecyc"
-                android:orientation="horizontal"
-                android:layoutDirection="rtl"
-                android:layout_marginTop="-80dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>

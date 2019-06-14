@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.sweetoranges.abc.unsunged.Adapters.PlaylistAdapter;
 import com.sweetoranges.abc.unsunged.R;
 
-public class PlaylistFragment extends Fragment{
+public class PlaylistFragment extends Fragment  {
     RecyclerView playlistRv;
     public PlaylistFragment() {
         // Required empty public constructor
