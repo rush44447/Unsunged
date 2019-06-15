@@ -16,10 +16,6 @@
                 android:layout_height="200dp"
                 android:animateLayoutChanges="true"
                 android:elevation="5dp">
-                <com.sweetoranges.abc.unsunged.Cover.OvalImageView
-                    android:layout_width="match_parent"
-                    android:src="@drawable/imgview"
-                    android:layout_height="match_parent" />
                 <ImageView
                     android:id="@+id/backimage"
                     android:layout_width="match_parent"
@@ -69,7 +65,7 @@
                         android:textColor="@android:color/white"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        android:layout_below="@+id/circleView"/>
+                        android:layout_below="@+id/view2"/>
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

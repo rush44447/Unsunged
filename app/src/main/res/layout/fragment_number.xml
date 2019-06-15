@@ -7,34 +7,35 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/verificationCode"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
         android:layout_height="50dp"
         android:visibility="gone"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:backgroundTint="#f4f"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/ok"
         android:hint="Enter Code"
         android:background="?attr/selectableItemBackground" />
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/phoneNumber"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
         android:layout_height="50dp"
         android:backgroundTint="#f4f"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/ok"
+        android:layout_marginTop="40dp"
         android:hint="Enter Contact"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:background="?attr/selectableItemBackground" />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/ok"
         android:text="Next"
         android:layout_width="match_parent"
-        android:layout_margin="40dp"
-
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:textColor="#fff"
         android:layout_height="40dp"
         android:background="#B9323BFF"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginTop="140dp" />
 </RelativeLayout>

@@ -306,7 +306,7 @@ public class LoginActivity extends AppCompatActivity {
             final Handler handler = new Handler();
             handler.postDelayed(() -> {i=10;
                 startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);}, 2000);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);}, 1500);
         } else {
             Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
         }

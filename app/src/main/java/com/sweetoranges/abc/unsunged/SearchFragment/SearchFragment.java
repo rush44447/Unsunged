@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.android.material.tabs.TabLayout;
 import com.sweetoranges.abc.unsunged.Adapters.SearchAdapter;
 import com.sweetoranges.abc.unsunged.Classes.ApiCaller;
 import com.sweetoranges.abc.unsunged.Classes.ApiInteract;
@@ -24,6 +26,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
@@ -31,21 +35,18 @@ import java.util.List;
 import retrofit2.Call;
 
 
-public class SearchFragment extends Fragment implements SearchAdapter.ContactsAdapterListener{
-    AppCompatButton Name,Mood,Language,Type;
-    public String[] name = new String[]{};
+    public class SearchFragment extends Fragment{
+    //AppCompatButton Name,Mood,Language,Type;
     public String[] lang = new String[]{"English", "Hindi", "Gujrati", "Rajasthani"};
     public String[] mood = new String[]{"Soothing","Travelling","Happy","Nostalgia","Inspirational","Slow"};
     public String[] type = new String[]{"Jazz","Rock","Indian Classical Music","Popular Music", "Folk Music","Rap","Country Music","Indie Rock","Pop Music","Techno","Rhythm and Blues","Instrumental","Electronic Dance Music"};
     public String[] history = new String[]{"Arijit","Shreya","Vishal","Neha"};
     private static final String URL = "https://api.androidhive.info/json/contacts.json";
-    private List<Quick> contactList = new ArrayList<>();
     Context context=getActivity();
     private SearchView searchView;
-    public RecyclerView searchRecycler;
     private SearchAdapter mAdapter;
+    private TabLayout   tabLayout;
     private SearchView.OnQueryTextListener queryTextListener;
-    ProgressBar progress;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -59,76 +60,76 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {       // new HistoryAdapter(getActivity(),history)
         View view=inflater.inflate(R.layout.fragment_search, container, false);
-         Name=(AppCompatButton)view.findViewById(R.id.name);
-         Type=(AppCompatButton)view.findViewById(R.id.type);
-         Language=(AppCompatButton)view.findViewById(R.id.language);
-         Mood=(AppCompatButton)view.findViewById(R.id.mood);
-        searchRecycler=(RecyclerView)view.findViewById(R.id.searchRecycler);
-        progress=(ProgressBar)view.findViewById(R.id.progress);
+//         Name=(AppCompatButton)view.findViewById(R.id.name);
+//         Type=(AppCompatButton)view.findViewById(R.id.type);
+//         Language=(AppCompatButton)view.findViewById(R.id.language);
+//         Mood=(AppCompatButton)view.findViewById(R.id.mood);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        tabLayout.addTab(tabLayout.newTab().setText("Profile"));
+        tabLayout.addTab(tabLayout.newTab().setText("Category"));
+        replaceFragment(new ProfileFragment());
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    replaceFragment(new ProfileFragment());
+                } else if (tab.getPosition() == 1) {
+                    replaceFragment(new CategoryFragment());
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+//        searchRecycler=(RecyclerView)view.findViewById(R.id.searchRecycler);
 //        typeRecyc=(RecyclerView)view.findViewById(R.id.typeRecyc);
 //        typeRecyc.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
-        searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
+//        searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
         //typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
-        fetchContacts();
 
 //        typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),history));
-        searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,name));
+//        searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,name));
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Unsunged");
         whiteNotificationBar(view);
-        contactList = new ArrayList<>();
 
 
-        Name.setOnClickListener(v -> {searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,name));
-//            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
-        });
-        Type.setOnClickListener(v -> {
-            searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,type));
-//            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),type));
-        });
-        Language.setOnClickListener(v -> {
-            searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,lang));
-//            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),lang));
-        });
-        Mood.setOnClickListener(v -> {
-            searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,mood));
-//            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),mood));
-        });
+//        Name.setOnClickListener(v -> {searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,name));
+////            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),name));
+//        });
+//        Type.setOnClickListener(v -> {
+//            searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,type));
+////            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),type));
+//        });
+//        Language.setOnClickListener(v -> {
+//            searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,lang));
+////            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),lang));
+//        });
+//        Mood.setOnClickListener(v -> {
+//            searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this,mood));
+////            typeRecyc.setAdapter(new MusicTypeAdapter(getActivity(),mood));
+//        });
 
         return view;
     }
-
-    private void fetchContacts() {
-        try {progress.setVisibility(View.VISIBLE);
-             ApiInteract apiService = ApiCaller.getClient().create(ApiInteract.class);
-
-            Call<List<Quick>> call = apiService.getStreaming();
-            call.enqueue(new retrofit2.Callback<List<Quick>>() {
-                @Override
-                public void onResponse(Call<List<Quick>> call, retrofit2.Response<List<Quick>> response) {
-//                    contactList.add(response.body());
-                    List<Quick> cont=response.body();
-                    searchRecycler.setAdapter(new SearchAdapter(getActivity(), cont, SearchFragment.this::onContactSelected,name));
-                   // recyclerView.setAdapter(new StoryAdapter(getActivity(),follow));
-                }
-                @Override
-                public void onFailure(Call<List<Quick>> call, Throwable t) {
-                    Toast.makeText(getActivity(), "failed to ", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } catch (Exception e) {
-            Log.d("Error", e.getMessage());
-            Toast.makeText(getActivity(),"err", Toast.LENGTH_SHORT).show();
-        }
-        progress.setVisibility(View.GONE);
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commit();
     }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 //        getMenuInflater().inflate(R.menu.main_menu, menu);
         inflater.inflate(R.menu.main_menu, menu);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
@@ -155,32 +156,14 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
 //        });
         super.onCreateOptionsMenu(menu, inflater);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        // close search view on back button pressed
-//        if (!searchView.isIconified()) {
-//            searchView.setIconified(true);
-//            return;
-//        }
-//        super.onBackPressed();
-//    }
-
     private void whiteNotificationBar(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int flags = view.getSystemUiVisibility();
@@ -188,10 +171,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.ContactsAd
             view.setSystemUiVisibility(flags);
             getActivity().getWindow().setStatusBarColor(Color.WHITE);
         }
-    }
-    @Override
-    public void onContactSelected(Quick contact) {
-        Toast.makeText(getActivity(), "Selected: " + contact.getName() + ", " + contact.getPhone(), Toast.LENGTH_LONG).show();
     }
 
 }

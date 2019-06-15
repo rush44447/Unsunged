@@ -31,10 +31,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     private List<Quick> contactListFiltered;
     private ContactsAdapterListener listener;
     public int[] id=new int[]{1,2,3,4};
-    private String[] searchby;
 
-    public SearchAdapter(FragmentActivity activity, List<Quick> contactList,  ContactsAdapterListener listener,String[] searchby) {
-        this.searchby=searchby;
+    public SearchAdapter(FragmentActivity activity, List<Quick> contactList,  ContactsAdapterListener listener) {
         this.context = activity;
         this.contactList=contactList;
         this.listener = listener;

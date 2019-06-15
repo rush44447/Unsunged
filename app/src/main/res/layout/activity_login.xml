@@ -43,6 +43,7 @@
         app:tabTextColor="#efefef"
         app:tabGravity="fill"
         app:tabSelectedTextColor="#000"
+        app:tabTextAppearance="@style/MyCustomTabText"
         android:layout_below="@+id/ProfileImage"
         android:layout_marginTop="100dp"
         app:tabMode="fixed" />
