@@ -22,17 +22,11 @@ import com.sweetoranges.abc.unsunged.Classes.ApiInteract;
 import com.sweetoranges.abc.unsunged.Model.Quick;
 import com.sweetoranges.abc.unsunged.R;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
-import java.util.List;
-import retrofit2.Call;
 
 
     public class SearchFragment extends Fragment{

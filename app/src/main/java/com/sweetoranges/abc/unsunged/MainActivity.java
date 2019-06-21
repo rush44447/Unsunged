@@ -30,6 +30,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
 import com.sweetoranges.abc.unsunged.Activities.LoginActivity;
+import com.sweetoranges.abc.unsunged.ActivityFragment.ActivityFragment;
 import com.sweetoranges.abc.unsunged.ChallengeFragment.ChallengeFragment;
 import com.sweetoranges.abc.unsunged.BingeFragment.BingeFragment;
 import com.sweetoranges.abc.unsunged.Classes.ApiClient;
@@ -40,6 +41,8 @@ import com.sweetoranges.abc.unsunged.SearchFragment.SearchFragment;
 import com.sweetoranges.abc.unsunged.utils.MyBounceInterpolator;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
@@ -78,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     TextView artist;
     private AppCompatImageButton likeButton;
     View viewx;
+    List<String>songs=new ArrayList<>();
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -302,6 +306,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.search:
                         loadFragment(new SearchFragment());
                         return true;
+                    case R.id.activity:
+                        loadFragment(new ActivityFragment());
+                        return true;
                     case R.id.type:
                         loadFragment(new ChallengeFragment());
                         return true;
@@ -332,19 +339,19 @@ public class MainActivity extends AppCompatActivity {
             myHandler.postDelayed(this, 100);
         }
     };
-    private void callMusicDetail() {//connection is built
-        Call<StreamingRequest> call = apiService.getStreaming("idshnmkl");//this is added to baseurl and data is  retrieved
-        call.enqueue(new retrofit2.Callback<StreamingRequest>() {
-            @Override
-            public void onResponse(Call<StreamingRequest> call, Response<StreamingRequest> response) {
-                handleResponse(response);
-            }
-            @Override
-            public void onFailure(Call<StreamingRequest> call, Throwable t) {
-                System.out.println("FAILED " + t.toString());
-            }
-        });
-    }
+        private void callMusicDetail() {//connection is built
+            Call<StreamingRequest> call = apiService.getStreaming("idshnmkl");//this is added to baseurl and data is  retrieved
+            call.enqueue(new retrofit2.Callback<StreamingRequest>() {
+                @Override
+                public void onResponse(Call<StreamingRequest> call, Response<StreamingRequest> response) {
+                    handleResponse(response);
+                }
+                @Override
+                public void onFailure(Call<StreamingRequest> call, Throwable t) {
+                    System.out.println("FAILED " + t.toString());
+                }
+            });
+        }
     @SuppressLint("DefaultLocale")
     private void handleResponse(Response<StreamingRequest> response) {
         try { mediaPlayer.setDataSource(response.body().getMp3Url());//here mp3 file is loaded using retrieved url and fed into mMediaPlayer
