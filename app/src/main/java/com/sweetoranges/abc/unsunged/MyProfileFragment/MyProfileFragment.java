@@ -43,6 +43,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sweetoranges.abc.unsunged.Classes.ImageConverter;
@@ -57,6 +60,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 public class MyProfileFragment extends Fragment implements PlayListClickListener {
    // private RecyclerView playlistRv;
@@ -99,19 +103,28 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
 
             private void showDiag() {
                 final View dialogView = View.inflate(getContext(),R.layout.profile,null);
-
                 final Dialog dialog = new Dialog(getContext(),R.style.MyAlertDialogStyle);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(dialogView);
                 ImageView circularImageDialog = (ImageView) dialog.findViewById(R.id.circleViewX);
                 ImageView imageView = (ImageView)dialog.findViewById(R.id.closeDialogImg);
+                TextView Profile=(TextView)dialog.findViewById(R.id.change_profile);
+                RadioGroup radioGroup = (RadioGroup)dialog.findViewById(R.id.genderRadio);
+                radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("login", MODE_PRIVATE).edit();
+                    if(checkedId % 10==6)editor.putInt("gender",0);//male
+                    if(checkedId % 10==9)editor.putInt("gender",1);//female
+                    if(checkedId % 10==4)editor.putInt("gender",2);//conceal
+                    editor.apply();
+                    Toast.makeText(getActivity(), String.valueOf(checkedId % 10), Toast.LENGTH_SHORT).show();
+                    RadioButton radioButton = (RadioButton)group.findViewById(checkedId); });
                 imageView.setOnClickListener(v -> revealShow(dialogView, false, dialog));
                 dialog.setOnShowListener(dialogInterface -> revealShow(dialogView, true, null));
                 dialog.setOnKeyListener((dialogInterface, i, keyEvent) -> {
                     if (i == KeyEvent.KEYCODE_BACK){
                         revealShow(dialogView, false, dialog);return true; }
                     return false; });
-                circularImageDialog.setOnClickListener(v -> {
+                Profile.setOnClickListener(v -> {
                     imageSelect();
                 });
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));

@@ -77,9 +77,78 @@
               android:id="@+id/getThoughts"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:hint="Status"
+              android:hint="What's on your mind?"
               android:textSize="14sp" />
 
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:textAlignment="center"
+             android:textSize="17sp"
+             android:layout_marginTop="8dp"
+             android:textColor="#fff"
+             android:text="Login Information"/>
+          <TextView
+              android:layout_marginTop="8dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Email"
+              android:textSize="14sp"
+              android:textColor="#fff" />
+          <androidx.appcompat.widget.AppCompatEditText
+              android:id="@+id/getEmail"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="Email"
+              android:textSize="14sp" />
+          <TextView
+              android:layout_marginTop="8dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Phone Number"
+              android:textSize="14sp"
+              android:textColor="#fff" />
+          <androidx.appcompat.widget.AppCompatEditText
+              android:id="@+id/getContact"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="Email"
+              android:textSize="14sp" />
+          <TextView
+              android:layout_marginTop="8dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Gender"
+              android:textSize="14sp"
+              android:textColor="#fff" />
+          <RadioGroup
+              android:layout_marginTop="50dp"
+              android:orientation="horizontal"
+              android:id="@+id/genderRadio"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+              <RadioButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/male"
+                  android:text="Male"
+                  android:textSize="14sp"/>
+              <RadioButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/female"
+                  android:layout_marginStart="15dp"
+                  android:text="Female"
+                  android:textSize="14sp"/>
+
+              <RadioButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/conceal"
+                  android:layout_marginStart="15dp"
+                  android:text="Conceal"
+                  android:textSize="14sp"/>
+          </RadioGroup>
       </LinearLayout>
   </ScrollView>
 </RelativeLayout>
