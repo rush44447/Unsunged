@@ -43,6 +43,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.sweetoranges.abc.unsunged.Classes.ImageConverter;
 import com.sweetoranges.abc.unsunged.interfaces.PlayListClickListener;
@@ -142,13 +143,16 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
                     anim.start(); } }});
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String mImageUri = preferences.getString("image", null);
+try {
+    if (mImageUri != null) {
+        circularImageView.setImageURI(Uri.parse(mImageUri));
+    } else {
+        circularImageView.setImageResource(R.drawable.ladyc);
+    }
+}catch (Exception e)
+{circularImageView.setImageResource(R.drawable.ladyc); }
 
-        if (mImageUri != null) {
-            circularImageView.setImageURI(Uri.parse(mImageUri));
-        } else {
-            circularImageView.setImageResource(R.drawable.ladyc);
-        }
-        return view;
+return view;
     }
     @Override
     public void onPlayListClicked(PlayListViewHolder holder, int position) {
@@ -176,8 +180,8 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFragment(new UploadedFragment(), "");
-        adapter.addFragment(new PlaylistFragment(), "");
+        adapter.addFragment(new UploadedFragment(), "Uploaded");
+        adapter.addFragment(new PlaylistFragment(), "PlayList");
         viewPager.setAdapter(adapter);
     }
 public void imageSelect() {

@@ -15,7 +15,8 @@
         android:roundIcon="@drawable/logob"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.LoginActivity"></activity>
+        <activity android:name=".Activities.YourPlaylist"></activity>
+        <activity android:name=".Activities.LoginActivity" />
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan">

@@ -4,21 +4,25 @@
     <item
         android:id="@+id/binge"
         android:icon="@drawable/ic_music_note_black_24dp"
-        android:title="@string/title_binge" />
+         />
 
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_find_in_page_black_24dp"
-        android:title="@string/title_search" />
+        />
+    <item
+        android:id="@+id/activity"
+        android:icon="@drawable/ic_add_box_black_24dp"
+         />
 
     <item
         android:id="@+id/type"
         android:icon="@drawable/ic_thumbs_up_down_black_24dp"
-        android:title="@string/title_type" />
-
+         />
+    <!--challemnge fragment    or duet-->
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_person_pin_black_24dp"
-        android:title="@string/title_profile" />
+         />
 
 </menu>

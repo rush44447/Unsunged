@@ -26,13 +26,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:id="@+id/story"/>
-            <ProgressBar android:id="@+id/progressBar"
+         <ProgressBar android:id="@+id/progressBar"
             android:layout_width="match_parent"
-            android:backgroundTint="#000"
-                android:visibility="gone"
             android:layout_height="wrap_content"
-            android:paddingTop="100dp"
-            android:paddingBottom="100dp"/>
+             android:layout_marginTop="-190dp"
+            android:paddingTop="70dp"
+            android:paddingBottom="70dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

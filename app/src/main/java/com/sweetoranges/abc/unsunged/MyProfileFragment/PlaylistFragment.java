@@ -33,6 +33,7 @@ View view =inflater.inflate(R.layout.fragment_playlist, container, false);
 
                 playlistRv.setLayoutManager(new LinearLayoutManager(getActivity()));
                 playlistRv.setAdapter(new PlaylistAdapter(getActivity()));
+
         return view;
     }
 

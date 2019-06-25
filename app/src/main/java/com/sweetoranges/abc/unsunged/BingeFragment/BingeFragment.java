@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,6 +75,7 @@ public class BingeFragment extends Fragment  {
         storyRecycler.setItemAnimator(new DefaultItemAnimator());
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
         layoutManager1.setReverseLayout(true);
+        layoutManager1.setStackFromEnd(true);
         sharedRecycler.setLayoutManager(layoutManager1);
         sharedRecycler.setItemAnimator(new DefaultItemAnimator());
         firstImage.setOnClickListener(v -> storyRecycler.smoothScrollBy(500, 0));
@@ -81,10 +83,10 @@ public class BingeFragment extends Fragment  {
            progressBar.setVisibility(View.VISIBLE);
             loadStory();
             loadShared();
+            new Handler().postDelayed(() -> progressBar.setVisibility(View.GONE), 1200);
         }
         return view;
     }
-
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -103,7 +105,6 @@ public class BingeFragment extends Fragment  {
                 @Override
                 public void onFailure(Call<StreamingRequest> call, Throwable t) { }
             });
-        progressBar.setVisibility(View.GONE);
     }
 
     private void loadShared(){
@@ -117,7 +118,6 @@ public class BingeFragment extends Fragment  {
             @Override
             public void onFailure(Call<List<Binge>> call, Throwable t) { }
         });
-        progressBar.setVisibility(View.GONE);
     }
 
 
