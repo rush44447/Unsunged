@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.sweetoranges.abc.unsunged.BingeFragment.BingeFragment;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
 import com.sweetoranges.abc.unsunged.Model.Story;
 import com.sweetoranges.abc.unsunged.R;
@@ -46,6 +47,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         holder.Album.setOnClickListener(v -> {
            // togglePlayPause();
         });
+        //holder.Listen.setOnClickListener(v -> ((BingeFragment)context).scroll());
        // holder.categorytext.setText(followings.get(0).getTitle());
 //        holder.Titletext.setText(followings.get(position).getTitle());
 //        holder.dateCreated.setText(followings.get(position).getDateCreated());

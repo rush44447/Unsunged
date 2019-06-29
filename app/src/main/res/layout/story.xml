@@ -2,10 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/storyspace"
+        android:layout_width="300dp"
+        android:layout_height="180dp">
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Listen to Fresh"
+            android:layout_marginTop="40dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ic_arrow_back_black_24dp"
+            />
+    </RelativeLayout>
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/firststory"
         android:layout_width="@dimen/firststorywidth"
+        android:layout_toEndOf="@+id/storyspace"
         android:layout_height="110dp"
         android:background="#000"
         android:src="@drawable/modelb"
@@ -109,26 +130,4 @@
         android:layout_alignEnd="@+id/fifthstory"
         android:layout_margin="6dp"
         android:background="#000"/>
-    <RelativeLayout
-        android:id="@+id/storyspace"
-        android:layout_width="300dp"
-        android:visibility="gone"
-        android:layout_toEndOf="@+id/fifthstory"
-        android:layout_height="120dp">
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Listen to Fresh"
-            android:layout_marginTop="40dp"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true"/>
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/ic_arrow_back_black_24dp"
-            />
-    </RelativeLayout>
 </RelativeLayout>

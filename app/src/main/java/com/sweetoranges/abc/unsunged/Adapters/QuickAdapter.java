@@ -1,9 +1,15 @@
 package com.sweetoranges.abc.unsunged.Adapters;
 
+import android.content.ComponentName;
 import android.content.Context;
 
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sweetoranges.abc.unsunged.R;
+import com.sweetoranges.abc.unsunged.Services.MyService;
 import com.sweetoranges.abc.unsunged.utils.MyBounceInterpolator;
 
 import java.io.IOException;
@@ -30,6 +37,7 @@ public class QuickAdapter extends RecyclerView.Adapter<QuickAdapter.ViewHolder> 
     private ViewHolder viewHolder;
 boolean play =false;
 List<String>songs=new ArrayList<>();
+
     public QuickAdapter(Context context, int[] id, List<String> songs) {this.context = context; this.songs=songs; }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -38,6 +46,7 @@ List<String>songs=new ArrayList<>();
         private ImageView likesearch;
         ImageView background;
         public MediaPlayer mediaPlayer = new MediaPlayer();
+        public String mediaFile;
         //        private View Quickback;
         private ViewHolder(final View v){
             super(v);
@@ -57,6 +66,14 @@ List<String>songs=new ArrayList<>();
         holder.mediaPlayer.setOnPreparedListener(mp -> { });
         holder.mediaPlayer.setOnCompletionListener(mp -> {});
         try {
+//            holder.mediaPlayer.setOnCompletionListener(context);
+//            holder.mediaPlayer.setOnErrorListener(context);
+//            holder.mediaPlayer.setOnPreparedListener(context);
+//            holder.mediaPlayer.setOnBufferingUpdateListener(context);
+//            holder.mediaPlayer.setOnSeekCompleteListener(context);
+//            holder.mediaPlayer.setOnInfoListener(context);
+            //Reset so that the MediaPlayer is not pointing to another data source
+            holder.mediaPlayer.reset();
             holder.mediaPlayer.setDataSource(songs.get(position));
             holder.mediaPlayer.prepareAsync();
         } catch (IOException e) {
@@ -64,17 +81,20 @@ List<String>songs=new ArrayList<>();
         }
 
         holder.playsearch.setOnClickListener(v->{
-            if(holder.mediaPlayer.isPlaying()){
-                holder.mediaPlayer.pause();
-                holder.background.setVisibility(View.GONE);
-                holder.playsearch.setImageResource(R.drawable.ic_play_arrow);
-            }
-            else{
-                holder.mediaPlayer.start();
-                holder.background.setVisibility(View.VISIBLE);
-                holder.playsearch.setImageResource(R.drawable.ic_pause_black);
-                Glide.with(context).load(R.drawable.musicv).into(new GlideDrawableImageViewTarget(holder.background));
-            }
+            context.startService(new Intent(context, MyService.class));
+
+
+//            if(holder.mediaPlayer.isPlaying()){
+//                holder.mediaPlayer.pause();
+//                holder.background.setVisibility(View.GONE);
+//                holder.playsearch.setImageResource(R.drawable.ic_play_arrow);
+//            }
+//            else{
+//                holder.mediaPlayer.start();
+//                holder.background.setVisibility(View.VISIBLE);
+//                holder.playsearch.setImageResource(R.drawable.ic_pause_black);
+//                Glide.with(context).load(R.drawable.musicv).into(new GlideDrawableImageViewTarget(holder.background));
+//            }
             });
     }
 

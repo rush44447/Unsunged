@@ -8,10 +8,13 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.sweetoranges.abc.unsunged.Adapters.BingeAdapter;
@@ -68,17 +71,23 @@ public class BingeFragment extends Fragment  {
      //   followings=getFollowingsId();
         storyRecycler = view.findViewById(R.id.story);
         sharedRecycler=view.findViewById(R.id.shared);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
-        layoutManager.setReverseLayout(true);
 
-        storyRecycler.setLayoutManager(layoutManager);
+        storyRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         storyRecycler.setItemAnimator(new DefaultItemAnimator());
-        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
-        layoutManager1.setReverseLayout(true);
-        layoutManager1.setStackFromEnd(true);
-        sharedRecycler.setLayoutManager(layoutManager1);
+        storyRecycler.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
+                storyRecycler, new ClickListener() {
+            @Override public void onClick(View view, final int position) {
+                RelativeLayout rl=(RelativeLayout) view.findViewById(R.id.storyspace);
+                rl.setOnClickListener(v -> scroll());
+            }
+
+            @Override public void onLongClick(View view, int position) { }
+        }));
+
+
+        sharedRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         sharedRecycler.setItemAnimator(new DefaultItemAnimator());
-        firstImage.setOnClickListener(v -> storyRecycler.smoothScrollBy(500, 0));
+
         if(isNetworkAvailable()){
            progressBar.setVisibility(View.VISIBLE);
             loadStory();
@@ -120,5 +129,57 @@ public class BingeFragment extends Fragment  {
         });
     }
 
+    public void scroll(){
+        storyRecycler.smoothScrollBy(700, 0);
+    }
+
+    public static interface ClickListener{
+        public void onClick(View view,int position);
+        public void onLongClick(View view,int position);
+    }
+    class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
+
+        private ClickListener clicklistener;
+        private GestureDetector gestureDetector;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recycleView, final ClickListener clicklistener){
+
+            this.clicklistener=clicklistener;
+            gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child=recycleView.findChildViewUnder(e.getX(),e.getY());
+                    if(child!=null && clicklistener!=null){
+                        clicklistener.onLongClick(child,recycleView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child=rv.findChildViewUnder(e.getX(),e.getY());
+            if(child!=null && clicklistener!=null && gestureDetector.onTouchEvent(e)){
+                clicklistener.onClick(child,rv.getChildAdapterPosition(child));
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
 
 }

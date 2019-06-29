@@ -40,9 +40,7 @@ public class ProfileFragment extends Fragment implements SearchAdapter.ContactsA
     View rootView = inflater.inflate(R.layout.fragment_profile,container,false);
     searchRecycler=(RecyclerView)rootView.findViewById(R.id.searchRecycler);
     progress=(ProgressBar)rootView.findViewById(R.id.progress);
-    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
-    layoutManager.setReverseLayout(true);
-    searchRecycler.setLayoutManager(layoutManager);
+    searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
     fetchSearch();
     searchRecycler.setAdapter(new SearchAdapter(getActivity(), contactList, this));
 
