@@ -10,7 +10,7 @@ import com.sweetoranges.abc.unsunged.Classes.MediaPlayerHolder;
 public class MusicService extends Service {
     private final IBinder mIBinder = new LocalBinder();
 
-    private MediaPlayerHolder mMediaPlayerHolder;
+   // private MediaPlayerHolder mMediaPlayerHolder= new MediaPlayerHolder(this);
 
     private MusicNotificationManager mMusicNotificationManager;
 
@@ -25,7 +25,7 @@ public class MusicService extends Service {
     }
 
     public final MediaPlayerHolder getMediaPlayerHolder() {
-        return mMediaPlayerHolder;
+        return new MediaPlayerHolder(this);
     }
 
     public MusicNotificationManager getMusicNotificationManager() {
@@ -39,14 +39,15 @@ public class MusicService extends Service {
 
     @Override
     public void onDestroy() {
-        mMediaPlayerHolder.registerNotificationActionsReceiver(false);
+        new MediaPlayerHolder(this).registerNotificationActionsReceiver(false);
         mMusicNotificationManager = null;
-        mMediaPlayerHolder.release();
+        new MediaPlayerHolder(this).release();
         super.onDestroy();
     }
 
     @Override
     public IBinder onBind(Intent intent) {
+        MediaPlayerHolder mMediaPlayerHolder=new MediaPlayerHolder(this);
         if (mMediaPlayerHolder == null) {
             mMediaPlayerHolder = new MediaPlayerHolder(this);
             mMusicNotificationManager = new MusicNotificationManager(this);

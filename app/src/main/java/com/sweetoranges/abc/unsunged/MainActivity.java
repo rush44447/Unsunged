@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         Hider=(View)findViewById(R.id.hiderView);
         likeButton=(AppCompatImageButton)findViewById(R.id.likeButton);
         artist=(TextView)findViewById(R.id.artist);
-
+        if(mediaPlayer.isPlaying())mPlayerControl.setImageResource(R.drawable.ic_pause_black_24dp);else mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         context = getApplicationContext();
         tv.setSelected(true);
@@ -179,9 +179,7 @@ public class MainActivity extends AppCompatActivity {
          Seek.setProgress((int) startTime);
         if(isNetworkAvailable()) callMusicDetail();
         else{
-            Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG)
-                    .setAction("RETRY", new View.OnClickListener() {
+            Snackbar snackbar = Snackbar.make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG).setAction("RETRY", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                         }

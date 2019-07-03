@@ -49,7 +49,7 @@ public class SongProvider {
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 final Song song = getSongFromCursorImpl(cursor);
-                if (song.duration >= 30000) {
+                if (song.duration >= 20000) {
                     songs.add(song);
                     mAllDeviceSongs.add(song);
                 }
@@ -82,8 +82,7 @@ public class SongProvider {
     @Nullable
     static Cursor makeSongCursor(@NonNull final Context context) {
         try {
-            return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                    BASE_PROJECTION, null, null, null);
+            return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, BASE_PROJECTION, null, null, null);
         } catch (SecurityException e) {
             return null;
         }

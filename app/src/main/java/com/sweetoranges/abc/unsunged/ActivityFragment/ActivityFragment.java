@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,6 +17,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Environment;
 import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,18 +46,18 @@ import java.util.ArrayList;
 
 public class ActivityFragment extends Fragment implements View.OnClickListener, RecyclerAdapter.SongClicked{
 
-  private RecyclerView recyclerView;
-  private SeekBar seekBar;
-  private ImageButton playPause, next, previous;
-  private TextView songTitle;
-  private MusicService mMusicService;
-  private Boolean mIsBound;
-  private PlayerAdapter mPlayerAdapter;
-  private boolean mUserIsSeeking = false;
-  private PlaybackListener mPlaybackListener;
-  private List<Song> mSelectedArtistSongs;
-  private MusicNotificationManager mMusicNotificationManager;
-  private RecyclerAdapter recyclerAdapter;
+  public RecyclerView recyclerView;
+  public SeekBar seekBar;
+  public ImageButton playPause, next, previous;
+  public TextView songTitle;
+  public MusicService mMusicService;
+  public Boolean mIsBound;
+  public PlayerAdapter mPlayerAdapter;
+  public boolean mUserIsSeeking = false;
+  public PlaybackListener mPlaybackListener;
+  public List<Song> mSelectedArtistSongs;
+  public MusicNotificationManager mMusicNotificationManager;
+  public RecyclerAdapter recyclerAdapter;
 
 
   @Nullable
@@ -89,11 +93,15 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
     super.onActivityCreated(savedInstanceState);
   }
 
-  private final ServiceConnection mConnection = new ServiceConnection() {
+  public final ServiceConnection mConnection = new ServiceConnection() {
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
 
       mMusicService = ((MusicService.LocalBinder) iBinder).getInstance();
+      if(mMusicService.getMediaPlayerHolder()==null)
+        Toast.makeText(mMusicService, "null", Toast.LENGTH_SHORT).show();
+        else Toast.makeText(mMusicService, "fine", Toast.LENGTH_SHORT).show();
+
       mPlayerAdapter = mMusicService.getMediaPlayerHolder();
       mMusicNotificationManager = mMusicService.getMusicNotificationManager();
 
@@ -143,24 +151,19 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
     }
   }
 
-  private void checkReadStoragePermissions() {
+  public void checkReadStoragePermissions() {
     if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) !=
             PackageManager.PERMISSION_GRANTED) {
       ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
     }
   }
 
-  private void updatePlayingInfo(boolean restore, boolean startPlay) {
+  public void updatePlayingInfo(boolean restore, boolean startPlay) {
 
     if (startPlay) {
       mPlayerAdapter.getMediaPlayer().start();
-      new Handler().postDelayed(new Runnable() {
-        @Override
-        public void run() {
-          mMusicService.startForeground(MusicNotificationManager.NOTIFICATION_ID,
-                  mMusicNotificationManager.createNotification());
-        }
-      }, 250);
+      new Handler().postDelayed(() -> mMusicService.startForeground(MusicNotificationManager.NOTIFICATION_ID,
+              mMusicNotificationManager.createNotification()), 250);
     }
 
     final Song selectedSong = mPlayerAdapter.getCurrentSong();
@@ -175,7 +178,6 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
 
 
       new Handler().postDelayed(() -> {
-        //stop foreground if coming from pause state
         if (mMusicService.isRestoredFromPause()) {
           mMusicService.stopForeground(false);
           mMusicService.getMusicNotificationManager().getNotificationManager()
@@ -187,16 +189,13 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
     }
   }
 
-  private void updatePlayingStatus() {
+  public void updatePlayingStatus() {
     final int drawable = mPlayerAdapter.getState() != PlaybackInfoListener.State.PAUSED ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp;
     playPause.post(() -> playPause.setImageResource(drawable));
   }
 
-  private void restorePlayerStatus() {
+  public void restorePlayerStatus() {
     seekBar.setEnabled(mPlayerAdapter.isMediaPlayer());
-
-    //if we are playing and the activity was restarted
-    //update the controls panel
     if (mPlayerAdapter != null && mPlayerAdapter.isMediaPlayer()) {
 
       mPlayerAdapter.onResumeActivity();
@@ -204,7 +203,7 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
     }
   }
 
-  private void doBindService() {
+  public void doBindService() {
     getActivity().bindService(new Intent(getActivity(), MusicService.class), mConnection, Context.BIND_AUTO_CREATE);
     mIsBound = true;
 
@@ -212,7 +211,7 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
     getActivity().startService(startNotStickyIntent);
   }
 
-  private void doUnbindService() {
+  public void doUnbindService() {
     if (mIsBound) {
       getActivity().unbindService(mConnection);
       mIsBound = false;
@@ -249,7 +248,7 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
       mPlayerAdapter.skip(true);
   }
 
-  private boolean checkIsPlayer() {
+  public boolean checkIsPlayer() {
     try {  boolean isPlayer = mPlayerAdapter.isMediaPlayer();
 
 
@@ -259,7 +258,7 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
       return isPlayer;
 
     }catch (Exception e){
-  Toast.makeText(getActivity(), "erroe", Toast.LENGTH_SHORT).show();
+  Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
 }return false;
   }
 
@@ -267,14 +266,11 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
   public void onClick(View v) {
     switch (v.getId()) {
       case (R.id.buttonPlayPause): {
-        Toast.makeText(getActivity(), "clicked", Toast.LENGTH_SHORT).show();
         resumeOrPause();
         break;
 
       }
       case (R.id.buttonNext): {
-        Toast.makeText(getActivity(), "clicked", Toast.LENGTH_SHORT).show();
-
         skipNext();
         break;
       }
@@ -286,7 +282,7 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
   }
 
 
-  private void initializeSeekBar() {
+  public void initializeSeekBar() {
     seekBar.setOnSeekBarChangeListener(
             new SeekBar.OnSeekBarChangeListener() {
               int userSelectedPosition = 0;
@@ -301,17 +297,12 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
 
                 if (fromUser) {
                   userSelectedPosition = progress;
-
                 }
-
               }
 
               @Override
               public void onStopTrackingTouch(SeekBar seekBar) {
-
-                if (mUserIsSeeking) {
-
-                }
+                if (mUserIsSeeking) { }
                 mUserIsSeeking = false;
                 mPlayerAdapter.seekTo(userSelectedPosition);
               }
@@ -325,7 +316,7 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
     onSongSelected(song, mSelectedArtistSongs);
   }
 
-  class PlaybackListener extends PlaybackInfoListener {
+  public class PlaybackListener extends PlaybackInfoListener {
 
     @Override
     public void onPositionChanged(int position) {

@@ -23,37 +23,30 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class MediaPlayerHolder implements PlayerAdapter,
-        MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener {
+public class MediaPlayerHolder implements PlayerAdapter, MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener {
 
-    // The volume we set the media player to when we lose audio focus, but are
-    // allowed to reduce the volume instead of stopping playback.
-    private static final float VOLUME_DUCK = 0.2f;
-    // The volume we set the media player when we have audio focus.
-    private static final float VOLUME_NORMAL = 1.0f;
-    // we don't have audio focus, and can't duck (play at a low volume)
-    private static final int AUDIO_NO_FOCUS_NO_DUCK = 0;
-    // we don't have focus, but can duck (play at a low volume)
-    private static final int AUDIO_NO_FOCUS_CAN_DUCK = 1;
-    // we have full audio focus
-    private static final int AUDIO_FOCUSED = 2;
-    private final Context mContext;
-    private final MusicService mMusicService;
-    private final AudioManager mAudioManager;
-    private MediaPlayer mMediaPlayer;
-    private PlaybackInfoListener mPlaybackInfoListener;
-    private ScheduledExecutorService mExecutor;
-    private Runnable mSeekBarPositionUpdateTask;
-    private Song mSelectedSong;
-    private List<Song> mSongs;
-    private boolean sReplaySong = false;
-    private @PlaybackInfoListener.State
+    public static final float VOLUME_DUCK = 0.2f;
+    public static final float VOLUME_NORMAL = 1.0f;
+    public static final int AUDIO_NO_FOCUS_NO_DUCK = 0;
+    public static final int AUDIO_NO_FOCUS_CAN_DUCK = 1;
+    public static final int AUDIO_FOCUSED = 2;
+    public final Context mContext;
+    public final MusicService mMusicService;
+    public final AudioManager mAudioManager;
+    public MediaPlayer mMediaPlayer;
+    public PlaybackInfoListener mPlaybackInfoListener;
+    public ScheduledExecutorService mExecutor;
+    public Runnable mSeekBarPositionUpdateTask;
+    public Song mSelectedSong;
+    public List<Song> mSongs;
+    public boolean sReplaySong = false;
+    public @PlaybackInfoListener.State
     int mState;
-    private NotificationReceiver mNotificationActionsReceiver;
-    private MusicNotificationManager mMusicNotificationManager;
-    private int mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK;
-    private boolean mPlayOnFocusGain;
-    private final AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener =
+    public NotificationReceiver mNotificationActionsReceiver;
+    public MusicNotificationManager mMusicNotificationManager;
+    public int mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK;
+    public boolean mPlayOnFocusGain;
+    public final AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener =
             new AudioManager.OnAudioFocusChangeListener() {
 
                 @Override
@@ -64,24 +57,18 @@ public class MediaPlayerHolder implements PlayerAdapter,
                             mCurrentAudioFocusState = AUDIO_FOCUSED;
                             break;
                         case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                            // Audio focus was lost, but it's possible to duck (i.e.: play quietly)
                             mCurrentAudioFocusState = AUDIO_NO_FOCUS_CAN_DUCK;
                             break;
                         case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-                            // Lost audio focus, but will gain it back (shortly), so note whether
-                            // playback should resume
                             mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK;
-                            mPlayOnFocusGain = isMediaPlayer() && mState == PlaybackInfoListener.State.PLAYING
-                                    || mState == PlaybackInfoListener.State.RESUMED;
+                            mPlayOnFocusGain = isMediaPlayer() && mState == PlaybackInfoListener.State.PLAYING || mState == PlaybackInfoListener.State.RESUMED;
                             break;
                         case AudioManager.AUDIOFOCUS_LOSS:
-                            // Lost audio focus, probably "permanently"
                             mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK;
                             break;
                     }
 
                     if (mMediaPlayer != null) {
-                        // Update the player state based on the change
                         configurePlayerState();
                     }
 
@@ -222,9 +209,7 @@ public class MediaPlayerHolder implements PlayerAdapter,
         setStatus(PlaybackInfoListener.State.PLAYING);
     }
 
-    /**
-     * Syncs the mMediaPlayer position with mPlaybackProgressCallback via recurring task.
-     */
+
     private void startUpdatingCallbackWithPosition() {
         if (mExecutor == null) {
             mExecutor = Executors.newSingleThreadScheduledExecutor();
@@ -287,12 +272,12 @@ public class MediaPlayerHolder implements PlayerAdapter,
 
                 mMediaPlayer.setOnPreparedListener(this);
                 mMediaPlayer.setOnCompletionListener(this);
-                mMediaPlayer.setWakeMode(mContext, PowerManager.PARTIAL_WAKE_LOCK);
+                //mMediaPlayer.setWakeMode(mContext, PowerManager.PARTIAL_WAKE_LOCK);
                 mMediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_MEDIA)
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                         .build());
-                mMusicNotificationManager = mMusicService.getMusicNotificationManager();
+               // mMusicNotificationManager = mMusicService.getMusicNotificationManager();
             }
             tryToGetAudioFocus();
             mMediaPlayer.setDataSource(mSelectedSong.path);

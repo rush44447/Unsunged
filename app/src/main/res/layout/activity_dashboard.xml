@@ -5,50 +5,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+    </com.facebook.shimmer.ShimmerFrameLayout>
     <androidx.cardview.widget.CardView
         android:id="@+id/dash"
         android:layout_width="wrap_content"
         app:cardCornerRadius="30dp"
         app:cardElevation="12dp"
+        android:layout_marginTop="55dp"
         android:layout_height="wrap_content">
     <RelativeLayout android:id="@+id/audionVideo"
         android:layout_width="match_parent"
         android:paddingBottom="10dp"
         android:background="@drawable/backi"
         android:layout_height="450dp">
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_view_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="0dp"
-                android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="12dp"
-                android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="24dp"
-                android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
-        </com.facebook.shimmer.ShimmerFrameLayout>
     <info.abdolahi.CircularMusicProgressBar
         android:id="@+id/album_art"
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:rotation="50"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/imgview"
         android:layout_centerHorizontal="true"
         app:border_color="#55000000"
@@ -157,7 +158,7 @@
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="30dp"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -208,15 +209,20 @@
             android:layout_toStartOf="@+id/previous_p"
             android:layout_marginEnd="18dp"/>
     </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/dash"
+        android:layout_height="match_parent"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ToVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="4dp"
-        android:layout_marginTop="428dp"
+        android:layout_below="@+id/dash"
+        android:layout_marginTop="-30dp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="30dp"
         android:src="@drawable/ic_video_library_black_24dp"
-        app:backgroundTint="#ff007f"
+        app:backgroundTint="#2F3F58"
         app:rippleColor="#80CBC4" />
 </RelativeLayout>

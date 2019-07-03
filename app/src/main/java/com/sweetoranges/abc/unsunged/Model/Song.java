@@ -17,8 +17,7 @@ public class Song {
     public final String artistName;
     private final int year;
 
-    public Song(final String title, final int trackNumber, final int year, final int duration,
-                final String path, final String albumName, final int artistId, final String artistName) {
+    public Song(final String title, final int trackNumber, final int year, final int duration, final String path, final String albumName, final int artistId, final String artistName) {
         this.title = title;
         this.trackNumber = trackNumber;
         this.year = year;
