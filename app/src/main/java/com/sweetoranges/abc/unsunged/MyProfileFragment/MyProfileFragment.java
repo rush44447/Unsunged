@@ -82,7 +82,7 @@ public class MyProfileFragment extends Fragment implements PlayListClickListener
 
     //        playlistRv= (RecyclerView) view.findViewById(R.id.playlistRecycle);
         Bitmap circularBitmap = ImageConverter.getRoundedCornerBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.imgview), 100);
-        Bitmap back = ImageConverter.getRoundedCornerBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.music), 100);
+        Bitmap back = ImageConverter.getRoundedCornerBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.ladyc), 100);
         circularImageView = (ImageView)view.findViewById(R.id.circleView);
         backImage = (ImageView)view.findViewById(R.id.backimage);
 

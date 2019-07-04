@@ -76,6 +76,7 @@ public class ProfileFragment extends Fragment implements SearchAdapter.ContactsA
       Toast.makeText(getActivity(),"err", Toast.LENGTH_SHORT).show();
     }
     progress.setVisibility(View.GONE);
+    Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
   }
   @Override public void onContactSelected(Quick contact) {
     Toast.makeText(getActivity(), "Selected: " + contact.getName() + ", " + contact.getPhone(), Toast.LENGTH_LONG).show();

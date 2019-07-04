@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
@@ -31,6 +32,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
 import com.sweetoranges.abc.unsunged.Activities.LoginActivity;
 import com.sweetoranges.abc.unsunged.ActivityFragment.ActivityFragment;
+import com.sweetoranges.abc.unsunged.Adapters.SuggestedAdapter;
 import com.sweetoranges.abc.unsunged.ChallengeFragment.ChallengeFragment;
 import com.sweetoranges.abc.unsunged.BingeFragment.BingeFragment;
 import com.sweetoranges.abc.unsunged.Classes.ApiClient;
@@ -38,6 +40,7 @@ import com.sweetoranges.abc.unsunged.Classes.ApiInterface;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
 import com.sweetoranges.abc.unsunged.MyProfileFragment.MyProfileFragment;
 import com.sweetoranges.abc.unsunged.SearchFragment.SearchFragment;
+import com.sweetoranges.abc.unsunged.Story.StoryAdapter;
 import com.sweetoranges.abc.unsunged.utils.MyBounceInterpolator;
 
 import java.io.IOException;
@@ -52,8 +55,14 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
+import androidx.viewpager.widget.ViewPager;
 
 import info.abdolahi.CircularMusicProgressBar;
 import retrofit2.Call;
@@ -64,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     public static ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
     public MediaPlayer mediaPlayer = new MediaPlayer();
     private CoordinatorLayout coordinatorLayout;
-
+    RecyclerView suggested;
     private ImageView mPlayerControl,mPlayerControlBig;
     private TextView tv,totaltime,currenttime;
     private BottomNavigationView navigation;
@@ -75,13 +84,14 @@ public class MainActivity extends AppCompatActivity {
     public View Hider;
     public double startTime = 0;
     public double finalTime = 0;
+    private ViewPager viewPager;
     public String UserName;
     LinearLayout bottomSheet;
     CircularMusicProgressBar musciProgresss;
     TextView artist;
     private AppCompatImageButton likeButton;
-    View viewx;
     List<String>songs=new ArrayList<>();
+    int currentSongId=1;
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,14 +105,12 @@ public class MainActivity extends AppCompatActivity {
         bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         RelativeLayout Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
         musciProgresss=(CircularMusicProgressBar)findViewById(R.id.album_art);
-        viewx=(View)findViewById(R.id.Views);
+
+        suggested=(RecyclerView)findViewById(R.id.suggested);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
             ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
             container.startShimmerAnimation();
-
-         try{ ObjectAnimator colorFade = ObjectAnimator.ofObject(viewx, "backgroundColor", new ArgbEvaluator(), Color.argb(255,255,255,255), 0xff000000);
-            colorFade.setDuration(3000);
-            colorFade.start();
-        }catch (Exception c){}
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
         mPlayerControlBig = (ImageView) findViewById(R.id.player_control_p);
         Seek=(AppCompatSeekBar)findViewById(R.id.seek);
@@ -120,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         loadFragment(new BingeFragment());
         BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(false);
-        bottomSheetBehavior.setPeekHeight(74);
+        bottomSheetBehavior.setPeekHeight(75);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -172,11 +180,15 @@ public class MainActivity extends AppCompatActivity {
 
         setUpPlayerControl();
         checkAccount();
+        suggested.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        suggested.setItemAnimator(new DefaultItemAnimator());
+        suggested.setAdapter(new SuggestedAdapter(this,currentSongId));
 
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setOnPreparedListener(mp -> { });
         mediaPlayer.setOnCompletionListener(mp -> {});
-         Seek.setProgress((int) startTime);
+        Seek.setProgress((int) startTime);
+
         if(isNetworkAvailable()) callMusicDetail();
         else{
             Snackbar snackbar = Snackbar.make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG).setAction("RETRY", new View.OnClickListener() {
@@ -185,10 +197,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-// Changing message text color
             snackbar.setActionTextColor(Color.RED);
-
-// Changing action button text color
             View sbView = snackbar.getView();
             TextView textView = (TextView) sbView.findViewById(R.id.snackbar_text);
             textView.setTextColor(Color.YELLOW);
@@ -196,34 +205,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void transitionBottomSheetBackgroundColor(float slideOffset) {
-        int colorFrom = getResources().getColor(R.color.colorAccent);
-        int colorTo = getResources().getColor(R.color.colorAc);
-        bottomSheet.setBackgroundColor(interpolateColor(slideOffset,
-                colorFrom, colorTo));
-    }
-
-    private void animateBottomSheetArrows(float slideOffset) {
-//        mPlayerControl.setY(slideOffset);//setRotation(slideOffset * -180);
-        artist.setText(String.valueOf(slideOffset));
-        musciProgresss.setY(slideOffset*10);//setRotation(slideOffset * 180);
-    }
-
-    // Helper method to interpolate colors
-    private int interpolateColor(float fraction, int startValue, int endValue) {
-        int startA = (startValue >> 24) & 0xff;
-        int startR = (startValue >> 16) & 0xff;
-        int startG = (startValue >> 8) & 0xff;
-        int startB = startValue & 0xff;
-        int endA = (endValue >> 24) & 0xff;
-        int endR = (endValue >> 16) & 0xff;
-        int endG = (endValue >> 8) & 0xff;
-        int endB = endValue & 0xff;
-        return ((startA + (int) (fraction * (endA - startA))) << 24) |
-                ((startR + (int) (fraction * (endR - startR))) << 16) |
-                ((startG + (int) (fraction * (endG - startG))) << 8) |
-                ((startB + (int) (fraction * (endB - startB))));
-    }
+//    private void transitionBottomSheetBackgroundColor(float slideOffset) {
+//        int colorFrom = getResources().getColor(R.color.colorAccent);
+//        int colorTo = getResources().getColor(R.color.colorAc);
+//        bottomSheet.setBackgroundColor(interpolateColor(slideOffset,
+//                colorFrom, colorTo));
+//    }
+//
+//    private void animateBottomSheetArrows(float slideOffset) {
+////        mPlayerControl.setY(slideOffset);//setRotation(slideOffset * -180);
+//        artist.setText(String.valueOf(slideOffset));
+//        musciProgresss.setY(slideOffset*10);//setRotation(slideOffset * 180);
+//    }
+//
+//    // Helper method to interpolate colors
+//    private int interpolateColor(float fraction, int startValue, int endValue) {
+//        int startA = (startValue >> 24) & 0xff;
+//        int startR = (startValue >> 16) & 0xff;
+//        int startG = (startValue >> 8) & 0xff;
+//        int startB = startValue & 0xff;
+//        int endA = (endValue >> 24) & 0xff;
+//        int endR = (endValue >> 16) & 0xff;
+//        int endG = (endValue >> 8) & 0xff;
+//        int endB = endValue & 0xff;
+//        return ((startA + (int) (fraction * (endA - startA))) << 24) |
+//                ((startR + (int) (fraction * (endR - startR))) << 16) |
+//                ((startG + (int) (fraction * (endG - startG))) << 8) |
+//                ((startB + (int) (fraction * (endB - startB))));
+//    }
 
     private void bounceButton(View view) {
         final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
@@ -241,7 +250,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.next_p).setOnClickListener(bigNext);
         findViewById(R.id.ToVideo).setOnClickListener(startVideo);
     }
-
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this.getSupportFragmentManager());
+//        adapter.addFragment(new UploadedFragment(), "Uploaded");
+//        adapter.addFragment(new PlaylistFragment(), "PlayList");
+        viewPager.setAdapter(adapter);
+    }
     private void checkAccount() {
         try { SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
             if (!prefs.getBoolean("logininfo", false)) {
@@ -379,5 +393,32 @@ public class MainActivity extends AppCompatActivity {
             mediaPlayer = null;
         }
     }
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
 }

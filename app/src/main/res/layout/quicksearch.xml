@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:elevation="0dp"
             android:visibility="gone"
-            android:layout_marginTop="70dp"
+            android:transitionName="imageMain"
              />
         <com.sweetoranges.abc.unsunged.Cover.RoundedImageView
             android:id="@+id/profileImage"

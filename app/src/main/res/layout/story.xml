@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/storyspace"
@@ -12,17 +14,19 @@
             android:layout_height="wrap_content"
             android:text="Listen to Fresh"
             android:layout_marginTop="40dp"
+
             android:textStyle="bold"
             android:textSize="18sp"
             android:layout_centerHorizontal="true"/>
+
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/ic_arrow_back_black_24dp"
-            />
+            android:background="@drawable/ic_arrow_back_black_24dp" />
     </RelativeLayout>
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/firststory"
         android:layout_width="@dimen/firststorywidth"
@@ -31,14 +35,19 @@
         android:background="#000"
         android:src="@drawable/modelb"
         android:layout_marginStart="4dp" />
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_alignBottom="@+id/firststory"
-        android:layout_alignEnd="@+id/firststory"
-        android:layout_margin="6dp"
-        android:background="#000"/>
-
+        app:cardCornerRadius="19dp"
+        android:layout_alignStart="@+id/firststory"
+        android:layout_margin="12dp">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/ladyc"/>
+    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/secondstory"
@@ -49,15 +58,19 @@
         android:layout_marginTop="4dp"
         android:background="#000"
         android:src="@drawable/imgview" />
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_alignBottom="@+id/secondstory"
-        android:layout_alignEnd="@+id/secondstory"
-        android:layout_margin="6dp"
-        android:src="#000"/>
-
-
+        app:cardCornerRadius="19dp"
+        android:layout_alignStart="@+id/secondstory"
+        android:layout_margin="12dp">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:background="@drawable/ladyc"/>
+    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/thirdstory"
@@ -69,13 +82,20 @@
         android:layout_toEndOf="@+id/secondstory"
         android:layout_marginStart="4dp"
     android:layout_marginTop="4dp"/>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_alignBottom="@+id/thirdstory"
-        android:layout_alignEnd="@+id/thirdstory"
-        android:layout_margin="6dp"
-        android:src="#000"/>
+        app:cardCornerRadius="19dp"
+        android:layout_alignStart="@+id/thirdstory"
+        android:layout_margin="12dp">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/ladyc"/>
+    </androidx.cardview.widget.CardView>
+
 
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -88,13 +108,19 @@
         android:src="@drawable/imgview"
         android:layout_toEndOf="@+id/firststory"
         android:layout_marginStart="4dp"/>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_alignBottom="@+id/forthhstory"
-        android:layout_alignEnd="@+id/forthhstory"
-        android:layout_margin="6dp"
-        android:src="#000"/>
+        app:cardCornerRadius="19dp"
+        android:layout_alignStart="@+id/forthhstory"
+        android:layout_margin="12dp">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/ladyc"/>
+    </androidx.cardview.widget.CardView>
 
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -106,13 +132,19 @@
         android:layout_marginStart="4dp"
         android:layout_toEndOf="@+id/thirdstory"
         android:layout_alignBottom="@+id/thirdstory"/>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_alignBottom="@+id/fifthstory"
-        android:layout_alignEnd="@+id/fifthstory"
-        android:layout_margin="6dp"
-        android:src="#000"/>
+        app:cardCornerRadius="19dp"
+        android:layout_alignStart="@+id/fifthstory"
+        android:layout_margin="12dp">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/ladyc"/>
+    </androidx.cardview.widget.CardView>
 
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -123,11 +155,17 @@
         android:src="@drawable/imgview"
        android:layout_alignStart="@+id/fifthstory"
         />
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_alignBottom="@+id/sixthstory"
-        android:layout_alignEnd="@+id/fifthstory"
-        android:layout_margin="6dp"
-        android:background="#000"/>
+        app:cardCornerRadius="19dp"
+        android:layout_alignStart="@+id/sixthstory"
+        android:layout_margin="12dp">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/ladyc"/>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>
