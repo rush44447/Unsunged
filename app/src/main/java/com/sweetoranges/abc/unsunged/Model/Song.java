@@ -8,14 +8,14 @@ public class Song {
             null, "", -1, "");
 
 
-    public final String title;
-    public final int trackNumber;
-    public final int duration;
-    public final String path;
-    public final String albumName;
-    public final int artistId;
-    public final String artistName;
-    private final int year;
+    public  String title;
+    public  int trackNumber;
+    public  int duration;
+    public  String path;
+    public  String albumName;
+    public  int artistId;
+    public  String artistName;
+    private  int year;
 
     public Song(final String title, final int trackNumber, final int year, final int duration, final String path, final String albumName, final int artistId, final String artistName) {
         this.title = title;
@@ -42,4 +42,43 @@ public class Song {
         }
         return formatted;
     }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public int getTrackNumber() {
+        return trackNumber;
+    }
+    public void setTrackNumber(int trackNumber) { this.trackNumber = trackNumber; }
+
+    public int getYear() {
+        return year;
+    }
+    public void setYear(int year) { this.year = year; }
+
+    public int getDuration() {
+        return duration;
+    }
+    public void setDuration(int duration) { this.duration = duration; }
+
+    public String getPath() {
+        return path;
+    }
+    public void setPath(String path) { this.path = path; }
+
+    public String getAlbumName() {
+        return albumName;
+    }
+    public void setAlbumName(String albumName) { this.albumName = albumName; }
+
+    public int getArtistId() {
+        return artistId;
+    }
+    public void setArtistId(int artistId) { this.artistId = artistId; }
+
+    public String getArtistName() {
+        return artistName;
+    }
+    public void setArtistName(String artistName) { this.artistName = artistName; }
+
 }

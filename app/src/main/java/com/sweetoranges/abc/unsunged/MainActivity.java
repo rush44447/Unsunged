@@ -1,31 +1,27 @@
 package com.sweetoranges.abc.unsunged;
 
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.escodro.viewpagify.ViewPagify;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -37,10 +33,12 @@ import com.sweetoranges.abc.unsunged.ChallengeFragment.ChallengeFragment;
 import com.sweetoranges.abc.unsunged.BingeFragment.BingeFragment;
 import com.sweetoranges.abc.unsunged.Classes.ApiClient;
 import com.sweetoranges.abc.unsunged.Classes.ApiInterface;
+import com.sweetoranges.abc.unsunged.Classes.PagifyAdapter;
+import com.sweetoranges.abc.unsunged.Classes.PagifyApp;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
+import com.sweetoranges.abc.unsunged.Model.Song;
 import com.sweetoranges.abc.unsunged.MyProfileFragment.MyProfileFragment;
 import com.sweetoranges.abc.unsunged.SearchFragment.SearchFragment;
-import com.sweetoranges.abc.unsunged.Story.StoryAdapter;
 import com.sweetoranges.abc.unsunged.utils.MyBounceInterpolator;
 
 import java.io.IOException;
@@ -51,7 +49,6 @@ import java.util.concurrent.TimeUnit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
@@ -61,7 +58,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 import androidx.viewpager.widget.ViewPager;
 
 import info.abdolahi.CircularMusicProgressBar;
@@ -69,7 +65,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ViewPagify
+        .OnItemClickedListener, ViewPager.OnPageChangeListener{
     public static ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
     public MediaPlayer mediaPlayer = new MediaPlayer();
     private CoordinatorLayout coordinatorLayout;
@@ -84,19 +81,26 @@ public class MainActivity extends AppCompatActivity {
     public View Hider;
     public double startTime = 0;
     public double finalTime = 0;
-    private ViewPager viewPager;
+   // private ViewPager viewPager;
     public String UserName;
     LinearLayout bottomSheet;
     CircularMusicProgressBar musciProgresss;
-    TextView artist;
+    private ViewPagify mPager;
     private AppCompatImageButton likeButton;
     List<String>songs=new ArrayList<>();
     int currentSongId=1;
+    TextView SongName,ArtistText;
+
+    private static final String ARGS_POSITION = "position";
+    private int mPosition;
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (savedInstanceState != null) {
+            mPosition = savedInstanceState.getInt(ARGS_POSITION);
+        }
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         String name = intent.getStringExtra("number");
@@ -105,10 +109,11 @@ public class MainActivity extends AppCompatActivity {
         bottomSheet= (LinearLayout) findViewById(R.id.bottom_sheet);
         RelativeLayout Controller=(RelativeLayout) findViewById(R.id.smallcontroller);
         musciProgresss=(CircularMusicProgressBar)findViewById(R.id.album_art);
-
+        SongName=(TextView)findViewById(R.id.songname);
+        ArtistText=(TextView)findViewById(R.id.artist);
         suggested=(RecyclerView)findViewById(R.id.suggested);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+       // viewPager = (ViewPager) findViewById(R.id.viewpager);
+        //setupViewPager(viewPager);
             ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
             container.startShimmerAnimation();
         mPlayerControl = (ImageView) findViewById(R.id.player_control);
@@ -119,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
         totaltime = (TextView) findViewById(R.id.totaltime);
         Hider=(View)findViewById(R.id.hiderView);
         likeButton=(AppCompatImageButton)findViewById(R.id.likeButton);
-        artist=(TextView)findViewById(R.id.artist);
         if(mediaPlayer.isPlaying())mPlayerControl.setImageResource(R.drawable.ic_pause_black_24dp);else mPlayerControl.setImageResource(R.drawable.ic_play_arrow_black_24dp);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         context = getApplicationContext();
@@ -203,6 +207,24 @@ public class MainActivity extends AppCompatActivity {
             textView.setTextColor(Color.YELLOW);
             snackbar.show();
         }
+        initComponents();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(ARGS_POSITION, mPager.getCurrentItemPosition());
+    }
+
+
+    private void initComponents() {
+        mPager = (ViewPagify) findViewById(R.id.viewPager);
+        final PagifyAdapter pagerAdapter = new PagifyAdapter(getSupportFragmentManager());
+        mPager.setAdapter(pagerAdapter);
+        mPager.setOnItemClickListener(this);
+        mPager.addOnPageChangeListener(this);
+        mPager.setCurrentItemPosition(mPosition);
+        loadInfo(mPager.getCurrentItemPosition());
     }
 
 //    private void transitionBottomSheetBackgroundColor(float slideOffset) {
@@ -393,6 +415,33 @@ public class MainActivity extends AppCompatActivity {
             mediaPlayer = null;
         }
     }
+    @Override
+    public void onItemClick(ViewPager parent, View view, int position) {
+        final Song album = PagifyApp.getAlbumDatabase().get(position);
+        Toast.makeText(this, album.getTitle() + " by " + album.getArtistName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        //Do nothing.
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        loadInfo(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        //Do nothing.
+    }
+
+    private void loadInfo(int position) {
+        final Song album = PagifyApp.getAlbumDatabase().get(position);
+        SongName.setText(album.getAlbumName());
+        ArtistText.setText(album.getArtistName());
+    }
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

@@ -1,14 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SongChangeFragment.SongChangeFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<androidx.cardview.widget.CardView
+    android:id="@+id/dash"
+    android:layout_width="wrap_content"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="12dp"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:id="@+id/imageView"/>
+    <RelativeLayout android:id="@+id/audionVideo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:paddingBottom="10dp"
+        android:background="@drawable/backi"
+        android:layout_height="415dp">
+        <info.abdolahi.CircularMusicProgressBar
+            android:id="@+id/album_art"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:rotation="50"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/imgview"
+            android:layout_centerHorizontal="true"
+            app:border_color="#55000000"
+            app:border_width="2dp"
+            android:clickable="false"
+            app:centercircle_diammterer=".97"
+            app:draw_anticlockwise="false"
+            app:progress_color="#80CBC4"
+            app:progress_startAngle="-90" />
+        <TextView android:id="@+id/artist"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textColor="#000"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="48dp"
+            android:layout_below="@+id/album_art"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Louis The Child:"/>
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/songname"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/album_art"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="Better Not"
+            android:textColor="#000"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/artist"/>
+        <TextView
+            android:id="@+id/currenttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textColor="#ffffff"
+            android:layout_alignStart="@+id/seek"
+            android:layout_marginStart="-20dp"
+            android:layout_marginBottom="-10dp"
+            android:layout_above="@+id/seek"/>
+        <TextView
+            android:id="@+id/totaltime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textColor="#ffffff"
+            android:layout_alignEnd="@+id/seek"
+            android:layout_marginStart="-20dp"
+            android:layout_marginEnd="-20dp"
+            android:layout_marginBottom="-10dp"
+            android:layout_above="@+id/seek"/>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/votein"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="-12dp"
+            android:background="?attr/selectableItemBackground"
+            android:layout_below="@+id/album_art"
+            android:src="@drawable/ic_people_black_24dp"
+            />
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/likeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/votein"
+            android:background="?attr/selectableItemBackground"
+            android:layout_toStartOf="@+id/votein"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/heart_unliked" />
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/addToPlay"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/votein"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_add_black_24dp" />
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/votein"
+            android:layout_toEndOf="@+id/addToPlay"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginStart="25dp"
+            android:src="@drawable/ic_thumb_down_black_24dp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/ToVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:background="@drawable/backimage"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="26dp"
+            android:layout_marginTop="26dp"
+            android:src="@drawable/ic_video_library_black_24dp"
+            app:backgroundTint="#2F3F58"
+            app:rippleColor="#80CBC4" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+
+</RelativeLayout>

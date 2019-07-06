@@ -16,16 +16,13 @@ import com.sweetoranges.abc.unsunged.R;
 import java.util.List;
 
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> {
-    //  firstImage.setColorFilter(Color.rgb(123, 123, 123), android.graphics.PorterDuff.Mode.MULTIPLY);
-    //imageView.clearColorFilter();
-    // return image.getColorFilter() != null;
     private  Context context;
-    private ViewHolder viewHolder;
     private MediaPlayer mMediaPlayer;
     private List<Story> followings;
     public StoryAdapter(FragmentActivity activity, List<Story> followings) {
@@ -36,25 +33,19 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         AppCompatImageView Album;
         RelativeLayout Listen;
+        CardView mystory;
         private ViewHolder(final View v){
             super(v);
-            Album=(AppCompatImageView) v.findViewById(R.id.firststory);
+            Album=(AppCompatImageView) v.findViewById(R.id.firstSong);
             Listen=(RelativeLayout)v.findViewById(R.id.storyspace);
+            mystory=(CardView)v.findViewById(R.id.mystory);
         }
     }
     @Override public void onBindViewHolder(final ViewHolder holder, final int position){
-        if(position<=0) holder.Listen.setVisibility(View.VISIBLE); else holder.Listen.setVisibility(View.GONE);
+        if(position<=0) {holder.Listen.setVisibility(View.VISIBLE);holder.mystory.setVisibility(View.VISIBLE);} else {holder.Listen.setVisibility(View.GONE);holder.mystory.setVisibility(View.GONE);}
         holder.Album.setOnClickListener(v -> {
-           // togglePlayPause();
         });
-        //holder.Listen.setOnClickListener(v -> ((BingeFragment)context).scroll());
-       // holder.categorytext.setText(followings.get(0).getTitle());
-//        holder.Titletext.setText(followings.get(position).getTitle());
-//        holder.dateCreated.setText(followings.get(position).getDateCreated());
-//        Picasso.with(context)
-//                .load(followings.get(position).getCover())
-//                .placeholder(R.drawable.imgview)
-//                .into(viewHolder.storyImage);
+
     }
 
         private void togglePlayPause() {

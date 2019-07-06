@@ -31,18 +31,20 @@
             android:layout_marginTop="24dp"
             android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
     </com.facebook.shimmer.ShimmerFrameLayout>
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
+    <com.escodro.viewpagify.ViewPagify
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+        android:layout_marginTop="16dp"
+        app:changeItemByClick="true"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/dash"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         app:cardCornerRadius="30dp"
         app:cardElevation="12dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="155dp"
         android:layout_height="wrap_content">
     <RelativeLayout android:id="@+id/audionVideo"
         android:layout_width="match_parent"
@@ -74,16 +76,18 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:text="Louis The Child:"/>
-        <TextView android:id="@+id/songname"
+
+        <TextView
+            android:id="@+id/songname"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:textColor="#000"
+            android:layout_below="@+id/album_art"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:layout_below="@+id/album_art"
+            android:text="Better Not"
+            android:textColor="#000"
             android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="Better Not"/>
+            android:textStyle="bold" />
         <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/seek"
             android:layout_width="match_parent"
@@ -167,7 +171,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/dash" />
+        android:visibility="gone"
+        android:layout_below="@+id/viewPager" />
     <RelativeLayout
         android:layout_alignParentBottom="true"
         android:layout_width="300dp"
