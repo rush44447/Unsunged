@@ -37,6 +37,7 @@ import com.sweetoranges.abc.unsunged.Classes.PagifyAdapter;
 import com.sweetoranges.abc.unsunged.Classes.PagifyApp;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
 import com.sweetoranges.abc.unsunged.Model.Song;
+import com.sweetoranges.abc.unsunged.Model.SongModel;
 import com.sweetoranges.abc.unsunged.MyProfileFragment.MyProfileFragment;
 import com.sweetoranges.abc.unsunged.SearchFragment.SearchFragment;
 import com.sweetoranges.abc.unsunged.utils.MyBounceInterpolator;
@@ -68,6 +69,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements ViewPagify
         .OnItemClickedListener, ViewPager.OnPageChangeListener{
     public static ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+    public static ApiInterface apiService2 = ApiClient.getClient2().create(ApiInterface.class);
     public MediaPlayer mediaPlayer = new MediaPlayer();
     private CoordinatorLayout coordinatorLayout;
     RecyclerView suggested;
@@ -193,7 +195,8 @@ public class MainActivity extends AppCompatActivity implements ViewPagify
         mediaPlayer.setOnCompletionListener(mp -> {});
         Seek.setProgress((int) startTime);
 
-        if(isNetworkAvailable()) callMusicDetail();
+        if(isNetworkAvailable()) {callMusicDetail();
+            getSongs();}
         else{
             Snackbar snackbar = Snackbar.make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG).setAction("RETRY", new View.OnClickListener() {
                         @Override
@@ -386,6 +389,21 @@ public class MainActivity extends AppCompatActivity implements ViewPagify
                 }
             });
         }
+    private void getSongs() {//connection is built
+        Call<List<SongModel>> call = apiService2.getSongs();//this is added to baseurl and data is  retrieved
+        call.enqueue(new retrofit2.Callback<List<SongModel>>() {
+            @Override
+            public void onResponse(Call<List<SongModel>> call, Response<List<SongModel>> response) {
+                List<SongModel> Data=response.body();
+                //handleResponse(response);
+//                Toast.makeText(MainActivity.this, Data.get(0).getId(), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<List<SongModel>> call, Throwable t) {
+                System.out.println("FAILED " + t.toString());
+            }
+        });
+    }
     @SuppressLint("DefaultLocale")
     private void handleResponse(Response<StreamingRequest> response) {
         try { mediaPlayer.setDataSource(response.body().getMp3Url());//here mp3 file is loaded using retrieved url and fed into mMediaPlayer

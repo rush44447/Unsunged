@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".TrendingFragment">
+
+    <TextView android:id="@+id/apexName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"/>
+    <TextView android:id="@+id/apexAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_below="@+id/apexName"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="10dp"/>
+    <TextView android:id="@+id/apexLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Likes: 50"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_below="@+id/apexAlbum"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="10dp"/>
+<androidx.cardview.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="10dp"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/albumImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:scaleType="center"
+        android:src="@drawable/lady"
+        />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_play_arrow_black_24dp"/>
+</androidx.cardview.widget.CardView>
+</RelativeLayout>

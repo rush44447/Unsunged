@@ -1,13 +1,10 @@
 package com.sweetoranges.abc.unsunged.BingeFragment;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,13 +14,14 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.sweetoranges.abc.unsunged.Adapters.BingeAdapter;
+import com.sweetoranges.abc.unsunged.Adapters.UpdatableFragmentPagerAdapter;
 import com.sweetoranges.abc.unsunged.Classes.StreamingRequest;
 import com.sweetoranges.abc.unsunged.MainActivity;
 import com.sweetoranges.abc.unsunged.Model.Binge;
 import com.sweetoranges.abc.unsunged.Model.Story;
 import com.sweetoranges.abc.unsunged.R;
 import com.sweetoranges.abc.unsunged.Story.StoryAdapter;
+import com.sweetoranges.abc.unsunged.TrendingFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +30,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
+import androidx.viewpager.widget.ViewPager;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -48,10 +47,22 @@ public class BingeFragment extends Fragment  {
     private List<Binge> sharedList=new ArrayList<Binge>();
     ProgressBar progressBar;
     AppCompatImageView firstImage;
+
+    private ViewPager pager = null;
+    private ArrayList<Integer> sDataSet;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_binge, container, false);
+        if (savedInstanceState == null) {
+            sDataSet = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                sDataSet.add(i);
+            }
+        } else {
+            sDataSet = savedInstanceState.getIntegerArrayList("dataset");
+        }
 //        try{ ObjectAnimator colorFade = ObjectAnimator.ofObject(view, "backgroundColor", new ArgbEvaluator(), Color.argb(255,255,255,255), 0xff000000);
 //            colorFade.setDuration(7000);
 //            colorFade.start();
@@ -63,6 +74,12 @@ public class BingeFragment extends Fragment  {
         AppCompatTextView third = view.findViewById(R.id.thirdtext);
         AppCompatTextView forth = view.findViewById(R.id.forthtext);
         AppCompatTextView fifth = view.findViewById(R.id.fifthtext);
+        pager=(ViewPager)view.findViewById(R.id.view_pager) ;
+
+        final PagerAdapter adapter = new PagerAdapter(getActivity().getSupportFragmentManager(), sDataSet);
+        pager.setAdapter(adapter);
+
+
         first.setSelected(true);
         second.setSelected(true);
         third.setSelected(true);
@@ -94,6 +111,20 @@ public class BingeFragment extends Fragment  {
             loadShared();
             new Handler().postDelayed(() -> progressBar.setVisibility(View.GONE), 1200);
         }
+
+
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
         return view;
     }
 
@@ -182,4 +213,46 @@ public class BingeFragment extends Fragment  {
         }
     }
 
+    private static class PagerAdapter extends UpdatableFragmentPagerAdapter {
+
+        private final List<Integer> mItems;
+
+        PagerAdapter(FragmentManager fm, List<Integer> items) {
+            super(fm);
+            mItems = items;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return TrendingFragment.newInstance(mItems.get(position));
+        }
+
+        @Override
+        public int getCount() {
+            return mItems.size();
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return mItems.get(position);
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            TrendingFragment item = (TrendingFragment) object;
+            int itemValue = item.getSomeIdentifier();
+            for (int i = 0; i < mItems.size(); i++) {
+                if (mItems.get(i).equals(itemValue)) {
+                    return i;
+                }
+            }
+            return POSITION_NONE;
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putIntegerArrayList("dataset", sDataSet);
+    }
 }
